@@ -98,7 +98,7 @@ int main()
 	Shader shader("res/shaders/modelLoading.vs", "res/shaders/modelLoading.frag");
 
 	// Load models
-	Model ourModel("res/models/nanosuit.obj");
+	Model ourModel("res/models/bench.obj");
 	//Model ourModel("res/models/Futuristic_Bike/Futuristic-Bike.obj");
 
 	// Draw in wireframe
