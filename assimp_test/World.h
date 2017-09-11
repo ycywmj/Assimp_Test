@@ -1,8 +1,8 @@
-#ifndef WORLD_H
-#define WORLD_H
+#pragma once
 
 #include "Graphics.h"
 #include "GameStatus.h"
+#include "GameObject.h"
 
 class World{
 public:
@@ -12,6 +12,7 @@ public:
 	~World();
 	World(const World & cpy){};
 
+	void InitializeGame();
 	void RunGame(const char* api);
 	void UpdateGame();
 	void GameDestruction(){};
@@ -21,6 +22,6 @@ private:
 	Graphics* graphics_handler;
 
 	GameStatus game_status;
-};
 
-#endif
+	GameObject *test_obj;
+};

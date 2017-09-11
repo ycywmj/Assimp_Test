@@ -1,8 +1,4 @@
-#ifndef GRAPHICS_H
-#define GRAPHICS_H
-
-// General libraries
-#include "Singleton.h"
+#pragma once
 
 // OpenGL libraries
 // GLEW
@@ -26,6 +22,10 @@
 #include "Model.h"
 // OpenGL end
 
+// General libraries
+#include "Singleton.h"
+
+
 class Graphics{
 public:
 	Graphics(){};
@@ -36,6 +36,7 @@ public:
 	};
 
 	virtual void CreateGameWindow() = 0;
+	virtual void RenderModel(Model* ourModel) = 0;
 
 	int GetScreenWidth(){ return screen_width; };
 	int GetScreenHeight(){ return screen_height; };
@@ -64,9 +65,11 @@ public:
 		}
 	};
 	OpenGL(const OpenGL & cpy){};
+
+	void CreateGameWindow();
+	void RenderModel(Model* ourModel);
 	
 private:
-	void CreateGameWindow();
 	void GameLoop();
 
 	void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode);
@@ -93,12 +96,10 @@ private:
 	bool firstMouse = true;
 
 	// models
-	// Setup and compile our shaders
 	Shader *shader;
 
 	// Load models
 	Model *ourModel;
-	//Model ourModel("res/models/Futuristic_Bike/Futuristic-Bike.obj");
 
 	// wrap the callback func
 	static OpenGL *opengl_instance;
@@ -119,5 +120,3 @@ public:
 
 	Graphics* Create(const char* type);
 };
-
-#endif
