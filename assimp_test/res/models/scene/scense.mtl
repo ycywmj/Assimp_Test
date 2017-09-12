@@ -1,5 +1,5 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
-# 创建的文件:12.09.2017 16:46:38
+# 创建的文件:13.09.2017 02:23:23
 
 newmtl ground2
 	Ns 10.0000
@@ -154,3 +154,59 @@ newmtl 04___Default
 	Ke 0.0000 0.0000 0.0000
 	map_Ka door1.tga
 	map_Kd door1.tga
+
+newmtl 05___Default
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka roof1.tga
+	map_Kd roof1.tga
+
+newmtl 16___Default
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka bar2.tga
+	map_Kd bar2.tga
+
+newmtl 22___Default
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka metal2.tga
+	map_Kd metal2.tga
+
+newmtl 10___Default
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka bar1.tga
+	map_Kd bar1.tga
