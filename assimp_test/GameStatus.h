@@ -1,0 +1,3 @@
+#pragma once
+
+enum GameStatus{ GAME_DONE, GAME_PLAYING, GAME_MAIN_MENU, GAME_HELP_MENU, GAME_CREDIT_PAGE };

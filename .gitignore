@@ -1,0 +1,10 @@
+#files
+*.exe
+*.dll
+
+#folders
+assimp_test/Debug/*
+assimp_test/include/*
+assimp_test/lib/*
+Debug/*
+ipch/*
