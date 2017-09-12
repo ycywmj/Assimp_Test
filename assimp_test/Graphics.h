@@ -24,6 +24,7 @@
 #include "Shader.h"
 #include "Camera.h"
 #include "Model.h"
+//#include "World.h"
 // OpenGL end
 
 class Graphics{
@@ -91,6 +92,9 @@ private:
 	Camera *camera;
 	double lastX = 400.0, lastY = 300.0;
 	bool firstMouse = true;
+
+	// World
+	//World * world_instance;
 
 	// models
 	// Setup and compile our shaders

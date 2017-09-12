@@ -114,7 +114,7 @@ void OpenGL::GameLoop(){
 	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
 	ourModel->Draw(*shader);
 
-	World *world_instance = Singleton<World>::Instance();
+	//World *world_instance = Singleton<World>::Instance();
 	world_instance->UpdateGame();
 
 	// Swap the buffers
