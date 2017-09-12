@@ -65,8 +65,6 @@ private:
 
 		int width, height, n;
 
-		//unsigned char *image = SOIL_load_image( filename.c_str( ), &width, &height, 0, SOIL_LOAD_RGB );
-
 		unsigned char * image = stbi_load(filename.c_str(), &width, &height, &n, 3);
 
 		// Assign texture to ID
@@ -85,7 +83,6 @@ private:
 		return textureID;
 	}
 
-    // Loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
     void loadModel( string path )
     {
         // Read file via ASSIMP
@@ -105,20 +102,16 @@ private:
         this->processNode( scene->mRootNode, scene );
     }
     
-    // Processes a node in a recursive fashion. Processes each individual mesh located at the node and repeats this process on its children nodes (if any).
     void processNode( aiNode* node, const aiScene* scene )
     {
         // Process each mesh located at the current node
         for ( GLuint i = 0; i < node->mNumMeshes; i++ )
         {
-            // The node object only contains indices to index the actual objects in the scene.
-            // The scene contains all the data, node is just to keep stuff organized (like relations between nodes).
             aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
             
             this->meshes.push_back( this->processMesh( mesh, scene ) );
         }
         
-        // After we've processed all of the meshes (if any) we then recursively process each of the children nodes
         for ( GLuint i = 0; i < node->mNumChildren; i++ )
         {
             this->processNode( node->mChildren[i], scene );
@@ -136,7 +129,7 @@ private:
         for ( GLuint i = 0; i < mesh->mNumVertices; i++ )
         {
             Vertex vertex;
-            glm::vec3 vector; // We declare a placeholder vector since assimp uses its own vector class that doesn't directly convert to glm's vec3 class so we transfer the data to this placeholder glm::vec3 first.
+            glm::vec3 vector; 
             
             // Positions
             vector.x = mesh->mVertices[i].x;
@@ -154,8 +147,6 @@ private:
             if( mesh->mTextureCoords[0] ) // Does the mesh contain texture coordinates?
             {
                 glm::vec2 vec;
-                // A vertex can contain up to 8 different texture coordinates. We thus make the assumption that we won't
-                // use models where a vertex can have multiple texture coordinates so we always take the first set (0).
                 vec.x = mesh->mTextureCoords[0][i].x;
                 vec.y = mesh->mTextureCoords[0][i].y;
                 vertex.TexCoords = vec;
@@ -183,28 +174,21 @@ private:
         if( mesh->mMaterialIndex >= 0 )
         {
             aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-            // We assume a convention for sampler names in the shaders. Each diffuse texture should be named
-            // as 'texture_diffuseN' where N is a sequential number ranging from 1 to MAX_SAMPLER_NUMBER.
-            // Same applies to other texture as the following list summarizes:
-            // Diffuse: texture_diffuseN
-            // Specular: texture_specularN
-            // Normal: texture_normalN
+
             
             // 1. Diffuse maps
             vector<Texture> diffuseMaps = this->loadMaterialTextures( material, aiTextureType_DIFFUSE, "texture_diffuse" );
             textures.insert( textures.end( ), diffuseMaps.begin( ), diffuseMaps.end( ) );
             
             // 2. Specular maps
-            vector<Texture> specularMaps = this->loadMaterialTextures( material, aiTextureType_SPECULAR, "texture_specular" );
-            textures.insert( textures.end( ), specularMaps.begin( ), specularMaps.end( ) );
+            /*vector<Texture> specularMaps = this->loadMaterialTextures( material, aiTextureType_SPECULAR, "texture_specular" );
+            textures.insert( textures.end( ), specularMaps.begin( ), specularMaps.end( ) );*/
         }
         
         // Return a mesh object created from the extracted mesh data
         return Mesh( vertices, indices, textures );
     }
-    
-    // Checks all material textures of a given type and loads the textures if they're not loaded yet.
-    // The required info is returned as a Texture struct.
+
     vector<Texture> loadMaterialTextures( aiMaterial *mat, aiTextureType type, string typeName )
     {
         vector<Texture> textures;

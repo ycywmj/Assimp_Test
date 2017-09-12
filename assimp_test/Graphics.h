@@ -52,7 +52,7 @@ protected:
 class OpenGL : public Graphics{
 public:
 	OpenGL(){
-		camera = new Camera(glm::vec3(0.0f, 20.0f, 50.0f));
+		camera = new Camera(glm::vec3(1.0f, 1.0f, 1.0f));
 	};
 	~OpenGL(){
 		if (camera){
