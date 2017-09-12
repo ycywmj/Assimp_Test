@@ -25,6 +25,9 @@
 // General libraries
 #include "Singleton.h"
 
+#include <map>
+
+using namespace std;
 
 class Graphics{
 public:
@@ -37,7 +40,7 @@ public:
 
 	virtual void CreateGameWindow() = 0;
 	virtual void LoadModel(string fname) = 0;
-	virtual void RenderModel(glm::vec3 Pos, glm::vec3 Sca, glm::vec4 Rot) = 0;
+	virtual void RenderModel(string fname,glm::vec3 Pos, glm::vec3 Sca, glm::vec4 Rot) = 0;
 
 	int GetScreenWidth(){ return screen_width; };
 	int GetScreenHeight(){ return screen_height; };
@@ -60,16 +63,13 @@ public:
 			delete shader;
 			shader = NULL;
 		}
-		if (ourModel){
-			delete ourModel;
-			ourModel = NULL;
-		}
+
 	};
 	OpenGL(const OpenGL & cpy){};
 
 	void CreateGameWindow();
 	void LoadModel(string fname);
-	void RenderModel(glm::vec3 Pos, glm::vec3 Sca, glm::vec4 Rot);
+	void RenderModel(string fname,glm::vec3 Pos, glm::vec3 Sca, glm::vec4 Rot);
 	
 private:
 	void GameLoop();
@@ -84,6 +84,8 @@ private:
 
 	// projection
 	glm::mat4 projection;
+
+	glm::mat4 model;
 
 	// key
 	bool keys[1024];
@@ -102,6 +104,8 @@ private:
 
 	// Load models
 	Model *ourModel;
+
+	map < string, Model* > Models;
 
 	// wrap the callback func
 	static OpenGL *opengl_instance;

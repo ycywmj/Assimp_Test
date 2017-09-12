@@ -19,6 +19,7 @@ public:
 	void Rotate(float x, float y, float z, float degree);
 
 private:
+	string pathName;
 	glm::vec3 Pos;
 	glm::vec3 Sca;
 	glm::vec4 Rot;

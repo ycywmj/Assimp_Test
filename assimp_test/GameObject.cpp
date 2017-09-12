@@ -4,18 +4,18 @@ GameObject::GameObject()
 { 
 	Pos.x = 0; Pos.y = 0; Pos.z = 0;
 	Sca.x = 1; Sca.y = 1; Sca.z = 1;
-	Rot.x = 0; Rot.y = 0; Rot.z = 0; Rot.w = 0;
+	Rot.x = 0; Rot.y = 1.0; Rot.z = 0; Rot.w = 0;
 }
 
 void GameObject::Load(Graphics *graphics_handler,string fname)
 {
-
+	pathName = fname;
 	graphics_handler->LoadModel(fname);
 }
 
 void GameObject::Render(Graphics *graphics_handler)
 {
-	graphics_handler->RenderModel(Pos, Sca, Rot);
+	graphics_handler->RenderModel(pathName,Pos, Sca, Rot);
 }
 
 void GameObject::Postition(float x, float y, float z)

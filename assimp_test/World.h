@@ -23,5 +23,9 @@ private:
 
 	GameStatus game_status;
 
-	GameObject test_obj;
+	GameObject Bench;
+
+	GameObject Bench2;
+
+	GameObject Scene;
 };

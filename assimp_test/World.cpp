@@ -10,7 +10,11 @@ World::~World(){
 }
 
 void World::InitializeGame(){
-	test_obj.Load(graphics_handler,"res/models/Bench.obj");
+	Bench.Load(graphics_handler, "res/models/bench/bench.obj");
+	//Bench2.Load(graphics_handler, "res/models/bench/bench.obj");
+
+
+	Scene.Load(graphics_handler, "res/models/scene/scense.obj");
 }
 
 void World::RunGame(const char* api){
@@ -48,9 +52,18 @@ if (game_status != GAME_PLAYING){
 	}
 
 	//Render Model
-	test_obj.Postition(1.0f, 0.0f, 0.0f);
-	test_obj.Scale(0.1f, 0.1f, 0.1f);
-	test_obj.Rotate(0.0f, 1.0f, 0.0f, 45.0f);
-	test_obj.Render(graphics_handler);
+	Bench.Postition(1.0f, 0.0f, 0.0f);
+	Bench.Scale(0.1f, 0.1f, 0.1f);
+	Bench.Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	Bench.Render(graphics_handler);
+
+	Bench.Postition(10.0f, 0.0f, 0.0f);
+	Bench.Scale(0.1f, 0.1f, 0.1f);
+	Bench.Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	Bench.Render(graphics_handler);
+
+	Scene.Scale(0.1f, 0.1f, 0.1f);
+	Scene.Render(graphics_handler);
+	//Scene.Render(graphics_handler);
 
 }

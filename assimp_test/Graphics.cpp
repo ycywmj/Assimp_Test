@@ -58,12 +58,13 @@ void OpenGL::CreateGameWindow(){
 	glEnable(GL_DEPTH_TEST);
 
 	// Setup and compile our shaders
-	shader = new Shader("res/shaders/modelLoading.vs", "res/shaders/modelLoading.frag");
-	ourModel = new Model();
+	shader = new Shader("res/shaders/modelLoader.vs", "res/shaders/modelLoader.frag");
+	
 	// Draw in wireframe
 	//glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
 
-	projection = glm::perspective(camera->GetZoom(), (float)screen_width / (float)screen_height, 0.1f, 100.0f);
+	projection = glm::perspective(camera->GetZoom(), (float)screen_width / (float)screen_height, 0.1f, 100.0f); 
+
 
 	World *world_instance = Singleton<World>::Instance();
 	world_instance->InitializeGame();
@@ -72,6 +73,7 @@ void OpenGL::CreateGameWindow(){
 	while (!glfwWindowShouldClose(window))
 	{
 		GameLoop();
+
 	}
 
 	glfwTerminate();
@@ -165,23 +167,27 @@ void OpenGL::MouseCallback(GLFWwindow *window, double xPos, double yPos)
 
 void OpenGL::LoadModel(string fname)
 {
-	
+	ourModel = new Model();
 	ourModel->Load(fname);
+	Models[fname] = ourModel;
 }
 
-void OpenGL::RenderModel(glm::vec3 Pos, glm::vec3 Sca, glm::vec4 Rot){
+void OpenGL::RenderModel(string fname,glm::vec3 Pos, glm::vec3 Sca, glm::vec4 Rot){
 	shader->Use();
+	
 
 	glm::mat4 view = camera->GetViewMatrix();
 	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 
-	glm::mat4 model;	
+	model = glm::mat4();
 	model = glm::translate(model, glm::vec3(Pos.x, Pos.y, Pos.z)); 
 	model = glm::scale(model, glm::vec3(Sca.x, Sca.y, Sca.z));	
 	model = glm::rotate(model, glm::radians(Rot.w), glm::vec3(Rot.x, Rot.y, Rot.z));
 	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-	ourModel->Draw(*shader);
+	//ourModel.Draw(*shader);
+	Models[fname]->Draw(*shader);
+	
 }
 
 Graphics* GraphicsFactory::Create(const char* type){
