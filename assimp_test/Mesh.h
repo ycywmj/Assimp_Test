@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MESH_H
+#define MESH_H
 
 #include <string>
 #include <fstream>
@@ -10,8 +11,6 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-
-#include "Shader.h"
 
 using namespace std;
 
@@ -137,3 +136,5 @@ private:
         glBindVertexArray( 0 );
     }
 };
+
+#endif

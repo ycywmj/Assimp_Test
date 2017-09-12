@@ -14,10 +14,6 @@ World::~World(){
 	};
 }
 
-void World::InitializeGame(){
-	test_obj = new GameObject("res/models/bench.obj");
-}
-
 void World::RunGame(const char* api){
 	graphics_handler = graphics_factory.Create(api);
 	if (!graphics_handler){
@@ -32,8 +28,6 @@ void World::RunGame(const char* api){
 }
 
 void World::UpdateGame(){
-	graphics_handler->RenderModel(test_obj->GetModelPtr());
-
 	if (game_status != GAME_PLAYING){
 		if (game_status == GAME_DONE){
 			GameDestruction();
