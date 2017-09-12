@@ -73,6 +73,9 @@ void OpenGL::CreateGameWindow(){
 
 	projection = glm::perspective(world_instance->GetZoom(), (float)screen_width / (float)screen_height, 0.1f, 100.0f);
 
+	World *world_instance = Singleton<World>::Instance();
+	world_instance->InitializeGame();
+
 	// Game loop
 	while (!glfwWindowShouldClose(window))
 	{
@@ -107,12 +110,7 @@ void OpenGL::GameLoop(){
 	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 
-	// Draw the loaded model
-	glm::mat4 model;
-	model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // Translate it down a bit so it's at the center of the scene
-	model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// It's a bit too big for our scene, so scale it down
-	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-	ourModel->Draw(*shader);
+	//RenderModel(ourModel);
 
 	World *world_instance = Singleton<World>::Instance();
 	world_instance->UpdateGame();
@@ -190,6 +188,14 @@ void OpenGL::MouseCallback(GLFWwindow *window, double xPos, double yPos)
 	world_instance->ProcessMouseMovement(xOffset, yOffset);
 }
 
+void OpenGL::RenderModel(Model* ourModel){
+	// Draw the loaded model
+	glm::mat4 model;
+	model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // Translate it down a bit so it's at the center of the scene
+	model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// It's a bit too big for our scene, so scale it down
+	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+	ourModel->Draw(*shader);
+}
 
 Graphics* GraphicsFactory::Create(const char* type){
 	std::string type_str = type;

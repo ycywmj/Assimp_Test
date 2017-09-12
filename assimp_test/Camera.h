@@ -1,5 +1,4 @@
-#ifndef CAMERA_H
-#define CAMERA_H
+#pragma once
 
 // Std. Includes
 #include <vector>
@@ -162,5 +161,3 @@ private:
         this->up = glm::normalize( glm::cross( this->right, this->front ) );
     }
 };
-
-#endif

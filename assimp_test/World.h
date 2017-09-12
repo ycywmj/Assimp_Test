@@ -1,9 +1,12 @@
-#ifndef WORLD_H
-#define WORLD_H
+#pragma once
 
 #include "Graphics.h"
 #include "GameStatus.h"
+<<<<<<< HEAD
 #include "Camera.h"
+=======
+#include "GameObject.h"
+>>>>>>> 71f25845de60e130c0666c3b0b6f674d69a05744
 
 class World{
 public:
@@ -14,6 +17,7 @@ public:
 	~World();
 	World(const World & cpy){};
 
+	void InitializeGame();
 	void RunGame(const char* api);
 	void UpdateGame();
 	void GameDestruction(){};
@@ -28,6 +32,6 @@ private:
 	Graphics* graphics_handler;
 	Camera* camera;
 	GameStatus game_status;
-};
 
-#endif
+	GameObject *test_obj;
+};
