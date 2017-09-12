@@ -2,6 +2,7 @@
 
 #include "Graphics.h"
 #include "World.h"
+#include "Camera.h"
 #include "Singleton.h"
 
 OpenGL* OpenGL::opengl_instance;
@@ -62,8 +63,8 @@ void OpenGL::CreateGameWindow(){
 	
 	// Draw in wireframe
 	//glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-
-	projection = glm::perspective(camera->GetZoom(), (float)screen_width / (float)screen_height, 0.1f, 100.0f); 
+	Camera* camera_instance = Singleton<Camera>::Instance();
+	projection = glm::perspective(camera_instance->GetZoom(), (float)screen_width / (float)screen_height, 0.1f, 100.0f); 
 
 
 	World *world_instance = Singleton<World>::Instance();
@@ -93,6 +94,16 @@ void OpenGL::GameLoop(){
 	glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	shader->Use();
+
+	// camera lookat function
+	Camera* camera_instance = Singleton<Camera>::Instance();
+	glm::mat4 view = glm::lookAt(camera_instance->GetPosition(),
+		camera_instance->GetPosition() + camera_instance->GetFront(),
+		camera_instance->GetUp());
+	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
+	// end
 
 	World *world_instance = Singleton<World>::Instance();
 	world_instance->UpdateGame();
@@ -104,25 +115,26 @@ void OpenGL::GameLoop(){
 // Moves/alters the camera positions based on user input
 void OpenGL::DoMovement()
 {
+	Camera* camera_instance = Singleton<Camera>::Instance();
 	// Camera controls
 	if (keys[GLFW_KEY_W] || keys[GLFW_KEY_UP])
 	{
-		camera->ProcessKeyboard(FORWARD, deltaTime);
+		camera_instance->ProcessKeyboard(FORWARD, deltaTime);
 	}
 
 	if (keys[GLFW_KEY_S] || keys[GLFW_KEY_DOWN])
 	{
-		camera->ProcessKeyboard(BACKWARD, deltaTime);
+		camera_instance->ProcessKeyboard(BACKWARD, deltaTime);
 	}
 
 	if (keys[GLFW_KEY_A] || keys[GLFW_KEY_LEFT])
 	{
-		camera->ProcessKeyboard(LEFT, deltaTime);
+		camera_instance->ProcessKeyboard(LEFT, deltaTime);
 	}
 
 	if (keys[GLFW_KEY_D] || keys[GLFW_KEY_RIGHT])
 	{
-		camera->ProcessKeyboard(RIGHT, deltaTime);
+		camera_instance->ProcessKeyboard(RIGHT, deltaTime);
 	}
 }
 
@@ -162,7 +174,8 @@ void OpenGL::MouseCallback(GLFWwindow *window, double xPos, double yPos)
 	lastX = xPos;
 	lastY = yPos;
 
-	camera->ProcessMouseMovement(xOffset, yOffset);
+	Camera* camera_instance = Singleton<Camera>::Instance();
+	camera_instance->ProcessMouseMovement(xOffset, yOffset);
 }
 
 void OpenGL::LoadModel(string fname)
@@ -173,12 +186,6 @@ void OpenGL::LoadModel(string fname)
 }
 
 void OpenGL::RenderModel(string fname,glm::vec3 Pos, glm::vec3 Sca, glm::vec4 Rot){
-	shader->Use();
-	
-	glm::mat4 view = camera->GetViewMatrix();
-	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
-
 	model = glm::mat4();
 	model = glm::translate(model, glm::vec3(Pos.x, Pos.y, Pos.z)); 
 	model = glm::scale(model, glm::vec3(Sca.x, Sca.y, Sca.z));	
@@ -186,7 +193,6 @@ void OpenGL::RenderModel(string fname,glm::vec3 Pos, glm::vec3 Sca, glm::vec4 Ro
 	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
 	//ourModel.Draw(*shader);
 	Models[fname]->Draw(*shader);
-	
 }
 
 Graphics* GraphicsFactory::Create(const char* type){
