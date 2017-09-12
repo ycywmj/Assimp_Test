@@ -29,10 +29,14 @@ class Model
 public:
     /*  Functions   */
     // Constructor, expects a filepath to a 3D model.
-    Model( const GLchar *path )
+    Model()
     {
-        this->loadModel( path );
     }
+
+	void Load(string path)
+	{
+		this->loadModel(path);
+	}
     
     // Draws the model, and thus all its meshes
     void Draw( Shader shader )

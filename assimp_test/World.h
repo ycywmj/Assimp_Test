@@ -23,5 +23,5 @@ private:
 
 	GameStatus game_status;
 
-	GameObject *test_obj;
+	GameObject test_obj;
 };

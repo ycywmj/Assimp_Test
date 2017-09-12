@@ -10,7 +10,7 @@ World::~World(){
 }
 
 void World::InitializeGame(){
-	test_obj = new GameObject("res/models/bench.obj");
+	test_obj.Load(graphics_handler,"res/models/Bench.obj");
 }
 
 void World::RunGame(const char* api){
@@ -27,8 +27,8 @@ void World::RunGame(const char* api){
 }
 
 void World::UpdateGame(){
-	graphics_handler->RenderModel(test_obj->GetModelPtr());
-
+	test_obj.Render(graphics_handler);
+	
 	if (game_status != GAME_PLAYING){
 		if (game_status == GAME_DONE){
 			GameDestruction();

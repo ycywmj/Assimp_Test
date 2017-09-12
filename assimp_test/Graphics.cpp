@@ -59,11 +59,7 @@ void OpenGL::CreateGameWindow(){
 
 	// Setup and compile our shaders
 	shader = new Shader("res/shaders/modelLoading.vs", "res/shaders/modelLoading.frag");
-
-	// Load models
-	ourModel = new Model("res/models/bench.obj");
-	//Model ourModel("res/models/Futuristic_Bike/Futuristic-Bike.obj");
-
+	ourModel = new Model();
 	// Draw in wireframe
 	//glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
 
@@ -95,13 +91,6 @@ void OpenGL::GameLoop(){
 	glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	shader->Use();
-
-	glm::mat4 view = camera->GetViewMatrix();
-	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
-
-	//RenderModel(ourModel);
 
 	World *world_instance = Singleton<World>::Instance();
 	world_instance->UpdateGame();
@@ -174,8 +163,19 @@ void OpenGL::MouseCallback(GLFWwindow *window, double xPos, double yPos)
 	camera->ProcessMouseMovement(xOffset, yOffset);
 }
 
-void OpenGL::RenderModel(Model* ourModel){
-	// Draw the loaded model
+void OpenGL::LoadModel(string fname)
+{
+	
+	ourModel->Load(fname);
+}
+
+void OpenGL::RenderModel(){
+	shader->Use();
+
+	glm::mat4 view = camera->GetViewMatrix();
+	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
+
 	glm::mat4 model;
 	model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // Translate it down a bit so it's at the center of the scene
 	model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// It's a bit too big for our scene, so scale it down

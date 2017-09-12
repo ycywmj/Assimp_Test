@@ -1,11 +1,13 @@
 #include "GameObject.h"
 
-GameObject::GameObject(const char* fname){
-	this->source_fname = fname;
-	LoadModel(source_fname.c_str());
+
+void GameObject::Load(Graphics *graphics_handler,string fname)
+{
+
+	graphics_handler->LoadModel(fname);
 }
 
-void GameObject::LoadModel(const char* fname){
-	//ourModel = new Model("res/models/bench.obj");
-	ourModel = new Model(fname);
+void GameObject::Render(Graphics *graphics_handler)
+{
+	graphics_handler->RenderModel();
 }

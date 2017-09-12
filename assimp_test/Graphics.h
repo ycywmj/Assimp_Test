@@ -36,7 +36,8 @@ public:
 	};
 
 	virtual void CreateGameWindow() = 0;
-	virtual void RenderModel(Model* ourModel) = 0;
+	virtual void LoadModel(string fname) = 0;
+	virtual void RenderModel() = 0;
 
 	int GetScreenWidth(){ return screen_width; };
 	int GetScreenHeight(){ return screen_height; };
@@ -67,7 +68,8 @@ public:
 	OpenGL(const OpenGL & cpy){};
 
 	void CreateGameWindow();
-	void RenderModel(Model* ourModel);
+	void LoadModel(string fname);
+	void RenderModel();
 	
 private:
 	void GameLoop();

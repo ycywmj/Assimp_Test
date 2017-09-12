@@ -2,32 +2,19 @@
 #define GAMEOBJECT_H
 
 #include <string>
-#include "Model.h"
+#include "Graphics.h"
 
 class GameObject{
 public:
 	GameObject(){};
-	GameObject(const char* fname);
-	~GameObject(){
-		DestroyModel();
-	};
-	GameObject(const GameObject& cpy){};
 
-	void LoadModel(const char* fname);
-	void DestroyModel(){
-		if (ourModel){
-			delete ourModel;
-			ourModel = NULL;
-		}
-	};
+	void Load(Graphics *graphics_handler, string fname);
 
-	Model* GetModelPtr(){
-		return ourModel;
-	}
+	void Render(Graphics *graphics_handler);
 
 private:
-	std::string source_fname;
-	Model *ourModel;
+	GraphicsFactory graphics_factory;
+
 };
 
 #endif
