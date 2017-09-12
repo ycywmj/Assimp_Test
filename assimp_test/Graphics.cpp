@@ -65,13 +65,12 @@ void OpenGL::CreateGameWindow(){
 	//Model ourModel("res/models/Futuristic_Bike/Futuristic-Bike.obj");
 
 	// Draw in wireframe
-	glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+	//glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
 
-	//access world class through singleton, Pointer reference to be implemented
+	projection = glm::perspective(camera->GetZoom(), (float)screen_width / (float)screen_height, 0.1f, 100.0f);
+
 	World *world_instance = Singleton<World>::Instance();
-	
-
-	projection = glm::perspective(world_instance->GetZoom(), (float)screen_width / (float)screen_height, 0.1f, 100.0f);
+	world_instance->InitializeGame();
 
 	// Game loop
 	while (!glfwWindowShouldClose(window))
@@ -98,23 +97,13 @@ void OpenGL::GameLoop(){
 
 	shader->Use();
 
-	//Allow access to world class
-	World *world_instance = Singleton<World>::Instance();
-
-	//glm::mat4 view = camera->GetViewMatrix();
-	glm::mat4 view;//glm::mat4* viewPointer = &view;
-	world_instance->GetViewMatrix(&view);
+	glm::mat4 view = camera->GetViewMatrix();
 	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 
-	// Draw the loaded model
-	glm::mat4 model;
-	model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // Translate it down a bit so it's at the center of the scene
-	model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// It's a bit too big for our scene, so scale it down
-	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-	ourModel->Draw(*shader);
+	//RenderModel(ourModel);
 
-	//World *world_instance = Singleton<World>::Instance();
+	World *world_instance = Singleton<World>::Instance();
 	world_instance->UpdateGame();
 
 	// Swap the buffers
@@ -124,28 +113,25 @@ void OpenGL::GameLoop(){
 // Moves/alters the camera positions based on user input
 void OpenGL::DoMovement()
 {
-	World *world_instance = Singleton<World>::Instance();
-
 	// Camera controls
 	if (keys[GLFW_KEY_W] || keys[GLFW_KEY_UP])
 	{
-		world_instance->ProcessKeyboard(FORWARD, deltaTime);
-		//camera->ProcessKeyboard(FORWARD, deltaTime);
+		camera->ProcessKeyboard(FORWARD, deltaTime);
 	}
 
 	if (keys[GLFW_KEY_S] || keys[GLFW_KEY_DOWN])
 	{
-		world_instance->ProcessKeyboard(BACKWARD, deltaTime);
+		camera->ProcessKeyboard(BACKWARD, deltaTime);
 	}
 
 	if (keys[GLFW_KEY_A] || keys[GLFW_KEY_LEFT])
 	{
-		world_instance->ProcessKeyboard(LEFT, deltaTime);
+		camera->ProcessKeyboard(LEFT, deltaTime);
 	}
 
 	if (keys[GLFW_KEY_D] || keys[GLFW_KEY_RIGHT])
 	{
-		world_instance->ProcessKeyboard(RIGHT, deltaTime);
+		camera->ProcessKeyboard(RIGHT, deltaTime);
 	}
 }
 
@@ -185,11 +171,17 @@ void OpenGL::MouseCallback(GLFWwindow *window, double xPos, double yPos)
 	lastX = xPos;
 	lastY = yPos;
 
-	World *world_instance = Singleton<World>::Instance();
-
-	world_instance->ProcessMouseMovement(xOffset, yOffset);
+	camera->ProcessMouseMovement(xOffset, yOffset);
 }
 
+void OpenGL::RenderModel(Model* ourModel){
+	// Draw the loaded model
+	glm::mat4 model;
+	model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // Translate it down a bit so it's at the center of the scene
+	model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// It's a bit too big for our scene, so scale it down
+	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+	ourModel->Draw(*shader);
+}
 
 Graphics* GraphicsFactory::Create(const char* type){
 	std::string type_str = type;

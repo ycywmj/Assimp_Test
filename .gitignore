@@ -1,44 +1,10 @@
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
+#files
 *.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
+*.dll
 
-# Debug files
-*.dSYM/
-*.su
-
-#Codeblocks files
-*.layout
-*.depend
-*.cbp
-
-#Compiled
-bin/
-obj/
-
-*.save-failed
+#folders
+assimp_test/Debug/*
+assimp_test/include/*
+assimp_test/lib/*
+Debug/*
+ipch/*

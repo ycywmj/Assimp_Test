@@ -7,11 +7,10 @@ World::~World(){
 		delete graphics_handler;
 		graphics_handler = NULL;
 	}
-	
-	if (camera){
-		delete camera;
-		camera = NULL;
-	};
+}
+
+void World::InitializeGame(){
+	test_obj = new GameObject("res/models/bench.obj");
 }
 
 void World::RunGame(const char* api){
@@ -28,6 +27,8 @@ void World::RunGame(const char* api){
 }
 
 void World::UpdateGame(){
+	graphics_handler->RenderModel(test_obj->GetModelPtr());
+
 	if (game_status != GAME_PLAYING){
 		if (game_status == GAME_DONE){
 			GameDestruction();
@@ -47,22 +48,4 @@ void World::UpdateGame(){
 		}
 
 	}
-}
-
-//Camera access functions
-
-GLfloat World::GetZoom(){
-	return camera->GetZoom();
-}
-
-void World::GetViewMatrix(glm::mat4* viewPointer){
-	*viewPointer = camera->GetViewMatrix();
-}
-
-void World::ProcessKeyboard(Camera_Movement direction, GLfloat deltaTime){
-	camera->ProcessKeyboard(direction, deltaTime);
-}
-
-void World::ProcessMouseMovement(GLfloat xOffset, GLfloat yOffset){
-	camera->ProcessMouseMovement(xOffset, yOffset);
 }

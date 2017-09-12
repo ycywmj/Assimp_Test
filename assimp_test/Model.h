@@ -1,5 +1,4 @@
-#ifndef MODEL_H
-#define MODEL_H
+#pragma once
 
 #include <string>
 #include <fstream>
@@ -30,7 +29,7 @@ class Model
 public:
     /*  Functions   */
     // Constructor, expects a filepath to a 3D model.
-    Model( GLchar *path )
+    Model( const GLchar *path )
     {
         this->loadModel( path );
     }
@@ -240,5 +239,3 @@ private:
         return textures;
     }
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef SINGLETON_H
-#define SINGLETON_H
+#pragma once
 
 // reference: https://www.codeproject.com/Articles/1921/Singleton-Pattern-its-implementation-with-C
 template <class T>
@@ -31,5 +30,3 @@ bool Singleton<T>::instance_flag = false;
 
 template <class T>
 T* Singleton<T>::ret = 0;
-
-#endif
