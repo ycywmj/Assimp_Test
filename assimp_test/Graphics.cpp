@@ -65,9 +65,13 @@ void OpenGL::CreateGameWindow(){
 	//Model ourModel("res/models/Futuristic_Bike/Futuristic-Bike.obj");
 
 	// Draw in wireframe
-	//glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+	glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
 
-	projection = glm::perspective(camera->GetZoom(), (float)screen_width / (float)screen_height, 0.1f, 100.0f);
+	//access world class through singleton, Pointer reference to be implemented
+	World *world_instance = Singleton<World>::Instance();
+	
+
+	projection = glm::perspective(world_instance->GetZoom(), (float)screen_width / (float)screen_height, 0.1f, 100.0f);
 
 	// Game loop
 	while (!glfwWindowShouldClose(window))
@@ -94,7 +98,12 @@ void OpenGL::GameLoop(){
 
 	shader->Use();
 
-	glm::mat4 view = camera->GetViewMatrix();
+	//Allow access to world class
+	World *world_instance = Singleton<World>::Instance();
+
+	//glm::mat4 view = camera->GetViewMatrix();
+	glm::mat4 view;//glm::mat4* viewPointer = &view;
+	world_instance->GetViewMatrix(&view);
 	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 
@@ -115,25 +124,28 @@ void OpenGL::GameLoop(){
 // Moves/alters the camera positions based on user input
 void OpenGL::DoMovement()
 {
+	World *world_instance = Singleton<World>::Instance();
+
 	// Camera controls
 	if (keys[GLFW_KEY_W] || keys[GLFW_KEY_UP])
 	{
-		camera->ProcessKeyboard(FORWARD, deltaTime);
+		world_instance->ProcessKeyboard(FORWARD, deltaTime);
+		//camera->ProcessKeyboard(FORWARD, deltaTime);
 	}
 
 	if (keys[GLFW_KEY_S] || keys[GLFW_KEY_DOWN])
 	{
-		camera->ProcessKeyboard(BACKWARD, deltaTime);
+		world_instance->ProcessKeyboard(BACKWARD, deltaTime);
 	}
 
 	if (keys[GLFW_KEY_A] || keys[GLFW_KEY_LEFT])
 	{
-		camera->ProcessKeyboard(LEFT, deltaTime);
+		world_instance->ProcessKeyboard(LEFT, deltaTime);
 	}
 
 	if (keys[GLFW_KEY_D] || keys[GLFW_KEY_RIGHT])
 	{
-		camera->ProcessKeyboard(RIGHT, deltaTime);
+		world_instance->ProcessKeyboard(RIGHT, deltaTime);
 	}
 }
 
@@ -173,7 +185,9 @@ void OpenGL::MouseCallback(GLFWwindow *window, double xPos, double yPos)
 	lastX = xPos;
 	lastY = yPos;
 
-	camera->ProcessMouseMovement(xOffset, yOffset);
+	World *world_instance = Singleton<World>::Instance();
+
+	world_instance->ProcessMouseMovement(xOffset, yOffset);
 }
 
 

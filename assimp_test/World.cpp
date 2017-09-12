@@ -7,6 +7,11 @@ World::~World(){
 		delete graphics_handler;
 		graphics_handler = NULL;
 	}
+	
+	if (camera){
+		delete camera;
+		camera = NULL;
+	};
 }
 
 void World::RunGame(const char* api){
@@ -42,4 +47,22 @@ void World::UpdateGame(){
 		}
 
 	}
+}
+
+//Camera access functions
+
+GLfloat World::GetZoom(){
+	return camera->GetZoom();
+}
+
+void World::GetViewMatrix(glm::mat4* viewPointer){
+	*viewPointer = camera->GetViewMatrix();
+}
+
+void World::ProcessKeyboard(Camera_Movement direction, GLfloat deltaTime){
+	camera->ProcessKeyboard(direction, deltaTime);
+}
+
+void World::ProcessMouseMovement(GLfloat xOffset, GLfloat yOffset){
+	camera->ProcessMouseMovement(xOffset, yOffset);
 }
