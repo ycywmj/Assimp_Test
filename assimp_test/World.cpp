@@ -27,9 +27,7 @@ void World::RunGame(const char* api){
 }
 
 void World::UpdateGame(){
-	test_obj.Render(graphics_handler);
-	
-	if (game_status != GAME_PLAYING){
+if (game_status != GAME_PLAYING){
 		if (game_status == GAME_DONE){
 			GameDestruction();
 			exit(0);
@@ -48,4 +46,11 @@ void World::UpdateGame(){
 		}
 
 	}
+
+	//Render Model
+	test_obj.Postition(1.0f, 0.0f, 0.0f);
+	test_obj.Scale(0.1f, 0.1f, 0.1f);
+	test_obj.Rotate(0.0f, 1.0f, 0.0f, 45.0f);
+	test_obj.Render(graphics_handler);
+
 }

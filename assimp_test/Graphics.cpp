@@ -169,16 +169,17 @@ void OpenGL::LoadModel(string fname)
 	ourModel->Load(fname);
 }
 
-void OpenGL::RenderModel(){
+void OpenGL::RenderModel(glm::vec3 Pos, glm::vec3 Sca, glm::vec4 Rot){
 	shader->Use();
 
 	glm::mat4 view = camera->GetViewMatrix();
 	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 
-	glm::mat4 model;
-	model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // Translate it down a bit so it's at the center of the scene
-	model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// It's a bit too big for our scene, so scale it down
+	glm::mat4 model;	
+	model = glm::translate(model, glm::vec3(Pos.x, Pos.y, Pos.z)); 
+	model = glm::scale(model, glm::vec3(Sca.x, Sca.y, Sca.z));	
+	model = glm::rotate(model, glm::radians(Rot.w), glm::vec3(Rot.x, Rot.y, Rot.z));
 	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
 	ourModel->Draw(*shader);
 }

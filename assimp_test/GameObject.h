@@ -6,15 +6,22 @@
 
 class GameObject{
 public:
-	GameObject(){};
+	GameObject();
 
 	void Load(Graphics *graphics_handler, string fname);
 
 	void Render(Graphics *graphics_handler);
 
-private:
-	GraphicsFactory graphics_factory;
+	void Postition(float x, float y, float z);
 
+	void Scale(float x, float y, float z);
+
+	void Rotate(float x, float y, float z, float degree);
+
+private:
+	glm::vec3 Pos;
+	glm::vec3 Sca;
+	glm::vec4 Rot;
 };
 
 #endif
