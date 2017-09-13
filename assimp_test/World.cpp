@@ -10,8 +10,11 @@ World::~World(){
 }
 
 void World::InitializeGame(){
-	Bench.Load(graphics_handler, "res/models/bench/bench.obj");
+	
+	Bench[0].Load(graphics_handler, "res/models/bench/bench.obj");
+	Bench[1].Load(graphics_handler, "res/models/bench/bench.obj");
 	//Bench2.Load(graphics_handler, "res/models/bench/bench.obj");
+	//Bench.Postition
 
 
 	Scene.Load(graphics_handler, "res/models/scene/scense.obj");
@@ -52,15 +55,15 @@ if (game_status != GAME_PLAYING){
 	}
 
 	//Render Model
-	Bench.Postition(1.0f, 0.0f, 0.0f);
-	Bench.Scale(0.1f, 0.1f, 0.1f);
-	Bench.Rotate(0.0f, 1.0f, 0.0f, 0.0f);
-	Bench.Render(graphics_handler);
+	Bench[0].Postition(1.0f, 0.0f, 0.0f);
+	Bench[0].Scale(0.01f, 0.01f, 0.01f);
+	Bench[0].Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	Bench[0].Render(graphics_handler);
 
-	Bench.Postition(10.0f, 0.0f, 0.0f);
-	Bench.Scale(0.1f, 0.1f, 0.1f);
-	Bench.Rotate(0.0f, 1.0f, 0.0f, 0.0f);
-	Bench.Render(graphics_handler);
+	Bench[1].Postition(10.0f, 0.0f, 0.0f);
+	Bench[1].Scale(0.01f, 0.01f, 0.01f);
+	Bench[1].Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	Bench[1].Render(graphics_handler);
 
 	Scene.Scale(0.1f, 0.1f, 0.1f);
 	Scene.Render(graphics_handler);
