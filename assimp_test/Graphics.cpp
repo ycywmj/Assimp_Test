@@ -180,9 +180,15 @@ void OpenGL::MouseCallback(GLFWwindow *window, double xPos, double yPos)
 
 void OpenGL::LoadModel(string fname)
 {
+	for (map<string, Model*>::iterator it = Models.begin(); it != Models.end(); ++it)
+	{
+		if (fname == it->first)
+			return;
+	}
 	ourModel = new Model();
 	ourModel->Load(fname);
 	Models[fname] = ourModel;
+
 }
 
 void OpenGL::RenderModel(string fname,glm::vec3 Pos, glm::vec3 Sca, glm::vec4 Rot){

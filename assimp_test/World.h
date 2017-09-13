@@ -27,9 +27,10 @@ private:
 	GameStatus game_status;
 	Camera* camera;
 
-	GameObject Bench;
+	int numberOfBenchs;
+	GameObject Bench[2];
 
-	GameObject Bench2;
+	//GameObject Bench2;
 
 	GameObject chair1;
 
