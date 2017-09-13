@@ -20,6 +20,7 @@ public:
 	void UpdateGame();
 	void GameDestruction(){};
 
+
 private:
 	GraphicsFactory graphics_factory;
 	Graphics* graphics_handler;
@@ -28,7 +29,8 @@ private:
 	Camera* camera;
 
 	int numberOfBenchs;
-	GameObject Bench[2];
+	GameObject Bench;
+	GameObject Bench2;
 
 	//GameObject Bench2;
 
