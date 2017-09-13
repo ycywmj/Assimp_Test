@@ -55,27 +55,18 @@ if (game_status != GAME_PLAYING){
 		}
 
 	}
+	
+cout << camera->GetPosition().x << camera->GetPosition().z << endl << endl;
 
 	//Render Model
-	Bench.Postition(1.0f, 0.0f, 0.0f);
-	Bench.Scale(0.1f, 0.1f, 0.1f);
-	Bench.Rotate(0.0f, 1.0f, 0.0f, 0.0f);
-	Bench.Render(graphics_handler);
 
-	Bench2.Postition(10.0f, 0.0f, 0.0f);
-	Bench2.Scale(0.1f, 0.1f, 0.1f);
-	Bench2.Rotate(0.0f, 1.0f, 0.0f, 0.0f);
-	Bench2.Render(graphics_handler);
 
-	chair1.Postition(5.0f, 0.0f, 0.0f);
-	chair1.Scale(0.1f, 0.1f, 0.1f);
-	chair1.Rotate(0.0f, 1.0f, 0.0f, 0.0f);
-	chair1.Render(graphics_handler);
+	DrawBench1();
+	//DrawBench2();
+	//DrawChair1();
+	//DrawTable1();
 
-	table1.Postition(5.0f, 0.0f, 0.0f);
-	table1.Scale(0.1f, 0.1f, 0.1f);
-	table1.Rotate(0.0f, 1.0f, 0.0f, 0.0f);
-	table1.Render(graphics_handler);
+
 
 	Scene.Scale(0.1f, 0.1f, 0.1f);
 	Scene.Render(graphics_handler);
@@ -83,3 +74,63 @@ if (game_status != GAME_PLAYING){
 
 }
 
+void World::DrawBench1()
+{
+	float scale = 0.06f;
+	float height = -0.1f;
+	//on grass
+	Bench.Postition(10.0f, height, -8.0f);
+	Bench.Scale(scale, scale, scale);
+	Bench.Rotate(0.0f, 1.0f, 0.0f, 90.0f);
+	Bench.Render(graphics_handler);
+
+	Bench.Postition(10.0f, height, -3.0f);
+	Bench.Scale(scale, scale, scale);
+	Bench.Rotate(0.0f, 1.0f, 0.0f, 90.0f);
+	Bench.Render(graphics_handler);
+
+	Bench.Postition(10.0f, height, 2.0f);
+	Bench.Scale(scale, scale, scale);
+	Bench.Rotate(0.0f, 1.0f, 0.0f, 90.0f);
+	Bench.Render(graphics_handler);
+
+	//outside of room
+	Bench.Postition(2.0f, height, 2.0f);
+	Bench.Scale(scale, scale, scale);
+	Bench.Rotate(0.0f, 1.0f, 0.0f, 90.0f);
+	Bench.Render(graphics_handler);
+
+	Bench.Postition(0.0f, height, 2.0f);
+	Bench.Scale(scale, scale, scale);
+	Bench.Rotate(0.0f, 1.0f, 0.0f, 90.0f);
+	Bench.Render(graphics_handler);
+
+	Bench.Postition(-2.0f, height, 2.0f);
+	Bench.Scale(scale, scale, scale);
+	Bench.Rotate(0.0f, 1.0f, 0.0f, 90.0f);
+	Bench.Render(graphics_handler);
+}
+
+void World::DrawBench2()
+{
+	Bench2.Postition(10.0f, 0.0f, 0.0f);
+	Bench2.Scale(0.1f, 0.1f, 0.1f);
+	Bench2.Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	Bench2.Render(graphics_handler);
+}
+
+void World::DrawChair1()
+{
+	chair1.Postition(5.0f, 0.0f, 0.0f);
+	chair1.Scale(0.1f, 0.1f, 0.1f);
+	chair1.Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	chair1.Render(graphics_handler);
+}
+
+void World::DrawTable1()
+{
+	table1.Postition(5.0f, 0.0f, 0.0f);
+	table1.Scale(0.1f, 0.1f, 0.1f);
+	table1.Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	table1.Render(graphics_handler);
+}

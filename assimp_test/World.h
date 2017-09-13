@@ -19,7 +19,11 @@ public:
 	void RunGame(const char* api);
 	void UpdateGame();
 	void GameDestruction(){};
-
+	
+	void DrawBench1();
+	void DrawBench2();
+	void DrawChair1();
+	void DrawTable1();
 
 private:
 	GraphicsFactory graphics_factory;
