@@ -42,18 +42,18 @@ void GameObject::Rotate(float x, float y, float z,float degree)
 	Rot.w = degree;
 }
 
-void GameObject::SetBoundingBox(double size)
+void GameObject::SetBoundingBox(float x, float y, float z)
 {
 	//model[0].set(0, 0, 0);  //front face
 	model[0] = glm::vec3(0, 0, 0);
-	model[1] = glm::vec3(size, 0, 0);
-	model[2] = glm::vec3(size, size, 0);
-	model[3] = glm::vec3(0, size, 0);
+	model[1] = glm::vec3(x, 0, 0);
+	model[2] = glm::vec3(x, y, 0);
+	model[3] = glm::vec3(0, y, 0);
 
-	model[4] = glm::vec3(0, 0, size);  //rear face
-	model[5] = glm::vec3(size, 0, size);
-	model[6] = glm::vec3(size, size, size);
-	model[7] = glm::vec3(0, size, size);
+	model[4] = glm::vec3(0, 0, z);  //rear face
+	model[5] = glm::vec3(x, 0, z);
+	model[6] = glm::vec3(x, y, z);
+	model[7] = glm::vec3(0, y, z);
 	boundingBox.createAABB(model, 8);
 }
 
@@ -66,3 +66,7 @@ bool GameObject::processCollision(GameObject &obj)
 	return false;
 }
 
+float GameObject::GetPostitionX()
+{
+	return model[2].x;
+}

@@ -23,9 +23,11 @@ public:
 
 	void Rotate(float x, float y, float z, float degree);
 
-	void SetBoundingBox(double size);
+	void SetBoundingBox(float x, float y, float z);
 
 	bool processCollision(GameObject &obj);
+
+	float GetPostitionX();
 
 private:
 	string pathName;

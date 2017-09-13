@@ -1,6 +1,6 @@
 #ifndef __AABB_H
 #define __AABB_H
-#include "math/GameMathHelp.h"
+
 
 // GLM Mathemtics
 #include <glm/glm.hpp>

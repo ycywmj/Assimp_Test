@@ -23,7 +23,11 @@ public:
 	void DrawBench1();
 	void DrawBench2();
 	void DrawChair1();
+	void DrawChair2();
 	void DrawTable1();
+
+	void SetBoundingWall();
+	void CheckBoundingBox();
 
 private:
 	GraphicsFactory graphics_factory;
@@ -31,16 +35,25 @@ private:
 
 	GameStatus game_status;
 	Camera* camera;
+	
+	float CurrentX;
+	float CurrentZ;
 
 	int numberOfBenchs;
 	GameObject Bench;
 	GameObject Bench2;
 
-	//GameObject Bench2;
 
 	GameObject chair1;
+
+	GameObject chair2;
+
+	GameObject cameraPlayer;
 
 	GameObject table1;
 
 	GameObject Scene;
+
+	//static vector<GameObject> BoundingWalls;
+	GameObject BoundingWalls[2];
 };

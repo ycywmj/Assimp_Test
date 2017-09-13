@@ -140,6 +140,13 @@ public:
 	{
 		return this->up;
 	}
+
+	void SetPostion(float x, float y, float z)
+	{
+		position.x = x;
+		position.y = y;
+		position.z = z;
+	}
     
 private:
     // Camera Attributes
