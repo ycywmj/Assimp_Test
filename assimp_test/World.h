@@ -55,10 +55,10 @@ private:
 
 	GameObject Scene;
 
-<<<<<<< HEAD
+
 	//static vector<GameObject> BoundingWalls;
 	GameObject BoundingWalls[2];
-=======
-	Texture2D texture2d;
->>>>>>> 5c43f3767c0fca08d7a0311634c150c33243d22f
+
+	//Texture2D texture2d;
+
 };
