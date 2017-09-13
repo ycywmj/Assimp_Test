@@ -1,5 +1,5 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
-# 创建的文件:12.09.2017 10:48:02
+# 创建的文件:13.09.2017 11:53:26
 
 newmtl 01___Default
 	Ns 10.0000
@@ -12,10 +12,10 @@ newmtl 01___Default
 	Kd 0.5882 0.5882 0.5882
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka bench1.tga
-	map_Kd bench1.tga
+	map_Ka metal3.tga
+	map_Kd metal3.tga
 
-newmtl 02___Default
+newmtl 07___Default
 	Ns 10.0000
 	Ni 1.5000
 	d 1.0000
@@ -26,5 +26,5 @@ newmtl 02___Default
 	Kd 0.5882 0.5882 0.5882
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka bench2.tga
-	map_Kd bench2.tga
+	map_Ka wood3.tga
+	map_Kd wood3.tga

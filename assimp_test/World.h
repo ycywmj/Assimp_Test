@@ -31,5 +31,9 @@ private:
 
 	GameObject Bench2;
 
+	GameObject chair1;
+
+	GameObject table1;
+
 	GameObject Scene;
 };
