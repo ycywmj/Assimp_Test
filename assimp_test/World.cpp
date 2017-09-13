@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "World.h"
+#include "TextureMap.h"
 
 //vector<GameObject> World::BoundingWalls;
 //GameObject World::BoundingWalls[2];
@@ -26,11 +27,16 @@ void World::InitializeGame(){
 
 	Scene.Load(graphics_handler, "res/models/scene/scense.obj");
 
+<<<<<<< HEAD
 	//SetBoundingWall();
 	cameraPlayer.SetBoundingBox(0.1, 0.1, 0.1);
 
 	CurrentX = 0;
 	CurrentZ = 0;
+=======
+	//texture2d.SetTextureCount(1);
+	//texture2d.LoadRawTexture2D( "", 860, 640, CREDIT_TEXTURE);
+>>>>>>> 5c43f3767c0fca08d7a0311634c150c33243d22f
 }
 
 void World::RunGame(const char* api){
