@@ -18,7 +18,7 @@
 
 // GL includes
 #include "Shader.h"
-#include "Camera.h"
+//#include "Camera.h"
 #include "Model.h"
 // OpenGL end
 
@@ -52,13 +52,9 @@ protected:
 class OpenGL : public Graphics{
 public:
 	OpenGL(){
-		camera = new Camera(glm::vec3(1.0f, 1.0f, 1.0f));
+		//camera = new Camera(glm::vec3(1.0f, 1.0f, 1.0f));
 	};
 	~OpenGL(){
-		if (camera){
-			delete camera;
-			camera = NULL;
-		}
 		if (shader){
 			delete shader;
 			shader = NULL;
@@ -95,7 +91,7 @@ private:
 	double lastFrame = 0.0;
 
 	// Camera
-	Camera *camera;
+	//Camera *camera;
 	double lastX = 400.0, lastY = 300.0;
 	bool firstMouse = true;
 

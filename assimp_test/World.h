@@ -3,11 +3,14 @@
 #include "Graphics.h"
 #include "GameStatus.h"
 #include "GameObject.h"
+#include "Camera.h"
+#include "Singleton.h"
 
 class World{
 public:
 	World(){
 		game_status = GAME_PLAYING;
+		camera = Singleton<Camera>::Instance();
 	};
 	~World();
 	World(const World & cpy){};
@@ -22,6 +25,7 @@ private:
 	Graphics* graphics_handler;
 
 	GameStatus game_status;
+	Camera* camera;
 
 	GameObject Bench;
 
