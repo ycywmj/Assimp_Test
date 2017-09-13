@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "World.h"
+#include "TextureMap.h"
 
 World::~World(){
 	if (graphics_handler){
@@ -20,6 +21,9 @@ void World::InitializeGame(){
 	table1.Load(graphics_handler, "res/models/table1/table1.obj");
 
 	Scene.Load(graphics_handler, "res/models/scene/scense.obj");
+
+	//texture2d.SetTextureCount(1);
+	//texture2d.LoadRawTexture2D( "", 860, 640, CREDIT_TEXTURE);
 }
 
 void World::RunGame(const char* api){
