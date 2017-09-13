@@ -1,6 +1,6 @@
 #include "GameObject.h"
 
-AABB GameObject::boundingBox;
+//AABB GameObject::boundingBox;
 
 GameObject::GameObject()
 { 

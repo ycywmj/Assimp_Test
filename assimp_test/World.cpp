@@ -3,9 +3,13 @@
 #include "World.h"
 #include "TextureMap.h"
 
+//map<int, GameObject> World::BoundingWalls;
 //vector<GameObject> World::BoundingWalls;
 //GameObject World::BoundingWalls[2];
 
+//GameObject World::cameraPlayer;
+//GameObject World::BoundingWall;
+//GameObject World::BoundingWall2;
 
 World::~World(){
 	if (graphics_handler){
@@ -28,8 +32,11 @@ void World::InitializeGame(){
 	Scene.Load(graphics_handler, "res/models/scene/scense.obj");
 
 
-	//SetBoundingWall();
-	//cameraPlayer.SetBoundingBox(0.1, 0.1, 0.1);
+	SetBoundingWall();
+
+	cameraPlayer.Postition(camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
+	cameraPlayer.SetBoundingBox(0.1f, 0.1f, 0.1f);
+	
 
 	CurrentX = 0;
 	CurrentZ = 0;
@@ -89,7 +96,7 @@ if (game_status != GAME_PLAYING){
 	Scene.Scale(0.1f, 0.1f, 0.1f);
 	Scene.Render(graphics_handler);
 	//Scene.Render(graphics_handler);
-	//CheckBoundingBox();
+	CheckBoundingBox();
 
 	CurrentX = camera->GetPosition().x;
 	CurrentZ = camera->GetPosition().z;
@@ -236,56 +243,42 @@ void World::DrawTable1()
 void World::SetBoundingWall()
 {
 	
-	cameraPlayer.SetBoundingBox(0.1, 0.1, 0.1);
+	//cameraPlayer.SetBoundingBox(0.1, 0.1, 0.1);
 
 	//Creat Bounding box wall
-	GameObject BoundingWall;
-	BoundingWall.Postition(13, 1, -2);
-	BoundingWall.SetBoundingBox(0.5, 1, 20);
-	BoundingWalls[0] = BoundingWall;
+	//static GameObject BoundingWall;
+	GameObject *BoundingWall;
 
-	GameObject BoundingWall2;
-	BoundingWall2.Postition(8, 1, -15);
-	BoundingWall2.SetBoundingBox(10, 1, 0.5);
-	BoundingWalls[1] = BoundingWall;
+	BoundingWall = new GameObject();
+	BoundingWall->Postition(13.0f, 1.0f, -2.0f);
+	BoundingWall->SetBoundingBox(0.5f, 1.0f, 20.0f);
+	BoundingWalls[1] = *BoundingWall;
+
+	BoundingWall = new GameObject();
+	//GameObject BoundingWall2;
+	BoundingWall->Postition(8.0f, 1.0f, -15.0f);
+	BoundingWall->SetBoundingBox(10.0f, 1.0f, 0.5f);
+	BoundingWalls[2] = *BoundingWall;
+	//BoundingWalls[1] = BoundingWall;
 }
+
+
 void World::CheckBoundingBox()
 {
 	//set camera bounding box
-	
-	//Creat Bounding box wall
-	GameObject BoundingWall;
-	BoundingWall.Postition(13, 1, -2);
-	BoundingWall.SetBoundingBox(0.5, 1, 20);
-	BoundingWalls[0] = BoundingWall;
-	cout << BoundingWall.GetPostitionX() << endl;
 
-	GameObject BoundingWall2;
-	BoundingWall2.Postition(8, 1, -15);
-	BoundingWall2.SetBoundingBox(10, 1, 0.5);
-	BoundingWalls[1] = BoundingWall2;
-	cout << BoundingWall2.GetPostitionX() << endl;
 
 	//cout << BoundingWall2.GetPostitionX() << endl;
-	/*for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 2; i++)
 	{
-		if (BoundingWalls[i].processCollision(cameraPlayer))
+		if (BoundingWalls[i+1].processCollision(cameraPlayer))
 		{
-			//camera->SetPostion(CurrentX, camera->GetPosition().y, CurrentZ);
-			cout << "CCCC" << endl;
+			camera->SetPostion(CurrentX, camera->GetPosition().y, CurrentZ);
+			//cout << "CCCC" << endl;
 		}
-	}*/
+	}
 
-	if (BoundingWall.processCollision(cameraPlayer))
-	{
-		//camera->SetPostion(CurrentX, camera->GetPosition().y, CurrentZ);
-		cout << "CCCC" << endl;
-	}
-	if (BoundingWall2.processCollision(cameraPlayer))
-	{
-		//camera->SetPostion(CurrentX, camera->GetPosition().y, CurrentZ);
-		cout << "CCCC" << endl;
-	}
+	
 
 
 }

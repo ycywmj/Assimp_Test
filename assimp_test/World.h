@@ -56,9 +56,12 @@ private:
 	GameObject Scene;
 
 
+	map<int, GameObject> BoundingWalls;
 	//static vector<GameObject> BoundingWalls;
-	GameObject BoundingWalls[2];
-
+	//GameObject BoundingWalls[2];
+	//static GameObject BoundingWall;
+	//static GameObject BoundingWall;
+	//static GameObject BoundingWall2;
 	//Texture2D texture2d;
 
 };

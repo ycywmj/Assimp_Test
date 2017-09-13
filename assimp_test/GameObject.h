@@ -39,7 +39,7 @@ private:
 	glm::vec4 Rot;
 	
 	glm::vec3 model[8];
-	static AABB boundingBox;
+	AABB boundingBox;
 };
 
 #endif

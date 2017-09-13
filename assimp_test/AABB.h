@@ -19,6 +19,6 @@ public:
 	void createAABB(glm::vec3 vertices[], int numVertices);
 	bool checkCollisionWithPoint(glm::vec3 &point, glm::vec3 worldXYZ);
 	bool checkCollision(glm::vec3 worldXYZ, AABB &aabb2, glm::vec3 worldXYZ2);
-	const AABB &operator=(const AABB &aabb2);
+	//const AABB &operator=(const AABB &aabb2);
 };
 #endif
