@@ -74,5 +74,8 @@
     <ClInclude Include="TextureMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DrawBox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

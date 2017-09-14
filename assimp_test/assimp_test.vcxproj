@@ -92,6 +92,7 @@
   <ItemGroup>
     <ClInclude Include="AABB.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="DrawBox.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameStatus.h" />
     <ClInclude Include="Graphics.h" />

@@ -79,7 +79,7 @@ if (game_status != GAME_PLAYING){
 
 	}
 	
-	cout << camera->GetPosition().x << camera->GetPosition().z << endl << endl;
+cout << camera->GetPosition().x << endl << camera->GetPosition().z << endl << endl;
 
 	//Render Model
 
@@ -243,23 +243,60 @@ void World::DrawTable1()
 void World::SetBoundingWall()
 {
 	
-	//cameraPlayer.SetBoundingBox(0.1, 0.1, 0.1);
-
-	//Creat Bounding box wall
-	//static GameObject BoundingWall;
-	GameObject *BoundingWall;
-
+	//brick walls
 	BoundingWall = new GameObject();
 	BoundingWall->Postition(13.0f, 1.0f, -2.0f);
-	BoundingWall->SetBoundingBox(0.5f, 1.0f, 20.0f);
+	BoundingWall->SetBoundingBox(1.0f, 1.0f, 30.0f);
 	BoundingWalls[1] = *BoundingWall;
 
 	BoundingWall = new GameObject();
-	//GameObject BoundingWall2;
 	BoundingWall->Postition(8.0f, 1.0f, -15.0f);
-	BoundingWall->SetBoundingBox(10.0f, 1.0f, 0.5f);
+	BoundingWall->SetBoundingBox(15.0f, 1.0f, 0.5f);
 	BoundingWalls[2] = *BoundingWall;
-	//BoundingWalls[1] = BoundingWall;
+
+	BoundingWall = new GameObject();
+	BoundingWall->Postition(0.0f, 1.0f, -11.0f);
+	BoundingWall->SetBoundingBox(1.5f, 1.0f, 9.5f);
+	BoundingWalls[3] = *BoundingWall;
+
+	//off-white color wall
+	BoundingWall = new GameObject();
+	BoundingWall->Postition(-6.0f, 1.0f, 6.5f);
+	BoundingWall->SetBoundingBox(50.0f, 1.0f, 0.5f);
+	BoundingWalls[4] = *BoundingWall;
+
+	//iron fence wall
+	BoundingWall = new GameObject();
+	BoundingWall->Postition(-16.0f, 1.0f, -6.8f);
+	BoundingWall->SetBoundingBox(32.0f, 1.0f, 0.5f);
+	BoundingWalls[5] = *BoundingWall;
+
+	BoundingWall = new GameObject();
+	BoundingWall->Postition(-29.0f, 1.0f, 0.0f);
+	BoundingWall->SetBoundingBox(0.5f, 1.0f, 20.0f);
+	BoundingWalls[6] = *BoundingWall;
+
+	//room wall
+	BoundingWall = new GameObject();
+	BoundingWall->Postition(-20.0f, 1.0f, -4.0f);
+	BoundingWall->SetBoundingBox(10.0f, 1.0f, 0.5f);
+	BoundingWalls[7] = *BoundingWall;
+
+	BoundingWall = new GameObject();
+	BoundingWall->Postition(-27.5f, 1.0f, -2.0f);
+	BoundingWall->SetBoundingBox(0.5f, 1.0f, 4.0f);
+	BoundingWalls[8] = *BoundingWall;
+
+	BoundingWall = new GameObject();
+	BoundingWall->Postition(-23.0f, 1.0f, 0.5f);
+	BoundingWall->SetBoundingBox(14.0f, 1.0f, 1.0f);
+	BoundingWalls[9] = *BoundingWall;
+
+	BoundingWall = new GameObject();
+	BoundingWall->Postition(-15.0f, 1.0f, 2.5f);
+	BoundingWall->SetBoundingBox(0.5f, 1.0f, 7.6f);
+	BoundingWalls[10] = *BoundingWall;
+
 }
 
 
@@ -269,8 +306,10 @@ void World::CheckBoundingBox()
 
 
 	//cout << BoundingWall2.GetPostitionX() << endl;
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 10; i++)
 	{
+		//BoundingWalls[i + 1].DrawBoundingBox();
+
 		if (BoundingWalls[i+1].processCollision(cameraPlayer))
 		{
 			camera->SetPostion(CurrentX, camera->GetPosition().y, CurrentZ);

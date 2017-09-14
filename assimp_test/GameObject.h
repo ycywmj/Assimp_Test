@@ -8,6 +8,7 @@
 // GLM Mathemtics
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include "DrawBox.h"
 
 class GameObject{
 public:
@@ -29,6 +30,8 @@ public:
 
 	float GetPostitionX();
 
+	void DrawBoundingBox();
+
 private:
 	string pathName;
 	//Vector3 Pos;
@@ -40,6 +43,8 @@ private:
 	
 	glm::vec3 model[8];
 	AABB boundingBox;
+
+	DrawBox BoxModel;
 };
 
 #endif

@@ -41,9 +41,10 @@ private:
 	float CurrentZ;
 
 	int numberOfBenchs;
-	GameObject Bench;
-	GameObject Bench2;
 
+	GameObject Bench;
+	
+	GameObject Bench2;
 
 	GameObject chair1;
 
@@ -57,11 +58,7 @@ private:
 
 
 	map<int, GameObject> BoundingWalls;
-	//static vector<GameObject> BoundingWalls;
-	//GameObject BoundingWalls[2];
-	//static GameObject BoundingWall;
-	//static GameObject BoundingWall;
-	//static GameObject BoundingWall2;
-	//Texture2D texture2d;
+	GameObject *BoundingWall;
+
 
 };

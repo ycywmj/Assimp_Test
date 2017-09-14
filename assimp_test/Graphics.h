@@ -66,6 +66,8 @@ public:
 	void CreateGameWindow();
 	void LoadModel(string fname);
 	void RenderModel(string fname,glm::vec3 Pos, glm::vec3 Sca, glm::vec4 Rot);
+	void LoadBox();
+	void DrawBox();
 	
 private:
 	void GameLoop();

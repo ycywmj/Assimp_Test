@@ -198,7 +198,18 @@ void OpenGL::RenderModel(string fname,glm::vec3 Pos, glm::vec3 Sca, glm::vec4 Ro
 	model = glm::rotate(model, glm::radians(Rot.w), glm::vec3(Rot.x, Rot.y, Rot.z));
 	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
 	//ourModel.Draw(*shader);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	Models[fname]->Draw(*shader);
+}
+
+void OpenGL::LoadBox()
+{
+
+}
+
+void OpenGL::DrawBox()
+{
+
 }
 
 Graphics* GraphicsFactory::Create(const char* type){
