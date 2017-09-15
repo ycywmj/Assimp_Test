@@ -80,6 +80,9 @@ void World::UpdateGame(){
 	DrawTable1();
 	DrawScene();
 
+
+	//cout << "Camera position:" << "X:" << camera->GetPosition().x << " Y:" << camera->GetPosition().y << " Z:" << camera->GetPosition().z << endl << endl;
+
 	cameraPlayer.Postition(camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
 
 	CheckBoundingBox();
@@ -416,6 +419,7 @@ void World::CheckBoundingBox()
 		if (Bench1s[i + 1].processCollision(cameraPlayer))
 		{
 			camera->SetPostion(CurrentX, camera->GetPosition().y, CurrentZ);
+			//cout << "Collied!" << endl;
 		}
 	}
 
