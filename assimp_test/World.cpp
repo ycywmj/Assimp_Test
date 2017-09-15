@@ -3,13 +3,6 @@
 #include "World.h"
 #include "TextureMap.h"
 
-//map<int, GameObject> World::BoundingWalls;
-//vector<GameObject> World::BoundingWalls;
-//GameObject World::BoundingWalls[2];
-
-//GameObject World::cameraPlayer;
-//GameObject World::BoundingWall;
-//GameObject World::BoundingWall2;
 
 World::~World(){
 	if (graphics_handler){
@@ -20,18 +13,15 @@ World::~World(){
 
 void World::InitializeGame(){
 
-	Bench.Load(graphics_handler, "res/models/bench/bench1.obj");
-	Bench2.Load(graphics_handler, "res/models/bench2/bench2.obj");
+	//Initial Models
+	InitialBench1();
+	InitialBench2();
+	InitialChair1();
+	InitialChair2();
+	InitialTable1();
+	InitialScene();
 
-
-	chair1.Load(graphics_handler, "res/models/chair1/chair1.obj");
-	chair2.Load(graphics_handler, "res/models/chair2/chair2.obj");
-
-	table1.Load(graphics_handler, "res/models/table1/table1.obj");
-
-	Scene.Load(graphics_handler, "res/models/scene/scense.obj");
-
-
+	//Initial wall collision detection
 	SetBoundingWall();
 
 	cameraPlayer.Postition(camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
@@ -79,166 +69,270 @@ if (game_status != GAME_PLAYING){
 
 	}
 	
-cout << camera->GetPosition().x << endl << camera->GetPosition().z << endl << endl;
 
-	//Render Model
-
-
+	//Render Models
 	DrawBench1();
 	DrawBench2();
 	DrawChair1();
 	DrawChair2();
 	DrawTable1();
-
+	DrawScene();
 
 	cameraPlayer.Postition(camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
 
-	Scene.Scale(0.1f, 0.1f, 0.1f);
-	Scene.Render(graphics_handler);
-	//Scene.Render(graphics_handler);
 	CheckBoundingBox();
 
 	CurrentX = camera->GetPosition().x;
 	CurrentZ = camera->GetPosition().z;
 }
 
-void World::DrawBench1()
+void World::InitialScene()
+{
+	Scene.Load(graphics_handler, "res/models/scene/scense.obj");
+	Scene.Scale(0.1f, 0.1f, 0.1f);
+}
+
+void World::InitialBench1()
 {
 	float scale = 0.06f;
 	float height = -0.1f;
+	string fileName = "res/models/bench/bench1.obj";
 	//on grass
-	Bench.Postition(10.0f, height, -8.0f);
-	Bench.Scale(scale, scale, scale);
-	Bench.Rotate(0.0f, 1.0f, 0.0f, 90.0f);
-	Bench.Render(graphics_handler);
 
-	Bench.Postition(10.0f, height, -3.0f);
-	Bench.Scale(scale, scale, scale);
-	Bench.Rotate(0.0f, 1.0f, 0.0f, 90.0f);
-	Bench.Render(graphics_handler);
+	Bench1 = new GameObject();
+	Bench1->Load(graphics_handler, fileName);
+	Bench1->Postition(10.0f, height, -8.0f);
+	Bench1->Scale(scale, scale, scale);
+	Bench1->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
+	Bench1->SetBoundingBox(3.0f, 4.0f, 2.0f);
+	Bench1s[1] = *Bench1;
 
-	Bench.Postition(10.0f, height, 2.0f);
-	Bench.Scale(scale, scale, scale);
-	Bench.Rotate(0.0f, 1.0f, 0.0f, 90.0f);
-	Bench.Render(graphics_handler);
+	Bench1 = new GameObject();
+	Bench1->Load(graphics_handler, fileName);
+	Bench1->Postition(10.0f, height, -3.0f);
+	Bench1->Scale(scale, scale, scale);
+	Bench1->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
+	Bench1->SetBoundingBox(3.0f, 4.0f, 2.0f);
+	Bench1s[2] = *Bench1;
 
+	Bench1 = new GameObject();
+	Bench1->Load(graphics_handler, fileName);
+	Bench1->Postition(10.0f, height, 2.0f);
+	Bench1->Scale(scale, scale, scale);
+	Bench1->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
+	Bench1->SetBoundingBox(3.0f, 4.0f, 2.0f);
+	Bench1s[3] = *Bench1;
+
+	
 	//outside of room
-	Bench.Postition(2.0f, height, 2.0f);
-	Bench.Scale(scale, scale, scale);
-	Bench.Rotate(0.0f, 1.0f, 0.0f, 90.0f);
-	Bench.Render(graphics_handler);
+	Bench1 = new GameObject();
+	Bench1->Load(graphics_handler, fileName);
+	Bench1->Postition(2.0f, height, 2.0f);
+	Bench1->Scale(scale, scale, scale);
+	Bench1->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
+	Bench1->SetBoundingBox(3.0f, 4.0f, 2.0f);
+	Bench1s[4] = *Bench1;
 
-	Bench.Postition(0.0f, height, 2.0f);
-	Bench.Scale(scale, scale, scale);
-	Bench.Rotate(0.0f, 1.0f, 0.0f, 90.0f);
-	Bench.Render(graphics_handler);
+	Bench1 = new GameObject();
+	Bench1->Load(graphics_handler, fileName);
+	Bench1->Postition(0.0f, height, 2.0f);
+	Bench1->Scale(scale, scale, scale);
+	Bench1->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
+	Bench1->SetBoundingBox(3.0f, 4.0f, 2.0f);
+	Bench1s[5] = *Bench1;
 
-	Bench.Postition(-2.0f, height, 2.0f);
-	Bench.Scale(scale, scale, scale);
-	Bench.Rotate(0.0f, 1.0f, 0.0f, 90.0f);
-	Bench.Render(graphics_handler);
+	Bench1 = new GameObject();
+	Bench1->Load(graphics_handler, fileName);
+	Bench1->Postition(-2.0f, height, 2.0f);
+	Bench1->Scale(scale, scale, scale);
+	Bench1->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
+	Bench1->SetBoundingBox(3.0f, 4.0f, 2.0f);
+	Bench1s[6] = *Bench1;
 
-	Bench.Postition(4.0f, height, -3.0f);
-	Bench.Scale(scale, scale, scale);
-	Bench.Rotate(0.0f, 1.0f, 0.0f, 0.0f);
-	Bench.Render(graphics_handler);
+	Bench1 = new GameObject();
+	Bench1->Load(graphics_handler, fileName);
+	Bench1->Postition(4.0f, height, -3.0f);
+	Bench1->Scale(scale, scale, scale);
+	Bench1->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	Bench1->SetBoundingBox(2.0f, 4.0f, 3.0f);
+	Bench1s[7] = *Bench1;
 
-	Bench.Postition(0.0f, height, -3.0f);
-	Bench.Scale(scale, scale, scale);
-	Bench.Rotate(0.0f, 1.0f, 0.0f, 0.0f);
-	Bench.Render(graphics_handler);
+	Bench1 = new GameObject();
+	Bench1->Load(graphics_handler, fileName);
+	Bench1->Postition(0.0f, height, -3.0f);
+	Bench1->Scale(scale, scale, scale);
+	Bench1->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	Bench1->SetBoundingBox(2.0f, 4.0f, 3.0f);
+	Bench1s[8] = *Bench1;
 
-	Bench.Postition(-4.0f, height, -3.0f);
-	Bench.Scale(scale, scale, scale);
-	Bench.Rotate(0.0f, 1.0f, 0.0f, 0.0f);
-	Bench.Render(graphics_handler);
+	Bench1 = new GameObject();
+	Bench1->Load(graphics_handler, fileName);
+	Bench1->Postition(-4.0f, height, -3.0f);
+	Bench1->Scale(scale, scale, scale);
+	Bench1->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	Bench1->SetBoundingBox(2.0f, 4.0f, 3.0f);
+	Bench1s[9] = *Bench1;
 
-	Bench.Postition(-8.0f, height, -3.0f);
-	Bench.Scale(scale, scale, scale);
-	Bench.Rotate(0.0f, 1.0f, 0.0f, 0.0f);
-	Bench.Render(graphics_handler);
+	Bench1 = new GameObject();
+	Bench1->Load(graphics_handler, fileName);
+	Bench1->Postition(-8.0f, height, -3.0f);
+	Bench1->Scale(scale, scale, scale);
+	Bench1->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	Bench1->SetBoundingBox(2.0f, 4.0f, 3.0f);
+	Bench1s[10] = *Bench1;
+	
+}
+
+void World::InitialBench2()
+{
+	float scale = 0.038f;
+	float height = 0.75f;
+	string fileName = "res/models/bench2/bench2.obj";
+
+	Bench2 = new GameObject();
+	Bench2->Load(graphics_handler, fileName);
+	Bench2->Postition(-9.0f, height, -6.3f);
+	Bench2->Scale(scale, scale, scale);
+	Bench2->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
+	Bench2s[1] = *Bench2;
+
+	Bench2 = new GameObject();
+	Bench2->Load(graphics_handler, fileName);
+	Bench2->Postition(-15.0f, height, -6.3f);
+	Bench2->Scale(scale, scale, scale);
+	Bench2->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
+	Bench2s[2] = *Bench2;
+
+	Bench2 = new GameObject();
+	Bench2->Load(graphics_handler, fileName);
+	Bench2->Postition(-21.0f, height, -6.3f);
+	Bench2->Scale(scale, scale, scale);
+	Bench2->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
+	Bench2s[3] = *Bench2;
+}
+
+void World::InitialChair1()
+{
+	float scale = 0.033f;
+	float height = 0.1f;
+	string fileName = "res/models/chair1/chair1.obj";
+
+	Chair1 = new GameObject();
+	Chair1->Load(graphics_handler, fileName);
+	Chair1->Postition(-18.0f, height, -1.6f);
+	Chair1->Scale(scale, scale, scale);
+	Chair1->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	Chair1s[1] = *Chair1;
+
+	Chair1 = new GameObject();
+	Chair1->Load(graphics_handler, fileName);
+	Chair1->Postition(-17.0f, height, -2.6f);
+	Chair1->Scale(scale, scale, scale);
+	Chair1->Rotate(0.0f, 1.0f, 0.0f, 75.0f);
+	Chair1s[2] = *Chair1;
+}
+
+void World::InitialChair2()
+{
+	float scale = 0.035f;
+	float height = 0.2f;
+	string fileName = "res/models/chair2/chair2.obj";
+
+	Chair2 = new GameObject();
+	Chair2->Load(graphics_handler, fileName);
+	Chair2->Postition(-9.0f, height, -5.5f);
+	Chair2->Scale(scale, scale, scale);
+	Chair2->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	Chair2s[1] = *Chair2;
+
+	Chair2 = new GameObject();
+	Chair2->Load(graphics_handler, fileName);
+	Chair2->Postition(-15.0f, height, -5.5f);
+	Chair2->Scale(scale, scale, scale);
+	Chair2->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	Chair2s[2] = *Chair2;
+
+	Chair2 = new GameObject();
+	Chair2->Load(graphics_handler, fileName);
+	Chair2->Postition(-14.0f, height, -5.5f);
+	Chair2->Scale(scale, scale, scale);
+	Chair2->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	Chair2s[3] = *Chair2;
+
+	Chair2 = new GameObject();
+	Chair2->Load(graphics_handler, fileName);
+	Chair2->Postition(-21.0f, height, -5.5f);
+	Chair2->Scale(scale, scale, scale);
+	Chair2->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	Chair2s[4] = *Chair2;
+}
+
+void World::InitialTable1()
+{
+	float scale = 0.05f;
+	float height = 0.2f;
+	string fileName = "res/models/table1/table1.obj";
+
+	Table1 = new GameObject();
+	Table1->Load(graphics_handler, fileName);
+	Table1->Postition(-18.0f, height, -2.6f);
+	Table1->Scale(scale, scale, scale);
+	Table1->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	Table1s[1] = *Table1;
+
+	Table1 = new GameObject();
+	Table1->Load(graphics_handler, fileName);
+	Table1->Postition(-21.0f, height, -1.0f);
+	Table1->Scale(scale, scale, scale);
+	Table1->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	Table1s[2] = *Table1;
+}
+
+
+void World::DrawScene()
+{
+	Scene.Render(graphics_handler);
+}
+
+void World::DrawBench1()
+{
+	for (int i = 0; i < Bench1s.size(); i++)
+	{
+		Bench1s[i + 1].Render(graphics_handler);
+	}
 }
 
 void World::DrawBench2()
 {
-	float scale = 0.038f;
-	float height = 0.75f;
-
-	Bench2.Postition(-9.0f, height, -6.3f);
-	Bench2.Scale(scale, scale, scale);
-	Bench2.Rotate(0.0f, 1.0f, 0.0f, 90.0f);
-	Bench2.Render(graphics_handler);
-
-	Bench2.Postition(-15.0f, height, -6.3f);
-	Bench2.Scale(scale, scale, scale);
-	Bench2.Rotate(0.0f, 1.0f, 0.0f, 90.0f);
-	Bench2.Render(graphics_handler);
-
-	Bench2.Postition(-21.0f, height, -6.3f);
-	Bench2.Scale(scale, scale, scale);
-	Bench2.Rotate(0.0f, 1.0f, 0.0f, 90.0f);
-	Bench2.Render(graphics_handler);
-
+	for (int i = 0; i < Bench2s.size(); i++)
+	{
+		Bench2s[i + 1].Render(graphics_handler);
+	}
 }
 
 void World::DrawChair1()
 {
-	float scale = 0.033f;
-	float height = 0.1f;
-
-	chair1.Postition(-18.0f, height,-1.6f);
-	chair1.Scale(scale, scale, scale);
-	chair1.Rotate(0.0f, 1.0f, 0.0f, 0.0f);
-	chair1.Render(graphics_handler);
-
-	chair1.Postition(-17.0f, height, -2.6f);
-	chair1.Scale(scale, scale, scale);
-	chair1.Rotate(0.0f, 1.0f, 0.0f, 75.0f);
-	chair1.Render(graphics_handler);
+	for (int i = 0; i < Chair1s.size(); i++)
+	{
+		Chair1s[i + 1].Render(graphics_handler);
+	}
 }
 
 void World::DrawChair2()
 {
-	float scale = 0.035f;
-	float height = 0.2f;
-
-	chair2.Postition(-9.0f, height, -5.5f);
-	chair2.Scale(scale, scale, scale);
-	chair2.Rotate(0.0f, 1.0f, 0.0f, 0.0f);
-	chair2.Render(graphics_handler);
-
-	chair2.Postition(-15.0f, height, -5.5f);
-	chair2.Scale(scale, scale, scale);
-	chair2.Rotate(0.0f, 1.0f, 0.0f, 0.0f);
-	chair2.Render(graphics_handler);
-
-	chair2.Postition(-14.0f, height, -5.5f);
-	chair2.Scale(scale, scale, scale);
-	chair2.Rotate(0.0f, 1.0f, 0.0f, 0.0f);
-	chair2.Render(graphics_handler);
-
-	chair2.Postition(-21.0f, height, -5.5f);
-	chair2.Scale(scale, scale, scale);
-	chair2.Rotate(0.0f, 1.0f, 0.0f, 0.0f);
-	chair2.Render(graphics_handler);
+	for (int i = 0; i < Chair2s.size(); i++)
+	{
+		Chair2s[i + 1].Render(graphics_handler);
+	}
 }
 
 void World::DrawTable1()
 {
-	float scale = 0.05f;
-	float height = 0.2f;
-
-	table1.Postition(-18.0f, height, -2.6f);
-	table1.Scale(scale, scale, scale);
-	table1.Rotate(0.0f, 1.0f, 0.0f, 0.0f);
-	table1.Render(graphics_handler);
-
-	table1.Postition(-21.0f, height, -1.0f);
-	table1.Scale(scale, scale, scale);
-	table1.Rotate(0.0f, 1.0f, 0.0f, 0.0f);
-	table1.Render(graphics_handler);
+	for (int i = 0; i < Table1s.size(); i++)
+	{
+		Table1s[i + 1].Render(graphics_handler);
+	}
 }
-
 
 void World::SetBoundingWall()
 {
@@ -299,25 +393,25 @@ void World::SetBoundingWall()
 
 }
 
-
 void World::CheckBoundingBox()
 {
-	//set camera bounding box
-
-
-	//cout << BoundingWall2.GetPostitionX() << endl;
-	for (int i = 0; i < 10; i++)
+	//check wall bounding box
+	for (int i = 0; i < BoundingWalls.size(); i++)
 	{
-		//BoundingWalls[i + 1].DrawBoundingBox();
-
 		if (BoundingWalls[i+1].processCollision(cameraPlayer))
 		{
 			camera->SetPostion(CurrentX, camera->GetPosition().y, CurrentZ);
-			//cout << "CCCC" << endl;
 		}
 	}
 
-	
+	//check bench1 bounding box
+	for (int i = 0; i < Bench1s.size(); i++)
+	{
+		if (Bench1s[i + 1].processCollision(cameraPlayer))
+		{
+			camera->SetPostion(CurrentX, camera->GetPosition().y, CurrentZ);
+		}
+	}
 
 
 }

@@ -77,8 +77,3 @@ bool GameObject::processCollision(GameObject &obj)
 	}
 	return false;
 }
-
-float GameObject::GetPostitionX()
-{
-	return model[2].x;
-}

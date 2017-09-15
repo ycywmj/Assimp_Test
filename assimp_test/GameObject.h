@@ -28,15 +28,11 @@ public:
 
 	bool processCollision(GameObject &obj);
 
-	float GetPostitionX();
-
 	void DrawBoundingBox();
 
 private:
 	string pathName;
-	//Vector3 Pos;
-	//Vector3 Sca;
-	//Vector4 Rot;
+
 	glm::vec3 Pos;
 	glm::vec3 Sca;
 	glm::vec4 Rot;

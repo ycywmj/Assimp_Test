@@ -21,11 +21,19 @@ public:
 	void UpdateGame();
 	void GameDestruction(){};
 	
+	void InitialBench1();
+	void InitialBench2();
+	void InitialChair1();
+	void InitialChair2();
+	void InitialTable1();
+	void InitialScene();
+
 	void DrawBench1();
 	void DrawBench2();
 	void DrawChair1();
 	void DrawChair2();
 	void DrawTable1();
+	void DrawScene();
 
 	void SetBoundingWall();
 	void CheckBoundingBox();
@@ -41,24 +49,29 @@ private:
 	float CurrentZ;
 
 	int numberOfBenchs;
-
-	GameObject Bench;
 	
-	GameObject Bench2;
-
-	GameObject chair1;
-
-	GameObject chair2;
-
 	GameObject cameraPlayer;
-
-	GameObject table1;
 
 	GameObject Scene;
 
 
 	map<int, GameObject> BoundingWalls;
 	GameObject *BoundingWall;
+
+	map<int, GameObject> Bench1s;
+	GameObject *Bench1;
+
+	map<int, GameObject> Bench2s;
+	GameObject *Bench2;
+
+	map<int, GameObject> Chair1s;
+	GameObject *Chair1;
+
+	map<int, GameObject> Chair2s;
+	GameObject *Chair2;
+
+	map<int, GameObject> Table1s;
+	GameObject *Table1;
 
 
 };
