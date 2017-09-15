@@ -5,7 +5,6 @@
 #include "GameObject.h"
 #include "Camera.h"
 #include "Singleton.h"
-#include "Texture2D.h"
 
 class World{
 public:

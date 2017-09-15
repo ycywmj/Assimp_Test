@@ -66,7 +66,6 @@ void OpenGL::CreateGameWindow(){
 	Camera* camera_instance = Singleton<Camera>::Instance();
 	projection = glm::perspective(camera_instance->GetZoom(), (float)screen_width / (float)screen_height, 0.1f, 100.0f); 
 
-
 	World *world_instance = Singleton<World>::Instance();
 	world_instance->InitializeGame();
 

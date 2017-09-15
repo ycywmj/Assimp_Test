@@ -40,7 +40,7 @@ void Texture2D::Display2DTexture(const int & width, const int & height, const in
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
 	glLoadIdentity();
-	gluOrtho2D(0, screen_width, 0, screen_height);
+	//gluOrtho2D(0, screen_width, 0, screen_height);
 	glScalef(1, -1, 1);
 
 	// move to centre of screen

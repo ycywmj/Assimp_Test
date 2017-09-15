@@ -3,8 +3,8 @@
 *.dll
 
 #folders
-assimp_test/Debug/*
-assimp_test/include/*
-assimp_test/lib/*
-Debug/*
-ipch/*
+assimp_test/Debug/
+assimp_test/include/
+assimp_test/lib/
+Debug/
+ipch/
