@@ -21,7 +21,7 @@ void OpenGL::CreateGameWindow(){
 
 	//glewInit();
 
-	screen_width = 1500; screen_height = 1000;
+	screen_width = 1024; screen_height = 768;
 	window = glfwCreateWindow(screen_width, screen_height, "ICT398 - PlentoonGame", nullptr, nullptr);
 
 	if (nullptr == window)

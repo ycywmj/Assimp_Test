@@ -125,9 +125,14 @@ protected:
 
 class OpenGL : public Graphics{
 public:
-	OpenGL(){
-		//camera = new Camera(glm::vec3(1.0f, 1.0f, 1.0f));
-	};
+	/**
+	* @brief  constructor
+	*/
+	OpenGL(){};
+
+	/**
+	* @brief  Destructor
+	*/
 	~OpenGL(){
 		if (shader){
 			delete shader;
@@ -143,61 +148,131 @@ public:
 		glDeleteBuffers(1, &VBO);
 		glDeleteBuffers(1, &EBO);
 	};
+
+	/**
+	* @brief  copy constructor
+	* @Param cpy, a graphics class pointer
+	*/
 	OpenGL(const OpenGL & cpy){};
 
+	/**
+	* @brief  Initialize the GLFW window and create the window
+	* @return void
+	*/
 	void CreateGameWindow();
 
+	/**
+	* @brief  Load the model file and bind in the model map
+	* @param fname, a string indidcating the filename
+	* @return void
+	*/
 	void LoadModel(string fname);
+
+	/**
+	* @brief  Render the model by finding the specific model file name from the model map
+	* @param fname - a string indidcating the filename
+	* @param Pos - a vector3 for position
+	* @param Sca - a vector 3 for Scale
+	* @param Rot - a vector4 for rotation
+	* @return void
+	*/
 	void RenderModel(string fname,glm::vec3 Pos, glm::vec3 Sca, glm::vec4 Rot);
 
+	/**
+	* @brief  Load the texture file and bind in the 2d texture map
+	* @param fname, a string indidcating the filename
+	* @return void
+	*/
 	void Load2DTexture(string fname);
+
+	/**
+	* @brief  Render the 2d texture by finding the specific texture file name from the 2d texture map
+	* @param fname, a string indidcating the filename
+	* @return void
+	*/
 	void Render2DTexture(string fname);
 
 	void LoadBox();
 	void DrawBox();
 	
 private:
+	/**
+	* @brief  Handles all the activities the game window will process
+	* @return void
+	*/
 	void GameLoop();
 
+	/**
+	* @brief  Handles keyboard input
+	* @param same template as the original function
+	* @return void
+	*/
 	void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode);
+	
+	/**
+	* @brief  Handles mouse movement input
+	* @param same template as the original function
+	* @return void
+	*/
 	void MouseCallback(GLFWwindow *window, double xPos, double yPos);
+
+	/**
+	* @brief  Handles mouse clicking event
+	* @param same template as the original function
+	* @return void
+	*/
 	void MouseButtonCallback(GLFWwindow *window, int button, int action, int mods);
+
+	/**
+	* @brief  Handles camera movement
+	* @return void
+	*/
 	void DoMovement();
 
 	// mem var
-	// window 
+	/// GLFW window 
 	GLFWwindow *window;
 
-	// projection
+	/// Camera projection
 	glm::mat4 projection;
 
 	glm::mat4 model;
 
-	// key
+	/// keys from keyboard
 	bool keys[1024];
 
-	// time
+	/// time elapsed
 	double deltaTime = 0.0;
+	/// time elapsed
 	double lastFrame = 0.0;
 
 	// Camera
-	//Camera *camera;
 	double lastX = 400.0, lastY = 300.0;
 	bool firstMouse = true;
 
 	// models
+	/// shader
 	Shader *shader;
 	// Load models
+	/// Stores the model just loaded up
 	Model *ourModel;
+
+	/// Model asset
 	map < string, Model* > Models;
 
 	// 2D textureing shader
+	/// shader for 2d texturing
 	Shader *shader_2d;
+	
 	unsigned int VBO, VAO, EBO;
+
+	/// Stores the texture just loaded up
 	unsigned int *ourTexture;
+
+	/// 2D Texture asset
 	map < string, unsigned int* > Textures_2d;
 
-	// wrap the callback func
+	/// wrap the callback func
 	static OpenGL *opengl_instance;
 	void SetInstance(){ opengl_instance = this; };
 	static void KeyCallbackWrap(GLFWwindow *window, int key, int scancode, int action, int mode){
@@ -217,5 +292,10 @@ public:
 	~GraphicsFactory(){};
 	GraphicsFactory(const GraphicsFactory & cpy){};
 
+	/**
+	* @brief  Creates a new graphics api object to graphics handler
+	* @param type, name of graphics api
+	* @return graphics api pointer
+	*/
 	Graphics* Create(const char* type);
 };

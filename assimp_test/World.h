@@ -187,38 +187,67 @@ public:
 	void CheckBoundingBox();
 
 private:
+	/// Generates a specific graphics api handler object
 	GraphicsFactory graphics_factory;
+
+	/// Stores a specific graphics api that handles all the graphics work
 	Graphics* graphics_handler;
 
+	/// Status of the game program - see enum variable in GameStatus.h
 	GameStatus *game_status;
+
+	/// Camera object
 	Camera* camera;
 	
+	/// For restoring cam pos after collusion
 	float CurrentX;
+
+	/// For restoring cam pos after collusion
 	float CurrentZ;
 
+	/// Number of benches in the virtual world
 	int numberOfBenchs;
 	
+	/// Player itself in the world as a game object
 	GameObject cameraPlayer;
 
+	/// Whole bar scene
 	GameObject Scene;
 
-
+	/// Stores all the walls need to detect collusion
 	map<int, GameObject> BoundingWalls;
+
+	/// Stores multiple walls need to detect collusion
 	GameObject *BoundingWall;
 
+	/// Stores all the no.1 benches
 	map<int, GameObject> Bench1s;
+	
+	/// Stores multiple no.1 benches
 	GameObject *Bench1;
 
+	/// Stores all the no.2 benches
 	map<int, GameObject> Bench2s;
+
+	/// Stores multiple no.2 benches
 	GameObject *Bench2;
 
+	/// Stores all the no.1 chairs
 	map<int, GameObject> Chair1s;
+
+	/// Stores multiple no.1 chairs
 	GameObject *Chair1;
 
+	/// Stores all the no.2 chairs
 	map<int, GameObject> Chair2s;
+	
+	/// Stores multiple no.2 chairs
 	GameObject *Chair2;
 
+	/// Stores all the tables
 	map<int, GameObject> Table1s;
+
+	/// Stores multiple tables
 	GameObject *Table1;
 
 

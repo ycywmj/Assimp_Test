@@ -244,20 +244,36 @@ public:
 	}
     
 private:
-    /// Camera Attributes
+    // Camera Attributes
+	/// Camera position x,y,z
     glm::vec3 position;
+
+	/// Camera front attributes x,y,z
     glm::vec3 front;
+
+	/// Camera up attributes x,y,z
     glm::vec3 up;
+
+	/// Camera right attributes x,y,z
     glm::vec3 right;
+
+	/// World up attributes
     glm::vec3 worldUp;
     
-    /// Eular Angles
+    /// Eular Angles Yaw
     float yaw;
+
+	/// Eular Angles Pitch
     float pitch;
     
-    /// Camera options
+    // Camera options
+	/// Camera movement speed
     float movementSpeed;
+
+	/// Camera rotation sensitivity
     float mouseSensitivity;
+
+	/// Camera zoom attributes
     float zoom;
     
 	/**
