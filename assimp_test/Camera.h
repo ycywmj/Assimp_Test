@@ -48,7 +48,18 @@ const float FIX_Y_VALUE		=  1.25f;
 class Camera
 {
 public:
-    // Constructor with vectors
+
+	/**
+	* @brief  Constructor for the Camera with Vectors
+	*
+	* Initialises camera variables
+	*
+	* @param  position - vector3 for position
+	* @param  up - up vector3 
+	* @param  yaw - float for YAW
+	* @param  pitch - float for pitch
+	* 
+	*/
     Camera( glm::vec3 position = glm::vec3( 0.0f, 0.0f, 0.0f ), glm::vec3 up = glm::vec3( 0.0f, 1.0f, 0.0f ), float yaw = YAW, float pitch = PITCH ) : front( glm::vec3( 0.0f, 0.0f, -1.0f ) ), movementSpeed( SPEED ), mouseSensitivity( SENSITIVTY ), zoom( ZOOM )
     {
         this->position = position;
@@ -59,7 +70,21 @@ public:
         this->updateCameraVectors( );
     }
     
-    // Constructor with scalar values
+	/**
+	* @brief  Constructor for the Camera with Vectors
+	*
+	* Initialises camera variables
+	*
+	* @param  posX - float X position
+	* @param  posY - float Y position
+	* @param  posZ - float Z position
+	* @param  upX - float X up vector
+	* @param  upY - float Y up vector
+	* @param  upZ - float Z up vector
+	* @param  yaw - float for YAW
+	* @param  pitch - float for pitch
+	* 
+	*/
     Camera( float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch ) : front( glm::vec3( 0.0f, 0.0f, -1.0f ) ), movementSpeed( SPEED ), mouseSensitivity( SENSITIVTY ), zoom( ZOOM )
     {
         this->position = glm::vec3( posX, posY, posZ );
@@ -70,14 +95,30 @@ public:
         this->updateCameraVectors( );
     }
     
-    // Returns the view matrix calculated using Eular Angles and the LookAt Matrix
+	/**
+	* @brief  returns players looking direction
+	*
+	* Returns the view matrix calculated using Eular Angles and the LookAt Matrix
+	*
+	* @return glm::mat4 - the direction the player is looking in
+	*/
     glm::mat4 GetViewMatrix( )
     {
         return glm::lookAt( this->position, this->position + this->front, this->up );
     }
     
-    // Processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
-    void ProcessKeyboard( Camera_Movement direction, float deltaTime )
+	/**
+	* @brief  Processes keys
+	*
+	* Processes input received from any keyboard-like input system. 
+	* Accepts input parameter in the form of camera defined ENUM 
+	* (to abstract it from windowing systems)
+	*
+	* @param  direction - Camera_Movement 
+	* @param  deltaTime- float
+	* @return void
+	*/
+	void ProcessKeyboard( Camera_Movement direction, float deltaTime )
     {
         float velocity = this->movementSpeed * deltaTime;
         
@@ -104,8 +145,18 @@ public:
 		if (FIX_Y) this->position.y = FIX_Y_VALUE;
     }
     
-    // Processes input received from a mouse input system. Expects the offset value in both the x and y direction.
-    void ProcessMouseMovement( float xOffset, float yOffset, GLboolean constrainPitch = true )
+	/**
+	* @brief  Processes Mouse movements
+	*
+	* Processes input received from a mouse input system. 
+	* Expects the offset value in both the x and y direction.
+	*
+	* @param  xOffset - float
+	* @param  yOffset- float
+	* @param  constrainPitch- GLboolean = true
+	* @return void
+	*/
+	void ProcessMouseMovement( float xOffset, float yOffset, GLboolean constrainPitch = true )
     {
         xOffset *= this->mouseSensitivity;
         yOffset *= this->mouseSensitivity;
@@ -131,32 +182,60 @@ public:
         this->updateCameraVectors( );
     }
     
-    // Processes input received from a mouse scroll-wheel event. Only requires input on the vertical wheel-axis
-    void ProcessMouseScroll( float yOffset )
+	/**
+	* @brief  can be used to process mouse scroll
+	* Processes input received from a mouse scroll-wheel event. 
+	* Only requires input on the vertical wheel-axis
+	* @return void
+	*/
+	void ProcessMouseScroll( float yOffset )
     {
         
     }
     
+	/**
+	* @brief  getter for zoom
+	* @return floar - zoom
+	*/
     float GetZoom( )
     {
         return this->zoom;
     }
     
+	/**
+	* @brief  getter for zoom
+	* @return floar - zoom
+	*/
     glm::vec3 GetPosition( )
     {
         return this->position;
     }
     
+	/**
+	* @brief  getter for front
+	* @return glm::vec3 - front
+	*/
     glm::vec3 GetFront( )
     {
         return this->front;
     }
 
+	/**
+	* @brief  getter for up
+	* @return glm::vec3 - up
+	*/
 	glm::vec3 GetUp()
 	{
 		return this->up;
 	}
 
+	/**
+	* @brief  setter for position
+	* @param x - float, the X position
+	* @param y - float, the Y position
+	* @param z - float, the Z position
+	* @return void
+	*/
 	void SetPostion(float x, float y, float z)
 	{
 		position.x = x;
@@ -165,23 +244,27 @@ public:
 	}
     
 private:
-    // Camera Attributes
+    /// Camera Attributes
     glm::vec3 position;
     glm::vec3 front;
     glm::vec3 up;
     glm::vec3 right;
     glm::vec3 worldUp;
     
-    // Eular Angles
+    /// Eular Angles
     float yaw;
     float pitch;
     
-    // Camera options
+    /// Camera options
     float movementSpeed;
     float mouseSensitivity;
     float zoom;
     
-    // Calculates the front vector from the Camera's (updated) Eular Angles
+	/**
+	* @brief  Calculates the front vector from the Camera's (updated) Eular Angles
+	*
+	* @return void
+	*/
     void updateCameraVectors( )
     {
         // Calculate the new Front vector
