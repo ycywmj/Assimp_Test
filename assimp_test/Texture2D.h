@@ -3,6 +3,24 @@
 
 #include <GL/glut.h>
 
+/**
+* @class World
+* @brief  Manages the running of the game world
+*
+* Texture2D is responsible for creating a 2D texture that pops up upon exiting the game
+*
+* @author Liam Goerke
+* @version 01
+* @date 10/09/2017
+*
+* @author Kin Pan Mak
+* @version 02
+* @date 15/09/2017
+*
+* @bug Grey squares also appear on screen
+*
+*/
+
 class Texture2D{
 public:
 
