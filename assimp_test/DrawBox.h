@@ -15,7 +15,20 @@
 
 using namespace std;
 
-
+/**
+* @class DrawBox
+* @brief I draws a box
+*
+*
+*
+*
+*
+* @author ChengYu Yang
+* @version 01
+* @date 15/09/2017
+*
+*
+*/
 class DrawBox
 {
 public:

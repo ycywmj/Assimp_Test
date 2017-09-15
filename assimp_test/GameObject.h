@@ -10,6 +10,22 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "DrawBox.h"
 
+
+/**
+* @class GameObject
+* @brief GameObject does stuff
+*
+* 
+*
+* 
+*
+* @author ChengYu Yang
+* @version 01
+* @date 15/09/2017
+*
+*
+*/
+
 class GameObject{
 public:
 	GameObject();

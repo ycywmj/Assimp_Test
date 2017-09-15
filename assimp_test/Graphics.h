@@ -29,25 +29,97 @@
 
 using namespace std;
 
+
+/**
+* @class Graphics
+* @brief  Manages all of the openGL functionality
+*
+* Graphics contains all of the openGL code, keeping it seperate from the rest of the program
+*
+* @author Liam Goerke
+* @version 01
+* @date 10/09/2017
+*
+* @author Kin Pan Mak
+* @version 02
+* @date 15/09/2017
+*
+*
+*/
 class Graphics{
 public:
+	/**
+	* @brief  constructor
+	*/
 	Graphics(){};
+
+	/**
+	* @brief  Destructor
+	*/
 	~Graphics(){};
+
+	/**
+	* @brief  copy constructor
+	* @Param cpy, a graphics class pointer
+	*/
 	Graphics(const Graphics & cpy){
 		this->screen_width = cpy.screen_width;
 		this->screen_height = cpy.screen_height;
 	};
 
+	/**
+	* @brief  pure virtual function
+	* @return void
+	*/
 	virtual void CreateGameWindow() = 0;
+
+	/**
+	* @brief  pure virtual function
+	* @param fname, a string indidcating the filename
+	* @return void
+	*/
 	virtual void LoadModel(string fname) = 0;
+
+	/**
+	* @brief  pure virtual function
+	* @param fname - a string indidcating the filename
+	* @param Pos - a vector3 for position
+	* @param Sca - a vector 3 for Scale
+	* @param Rot - a vector4 for rotation
+	* @return void
+	*/
 	virtual void RenderModel(string fname,glm::vec3 Pos, glm::vec3 Sca, glm::vec4 Rot) = 0;
+
+	/**
+	* @brief  pure virtual function
+	* @param fname, a string indidcating the filename
+	* @return void
+	*/
 	virtual void Load2DTexture(string fname) = 0;
+
+	/**
+	* @brief  pure virtual function
+	* @param fname - a string indidcating the filename
+	* @return void
+	*/
 	virtual void Render2DTexture(string fname) = 0;
 
+	/**
+	* @brief  Getter function for screen width
+	* 
+	* @return int - screen_width
+	*/
 	int GetScreenWidth(){ return screen_width; };
+	
+	/**
+	* @brief  Getter function for screen height
+	*
+	* @return int - screen_height
+	*/
 	int GetScreenHeight(){ return screen_height; };
 									
 protected:
+	///the screen width and height
 	int screen_width, screen_height;
 };
 

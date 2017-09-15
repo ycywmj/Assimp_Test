@@ -28,7 +28,23 @@ const float ZOOM			=  45.0f;
 const bool FIX_Y			=  true;
 const float FIX_Y_VALUE		=  1.25f;
 
-// An abstract camera class that processes input and calculates the corresponding Eular Angles, Vectors and Matrices for use in OpenGL
+/**
+* @class Camera
+* @brief  Manages the camera functionality
+*
+* An abstract camera class that processes input and calculates the corresponding Eular Angles,
+* Vectors and Matrices for use in OpenGL
+*
+* @author Liam Goerke
+* @version 01
+* @date 10/09/2017
+*
+* @author Kin Pan Mak
+* @version 02
+* @date 15/09/2017
+*
+*
+*/
 class Camera
 {
 public:

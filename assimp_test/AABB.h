@@ -5,6 +5,21 @@
 // GLM Mathemtics
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+
+/**
+* @class AABB
+* @brief I draws a box
+*
+*
+*
+*
+*
+* @author ChengYu Yang
+* @version 01
+* @date 15/09/2017
+*
+*
+*/
 class AABB
 {
 private:
