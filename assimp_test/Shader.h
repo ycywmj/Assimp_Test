@@ -8,6 +8,20 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 
+/**
+* @class Shader
+* @brief  Manages the Shaders
+*
+* 
+*
+* @author ChengYu Yang
+* @version 02
+* @date 15/09/2017
+*
+*
+*
+*/
+
 class Shader
 {
 public:

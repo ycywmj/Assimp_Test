@@ -24,6 +24,21 @@
 
 using namespace std;
 
+/**
+* @class World
+* @brief  Manages the running of the game world
+*
+* 
+*
+*
+* @author ChengYu Yang
+* @version 02
+* @date 15/09/2017
+*
+*
+*
+*/
+
 class Model
 {
 public:
@@ -33,12 +48,21 @@ public:
     {
     }
 
+	/**
+	* @brief   Loads the Model
+	* @param path - string, the pathname to load
+	* @return void
+	*/
 	void Load(string path)
 	{
 		this->loadModel(path);
 	}
     
-    // Draws the model, and thus all its meshes
+	/**
+	* @brief   Draws the model, and thus all its meshes
+	* @param shader - the shader class
+	* @return void
+	*/
     void Draw( Shader shader )
     {
         for ( GLuint i = 0; i < this->meshes.size( ); i++ )

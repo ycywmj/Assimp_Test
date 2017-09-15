@@ -15,6 +15,21 @@
 
 using namespace std;
 
+/**
+* @class Mesh
+* @brief  
+*
+*
+*
+*
+* @author ChengYu Yang
+* @version 02
+* @date 15/09/2017
+*
+*
+*
+*/
+
 struct Vertex
 {
     // Position
