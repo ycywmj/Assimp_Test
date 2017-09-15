@@ -41,6 +41,8 @@ public:
 	virtual void CreateGameWindow() = 0;
 	virtual void LoadModel(string fname) = 0;
 	virtual void RenderModel(string fname,glm::vec3 Pos, glm::vec3 Sca, glm::vec4 Rot) = 0;
+	virtual void Load2DTexture(string fname) = 0;
+	virtual void Render2DTexture(string fname) = 0;
 
 	int GetScreenWidth(){ return screen_width; };
 	int GetScreenHeight(){ return screen_height; };
@@ -59,13 +61,26 @@ public:
 			delete shader;
 			shader = NULL;
 		}
-
+		if (shader_2d){
+			delete shader_2d;
+			shader_2d = NULL;
+		}
+		// optional: de-allocate all resources once they've outlived their purpose:
+		// ------------------------------------------------------------------------
+		glDeleteVertexArrays(1, &VAO);
+		glDeleteBuffers(1, &VBO);
+		glDeleteBuffers(1, &EBO);
 	};
 	OpenGL(const OpenGL & cpy){};
 
 	void CreateGameWindow();
+
 	void LoadModel(string fname);
 	void RenderModel(string fname,glm::vec3 Pos, glm::vec3 Sca, glm::vec4 Rot);
+
+	void Load2DTexture(string fname);
+	void Render2DTexture(string fname);
+
 	void LoadBox();
 	void DrawBox();
 	
@@ -74,6 +89,7 @@ private:
 
 	void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode);
 	void MouseCallback(GLFWwindow *window, double xPos, double yPos);
+	void MouseButtonCallback(GLFWwindow *window, int button, int action, int mods);
 	void DoMovement();
 
 	// mem var
@@ -99,11 +115,15 @@ private:
 
 	// models
 	Shader *shader;
-
 	// Load models
 	Model *ourModel;
-
 	map < string, Model* > Models;
+
+	// 2D textureing shader
+	Shader *shader_2d;
+	unsigned int VBO, VAO, EBO;
+	unsigned int *ourTexture;
+	map < string, unsigned int* > Textures_2d;
 
 	// wrap the callback func
 	static OpenGL *opengl_instance;
@@ -113,6 +133,9 @@ private:
 	}
 	static void MouseCallbackWrap(GLFWwindow *window, double xPos, double yPos){
 		opengl_instance->MouseCallback(window, xPos, yPos);
+	}
+	static void MouseButtonCallbackWrap(GLFWwindow *window, int button, int action, int mods){
+		opengl_instance->MouseButtonCallback(window, button, action, mods);
 	}
 };
 

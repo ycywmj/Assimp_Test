@@ -3,7 +3,7 @@
 #include "Graphics.h"
 #include "World.h"
 #include "Camera.h"
-#include "Singleton.h"
+#include "GameStatus.h"
 
 OpenGL* OpenGL::opengl_instance;
 
@@ -39,6 +39,7 @@ void OpenGL::CreateGameWindow(){
 	// Set the required callback functions
 	glfwSetKeyCallback(window, KeyCallbackWrap);
 	glfwSetCursorPosCallback(window, MouseCallbackWrap);
+	glfwSetMouseButtonCallback(window, MouseButtonCallbackWrap);
 
 	// GLFW Options
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -60,6 +61,7 @@ void OpenGL::CreateGameWindow(){
 
 	// Setup and compile our shaders
 	shader = new Shader("res/shaders/modelLoader.vs", "res/shaders/modelLoader.frag");
+	shader_2d = new Shader("res/shaders/2d_imgs.vs", "res/shaders/2d_imgs.frag");
 	
 	// Draw in wireframe
 	//glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
@@ -140,22 +142,31 @@ void OpenGL::DoMovement()
 // Is called whenever a key is pressed/released via GLFW
 void OpenGL::KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode)
 {
-	if (GLFW_KEY_ESCAPE == key && GLFW_PRESS == action)
-	{
-		glfwSetWindowShouldClose(window, GL_TRUE);
-	}
+	GameStatus* game_status = Singleton<GameStatus>::Instance();
+	if ((*game_status) == GAME_PLAYING){
+		if (GLFW_KEY_ESCAPE == key && GLFW_PRESS == action)
+		{
+			*game_status = GAME_CREDIT_PAGE;
+		}
 
-	if (key >= 0 && key < 1024)
-	{
-		if (action == GLFW_PRESS)
+		if (key >= 0 && key < 1024)
 		{
-			keys[key] = true;
-		}
-		else if (action == GLFW_RELEASE)
-		{
-			keys[key] = false;
+			if (action == GLFW_PRESS)
+			{
+				keys[key] = true;
+			}
+			else if (action == GLFW_RELEASE)
+			{
+				keys[key] = false;
+			}
 		}
 	}
+	/*else if ((*game_status) == GAME_CREDIT_PAGE){
+		if (GLFW_KEY_ESCAPE == key && GLFW_PRESS == action)
+		{
+			glfwSetWindowShouldClose(window, GL_TRUE);
+		}
+	}*/
 }
 
 void OpenGL::MouseCallback(GLFWwindow *window, double xPos, double yPos)
@@ -175,6 +186,15 @@ void OpenGL::MouseCallback(GLFWwindow *window, double xPos, double yPos)
 
 	Camera* camera_instance = Singleton<Camera>::Instance();
 	camera_instance->ProcessMouseMovement(xOffset, yOffset);
+}
+
+void OpenGL::MouseButtonCallback(GLFWwindow *window, int button, int action, int mods){
+	GameStatus* game_status = Singleton<GameStatus>::Instance();
+	if ((*game_status) == GAME_CREDIT_PAGE){
+		if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS){
+			glfwSetWindowShouldClose(window, GL_TRUE);
+		}
+	}
 }
 
 void OpenGL::LoadModel(string fname)
@@ -199,6 +219,94 @@ void OpenGL::RenderModel(string fname,glm::vec3 Pos, glm::vec3 Sca, glm::vec4 Ro
 	//ourModel.Draw(*shader);
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	Models[fname]->Draw(*shader);
+}
+
+void OpenGL::Load2DTexture(string fname){
+	for (map<string, unsigned int*>::iterator it = Textures_2d.begin(); it != Textures_2d.end(); ++it)
+	{
+		if (fname == it->first)
+			return;
+	}
+
+	// set up vertex data (and buffer(s)) and configure vertex attributes
+	// ------------------------------------------------------------------
+	float vertices[] = {
+		// positions          // colors           // texture coords
+		0.9f, 0.9f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // top right
+		0.9f, -0.9f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, // bottom right
+		-0.9f, -0.9f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom left
+		-0.9f, 0.9f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f  // top left 
+	};
+	unsigned int indices[] = {
+		0, 1, 3, // first triangle
+		1, 2, 3  // second triangle
+	};
+	
+	glGenVertexArrays(1, &VAO);
+	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &EBO);
+
+	glBindVertexArray(VAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+	// position attribute
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+	// color attribute
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
+	// texture coord attribute
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	glEnableVertexAttribArray(2);
+
+	
+	ourTexture = new unsigned int;
+	glGenTextures(1, &(*ourTexture));
+	glBindTexture(GL_TEXTURE_2D, (*ourTexture)); // all upcoming GL_TEXTURE_2D operations now have effect on this texture object
+	// set the texture wrapping parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// set texture filtering parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	// load image, create texture and generate mipmaps
+	int width, height, nrChannels;
+	// The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
+	stbi_set_flip_vertically_on_load(true);
+	unsigned char *data = stbi_load(fname.c_str(), &width, &height, &nrChannels, 0);
+	if (data)
+	{
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+	{
+		std::cout << "Failed to load texture" << std::endl;
+	}
+	stbi_image_free(data);
+	
+	Textures_2d[fname] = ourTexture;
+
+}
+
+void OpenGL::Render2DTexture(string fname){
+	// render
+	// ------
+	glClearColor(42.0f / 255.0f, 74.0f / 255.0f, 117.0f / 255.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	// bind Texture
+	glBindTexture(GL_TEXTURE_2D, *(Textures_2d[fname]));
+
+	// render container
+	shader_2d->Use();
+	glBindVertexArray(VAO);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
 void OpenGL::LoadBox()

@@ -9,7 +9,8 @@
 class World{
 public:
 	World(){
-		game_status = GAME_PLAYING;
+		game_status = Singleton<GameStatus>::Instance();
+		*game_status = GAME_PLAYING;
 		camera = Singleton<Camera>::Instance();
 	};
 	~World();
@@ -26,6 +27,7 @@ public:
 	void InitialChair2();
 	void InitialTable1();
 	void InitialScene();
+	void Initial2DTexture();
 
 	void DrawBench1();
 	void DrawBench2();
@@ -41,7 +43,7 @@ private:
 	GraphicsFactory graphics_factory;
 	Graphics* graphics_handler;
 
-	GameStatus game_status;
+	GameStatus *game_status;
 	Camera* camera;
 	
 	float CurrentX;

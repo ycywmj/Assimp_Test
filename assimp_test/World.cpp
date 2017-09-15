@@ -21,6 +21,8 @@ void World::InitializeGame(){
 	InitialTable1();
 	InitialScene();
 
+	Initial2DTexture();
+
 	//Initial wall collision detection
 	SetBoundingWall();
 
@@ -49,26 +51,26 @@ void World::RunGame(const char* api){
 }
 
 void World::UpdateGame(){
-if (game_status != GAME_PLAYING){
-		if (game_status == GAME_DONE){
+	if (*game_status != GAME_PLAYING){
+		if (*game_status == GAME_DONE){
 			GameDestruction();
 			exit(0);
 		}
 
-		if (game_status == GAME_MAIN_MENU){
+		if (*game_status == GAME_MAIN_MENU){
 			// ui.mainMenu(512, 512, 0, 0); //texture2d.Display2DTexture(512, 512, 0, 0, GAME_MAIN_MENU_TEXTURE);
 		}
 
-		if (game_status == GAME_HELP_MENU){
+		if (*game_status == GAME_HELP_MENU){
 			//texture2d.Display2DTexture(512, 512, 0, 0, GAME_HELP_MENU_TEXTURE);
 		}
 
-		if (game_status == GAME_CREDIT_PAGE){
-			//texture2d.Display2DTexture(512, 512, 0, 0, CREDIT_TEXTURE);
+		if (*game_status == GAME_CREDIT_PAGE){
+			//texture2d.Display2DTexture(512, 512, 0, 0, CREDIT_TEXTURE);.
+			graphics_handler->Render2DTexture("res/2d_imgs/Credit.jpg");
 		}
 
 	}
-	
 
 	//Render Models
 	DrawBench1();
@@ -286,6 +288,10 @@ void World::InitialTable1()
 	Table1->Scale(scale, scale, scale);
 	Table1->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
 	Table1s[2] = *Table1;
+}
+
+void World::Initial2DTexture(){
+	graphics_handler->Load2DTexture("res/2d_imgs/Credit.jpg");
 }
 
 
