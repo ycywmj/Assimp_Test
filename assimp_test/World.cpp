@@ -1,7 +1,6 @@
 #include <iostream>
 
 #include "World.h"
-#include "TextureMap.h"
 
 
 World::~World(){

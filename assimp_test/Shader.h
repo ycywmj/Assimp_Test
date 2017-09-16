@@ -16,7 +16,7 @@
 *
 * @author ChengYu Yang
 * @version 01
-* @date 15/09/2017
+* @date 01/09/2017
 *
 *
 *
@@ -27,6 +27,11 @@ class Shader
 public:
     GLuint Program;
     // Constructor generates the shader on the fly
+	/**
+	* @brief   Constructor which initialize vertex file path and fragment file path
+	* @param vertexPath, vertex file path
+	* @param fragmentPath, fragment file path
+	*/
     Shader( const GLchar *vertexPath, const GLchar *fragmentPath )
     {
         // 1. Retrieve the vertex/fragment source code from filePath
@@ -103,6 +108,10 @@ public:
         
     }
 
+	/**
+	* @brief   Process the shader program using the loaded vertex and fragment
+	* @return void
+	*/
     void Use( )
     {
         glUseProgram( this->Program );
