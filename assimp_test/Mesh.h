@@ -15,21 +15,6 @@
 
 using namespace std;
 
-/**
-* @class Mesh
-* @brief  
-*
-*
-*
-*
-* @author ChengYu Yang
-* @version 01
-* @date 01/09/2017
-*
-*
-*
-*/
-
 struct Vertex
 {
     /// Position
@@ -50,6 +35,20 @@ struct Texture
     aiString path;
 };
 
+/**
+* @class Mesh
+* @brief Process the meshes of the model
+*
+*
+*
+*
+* @author ChengYu Yang
+* @version 01
+* @date 01/09/2017
+*
+*
+*
+*/
 class Mesh
 {
 public:

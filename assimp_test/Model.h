@@ -25,8 +25,8 @@
 using namespace std;
 
 /**
-* @class World
-* @brief  Manages the running of the game world
+* @class Model
+* @brief  Manages the models
 *
 * 
 *
@@ -38,7 +38,6 @@ using namespace std;
 *
 *
 */
-
 class Model
 {
 public:
