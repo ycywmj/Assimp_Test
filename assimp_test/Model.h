@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MODEL_H
+#define MODEL_H
 
 #include <string>
 #include <fstream>
@@ -239,3 +240,5 @@ GLint TextureFromFile( const char *path, string directory )
     
     return textureID;
 }
+
+#endif
