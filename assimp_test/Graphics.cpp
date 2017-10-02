@@ -6,6 +6,8 @@
 OpenGL* OpenGL::opengl_instance;
 
 void OpenGL::CreateGameWindow(){
+	SetInstance();
+
 	// Init GLFW
 	glfwInit();
 	// Set all the required options for GLFW
@@ -17,8 +19,8 @@ void OpenGL::CreateGameWindow(){
 
 	//glewInit();
 
-	// Create a GLFWwindow object that we can use for GLFW's functions
 	screen_width = 1500; screen_height = 1000;
+	window = glfwCreateWindow(screen_width, screen_height, "ICT398 - PlentoonGame", nullptr, nullptr);
 
 	if (nullptr == window)
 	{
@@ -54,8 +56,17 @@ void OpenGL::CreateGameWindow(){
 	// OpenGL options
 	glEnable(GL_DEPTH_TEST);
 
+	// Setup and compile our shaders
+	shader = new Shader("res/shaders/modelLoading.vs", "res/shaders/modelLoading.frag");
+
+	// Load models
+	ourModel = new Model("res/models/bench.obj");
+	//Model ourModel("res/models/Futuristic_Bike/Futuristic-Bike.obj");
+
 	// Draw in wireframe
 	//glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+
+	projection = glm::perspective(camera->GetZoom(), (float)screen_width / (float)screen_height, 0.1f, 100.0f);
 
 	// Game loop
 	while (!glfwWindowShouldClose(window))

@@ -50,11 +50,7 @@ protected:
 class OpenGL : public Graphics{
 public:
 	OpenGL(){
-		window = glfwCreateWindow(screen_width, screen_height, "LearnOpenGL", nullptr, nullptr);
-		projection = glm::perspective(camera->GetZoom(), (float)screen_width / (float)screen_height, 0.1f, 100.0f);
-		camera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f));
-		shader = new Shader("res/shaders/modelLoading.vs", "res/shaders/modelLoading.frag");
-		ourModel = new Model("res/models/bench.obj");
+		camera = new Camera(glm::vec3(0.0f, 20.0f, 50.0f));
 	};
 	~OpenGL(){
 		if (camera){
