@@ -1,7 +1,8 @@
 #include <string>
 
-//#include "World.h"
 #include "Graphics.h"
+#include "World.h"
+#include "Singleton.h"
 
 OpenGL* OpenGL::opengl_instance;
 
@@ -103,6 +104,9 @@ void OpenGL::GameLoop(){
 	model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// It's a bit too big for our scene, so scale it down
 	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
 	ourModel->Draw(*shader);
+
+	World *world_instance = Singleton<World>::Instance();
+	world_instance->UpdateGame();
 
 	// Swap the buffers
 	glfwSwapBuffers(window);

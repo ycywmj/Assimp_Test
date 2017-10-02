@@ -1,7 +1,10 @@
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 
-// OpenGL
+// General libraries
+#include "Singleton.h"
+
+// OpenGL libraries
 // GLEW
 #define GLEW_STATIC
 #include <GL/glew.h>
@@ -21,8 +24,7 @@
 #include "Shader.h"
 #include "Camera.h"
 #include "Model.h"
-
-#include "Singleton.h"
+// OpenGL end
 
 class Graphics{
 public:
@@ -34,11 +36,6 @@ public:
 	};
 
 	virtual void CreateGameWindow() = 0;
-
-	virtual void OpenPolygonMode() = 0;
-	virtual void ClosePolygonMode() = 0;
-	virtual void WarpPointerToCentre() = 0;
-
 
 	int GetScreenWidth(){ return screen_width; };
 	int GetScreenHeight(){ return screen_height; };
@@ -75,16 +72,6 @@ private:
 	void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode);
 	void MouseCallback(GLFWwindow *window, double xPos, double yPos);
 	void DoMovement();
-
-	void OpenPolygonMode(){
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	};
-	void ClosePolygonMode(){
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	};
-	void WarpPointerToCentre(){
-		glutWarpPointer(screen_width / 2, screen_height / 2);
-	};
 
 	// mem var
 	// window 

@@ -1,10 +1,2 @@
-﻿  Graphics.cpp
-x:\study\uni\yr3_s2\ict398 - advgame\game-assimpver\assimp_test\assimp_test\graphics.cpp(117): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
-x:\study\uni\yr3_s2\ict398 - advgame\game-assimpver\assimp_test\assimp_test\graphics.cpp(122): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
-x:\study\uni\yr3_s2\ict398 - advgame\game-assimpver\assimp_test\assimp_test\graphics.cpp(127): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
-x:\study\uni\yr3_s2\ict398 - advgame\game-assimpver\assimp_test\assimp_test\graphics.cpp(132): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
-x:\study\uni\yr3_s2\ict398 - advgame\game-assimpver\assimp_test\assimp_test\graphics.cpp(172): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  main.cpp
+﻿  World.cpp
   assimp_test.vcxproj -> X:\Study\Uni\Yr3_S2\ICT398 - AdvGame\Game-AssimpVer\Assimp_Test\Debug\assimp_test.exe

@@ -7,22 +7,20 @@
 class World{
 public:
 	World(){
-		GameStatus* game_status_instance = Singleton<GameStatus>::Instance();
-		*game_status_instance = GAME_PLAYING;
+		game_status = GAME_PLAYING;
 	};
 	~World();
 	World(const World & cpy){};
 
-	void RunGame(int* argc, char* argv[], const char* window_name, const char* api, const int & screen_width, const int & screen_height);
+	void RunGame(const char* api);
 	void UpdateGame();
 	void GameDestruction(){};
 
 private:
 	GraphicsFactory graphics_factory;
-	Graphics** graphics_handler = Singleton<Graphics*>::Instance();
+	Graphics* graphics_handler;
 
-	double elapsed_time_second;
-	int fps;
+	GameStatus game_status;
 };
 
 #endif
