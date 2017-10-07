@@ -59,6 +59,15 @@ public:
 	*/
 	bool checkCollision(glm::vec3 worldXYZ, AABB &aabb2, glm::vec3 worldXYZ2);
 
+	/**
+	* @brief  Find the point of collision between two objects
+	* @param point, first object
+	* @param worldXYZ, objects in the world
+	* @param worldXYZ2, objects in the world 2
+	* @return true if collide, false otherwise
+	*/
+	glm::vec3 getCollisionPoint(AABB &aabb1, AABB &aabb2);
+
 private:
 	/// min coordinates of the object in the local coordinate system
 	glm::vec3 min; 
