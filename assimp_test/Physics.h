@@ -21,7 +21,13 @@ class Physics
 public:
 	Physics()
 	{
-		gravity = -9.8;
+		gravity = -9.8f;
+		/*the coefficient of restitution(e) is:
+			e = 1, perfectly elastic collision
+			e = 0, perfectly inelastic collision
+			0 < e < 1, real world inelastic collision
+		*/
+		restitutionCoefficient = 1;
 	}
 	~Physics();
 
@@ -43,5 +49,6 @@ private:
 	glm::mat3 jCalculator(GameObject *Obj);
 
 	float gravity;
+	float restitutionCoefficient;
 };
 

@@ -131,6 +131,32 @@ public:
 	{
 		return(BoundingBoxLengths);
 	}
+
+	/**
+	* @brief  Get function for Bounding box lengths
+	*
+	* @return glm::vec3 lengths of bounding box sides
+	*/
+	glm::vec3 GetAngularVel()
+	{
+		return(AngV);
+	}
+
+	/**
+	* @brief  Set function for Velocity
+	*/
+	void SetVel(glm::vec3 newVelocity)
+	{
+		Vel = newVelocity;
+	}
+
+	/**
+	* @brief  Set function for Angular Velocity
+	*/
+	void SetAngVel(glm::vec3 newAngVelocity)
+	{
+		AngV = newAngVelocity;
+	}
 	
 	void DrawBoundingBox();
 
