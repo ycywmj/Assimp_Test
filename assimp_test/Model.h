@@ -24,21 +24,46 @@
 
 using namespace std;
 
+/**
+* @class Model
+* @brief  Manages the models
+*
+* 
+*
+*
+* @author ChengYu Yang
+* @version 01
+* @date 01/09/2017
+*
+*
+*
+*/
 class Model
 {
 public:
     /*  Functions   */
-    // Constructor, expects a filepath to a 3D model.
+	/**
+	* @brief  Constructor, expects a filepath to a 3D model.
+	*/
     Model()
     {
     }
 
+	/**
+	* @brief   Loads the Model
+	* @param path - string, the pathname to load
+	* @return void
+	*/
 	void Load(string path)
 	{
 		this->loadModel(path);
 	}
     
-    // Draws the model, and thus all its meshes
+	/**
+	* @brief   Draws the model, and thus all its meshes
+	* @param shader - the shader class
+	* @return void
+	*/
     void Draw( Shader shader )
     {
         for ( GLuint i = 0; i < this->meshes.size( ); i++ )
@@ -49,12 +74,20 @@ public:
     
 private:
     /*  Model Data  */
+	/// vector of meshes of the model
     vector<Mesh> meshes;
+	/// file path of the model
     string directory;
-    vector<Texture> textures_loaded;	// Stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
+	/// Stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
+	vector<Texture> textures_loaded;
     
     /*  Functions   */
-
+	/**
+	* @brief   Load the texture from file
+	* @param path, file path of the texture
+	* @param directory, file directory
+	* @return void
+	*/
 	GLint TextureFromFile(const char *path, string directory)
 	{
 		//Generate texture ID and load texture data
@@ -83,6 +116,11 @@ private:
 		return textureID;
 	}
 
+	/**
+	* @brief   Load the model from file
+	* @param path, file path of the model
+	* @return void
+	*/
     void loadModel( string path )
     {
         // Read file via ASSIMP
@@ -102,6 +140,12 @@ private:
         this->processNode( scene->mRootNode, scene );
     }
     
+	/**
+	* @brief   Process of the mesh node 
+	* @param node, node
+	* @param scene, scene
+	* @return void
+	*/
     void processNode( aiNode* node, const aiScene* scene )
     {
         // Process each mesh located at the current node
@@ -118,6 +162,12 @@ private:
         }
     }
     
+	/**
+	* @brief   Process of the mesh
+	* @param mesh, mesh pointer
+	* @param scene, scene pointer
+	* @return the mesh after process
+	*/
     Mesh processMesh( aiMesh *mesh, const aiScene *scene )
     {
         // Data to fill
@@ -189,6 +239,13 @@ private:
         return Mesh( vertices, indices, textures );
     }
 
+	/**
+	* @brief   Load the texture materials
+	* @param mat, material
+	* @param type, type of material
+	* @param typeName, name of the type
+	* @return void
+	*/
     vector<Texture> loadMaterialTextures( aiMaterial *mat, aiTextureType type, string typeName )
     {
         vector<Texture> textures;

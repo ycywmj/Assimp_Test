@@ -8,3 +8,8 @@
 #assimp_test/lib/
 #Debug/
 #ipch/
+*.obj
+*.tlog
+*.log
+assimp_test/Debug/assimp_test.log
+assimp_test/Debug/assimp_test.log

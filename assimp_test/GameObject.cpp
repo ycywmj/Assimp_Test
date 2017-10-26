@@ -57,6 +57,14 @@ void GameObject::SetBoundingBox(float x, float y, float z)
 	model[7] = glm::vec3(0, y, z);
 	boundingBox.createAABB(model, 8);
 
+<<<<<<< HEAD
+=======
+	BoundingBoxLengths.x = x;
+	BoundingBoxLengths.y = y;
+	BoundingBoxLengths.z = z;
+	/*
+	glm::vec3 BoxSize;
+>>>>>>> c8190693b7f20a4a48cb5ab3465a04405fc5aa07
 	BoxSize.x = x;
 	BoxSize.y = y;
 	BoxSize.z = z;

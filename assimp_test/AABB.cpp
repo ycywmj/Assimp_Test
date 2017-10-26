@@ -82,5 +82,90 @@ bool AABB::checkCollision(glm::vec3 worldXYZ, AABB &aabb2, glm::vec3 worldXYZ2)
 		return false; // no collision
 	if (obj1.max.z<obj2.min.z || obj2.max.z<obj1.min.z)
 		return false; // no collision
+	/*glm::vec3 testvec;
+	testvec = getCollisionPoint(obj1, obj2);
+	std::cout << "collision occurred at point: X:" << testvec.x << " Y: "<< testvec.y 
+		<< "Z: " << testvec.z << endl; */
+	
 	return true; // collision 
+}
+
+glm::vec3 AABB::getCollisionPoint(AABB &obj1, AABB &obj2)
+{
+	glm::vec3 collisionPoint;
+
+	//if the objects collide on the X plane
+	if (obj1.min.x <= obj2.max.x && obj1.max.x >= obj2.min.x)
+	{
+		//case 1: if obj1 is completely within obj 2
+		if (obj1.min.x >= obj2.min.x && obj1.max.x <= obj2.max.x)
+		{
+			collisionPoint.x = obj1.max.x - 0.5 * (obj1.max.x - obj1.min.x);
+		}
+		//case 2: if obj2 is completely within obj 1
+		if (obj2.min.x >= obj1.min.x && obj2.max.x <= obj1.max.x)
+		{
+			collisionPoint.x = obj2.max.x - 0.5 * (obj2.max.x - obj2.min.x);
+		}
+		//case 3: if obj1 max is within obj2 but not obj1 min
+		if (obj1.max.x >= obj2.min.x && obj1.min.x < obj2.min.x)
+		{
+			collisionPoint.x = obj1.max.x - 0.5 * (obj1.max.x - obj2.min.x);
+		}
+		//case 4: if obj2 max is within obj1 but not obj2 min
+		if (obj2.max.x >= obj1.min.x && obj2.min.x < obj1.min.x)
+		{
+			collisionPoint.x = obj2.max.x - 0.5 * (obj2.max.x - obj1.min.x);
+		}
+	}
+	//if the objects collide on the Y plane
+	if (obj1.min.y <= obj2.max.y && obj1.max.y >= obj2.min.y)
+	{
+		//case 1: if obj1 is completely within obj 2
+		if (obj1.min.y >= obj2.min.y && obj1.max.y <= obj2.max.y)
+		{
+			collisionPoint.y = obj1.max.y - 0.5 * (obj1.max.y - obj1.min.y);
+		}
+		//case 2: if obj2 is completely within obj 1
+		if (obj2.min.y >= obj1.min.y && obj2.max.y <= obj1.max.y)
+		{
+			collisionPoint.y = obj2.max.y - 0.5 * (obj2.max.y - obj2.min.y);
+		}
+		//case 3: if obj1 max is within obj2 but not obj1 min
+		if (obj1.max.y >= obj2.min.y && obj1.min.y < obj2.min.y)
+		{
+			collisionPoint.y = obj1.max.y - 0.5 * (obj1.max.y - obj2.min.y);
+		}
+		//case 4: if obj2 max is within obj1 but not obj2 min
+		if (obj2.max.y >= obj1.min.y && obj2.min.y < obj1.min.y)
+		{
+			collisionPoint.y = obj2.max.y - 0.5 * (obj2.max.y - obj1.min.y);
+		}
+	}
+	//if the objects collide on the Z plane
+	if (obj1.min.z <= obj2.max.z && obj1.max.z >= obj2.min.z)
+	{
+		//case 1: if obj1 is completely within obj 2
+		if (obj1.min.z >= obj2.min.z && obj1.max.z <= obj2.max.z)
+		{
+			collisionPoint.z = obj1.max.z - 0.5 * (obj1.max.z - obj1.min.z);
+		}
+		//case 2: if obj2 is completely within obj 1
+		if (obj2.min.z >= obj1.min.z && obj2.max.z <= obj1.max.z)
+		{
+			collisionPoint.z = obj2.max.z - 0.5 * (obj2.max.z - obj2.min.z);
+		}
+		//case 3: if obj1 max is within obj2 but not obj1 min
+		if (obj1.max.z >= obj2.min.z && obj1.min.z < obj2.min.z)
+		{
+			collisionPoint.z = obj1.max.z - 0.5 * (obj1.max.z - obj2.min.z);
+		}
+		//case 4: if obj2 max is within obj1 but not obj2 min
+		if (obj2.max.z >= obj1.min.z && obj2.min.z < obj1.min.z)
+		{
+			collisionPoint.z = obj2.max.z - 0.5 * (obj2.max.z - obj1.min.z);
+		}
+	}
+
+	return collisionPoint;
 }

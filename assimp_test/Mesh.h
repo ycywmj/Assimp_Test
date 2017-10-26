@@ -17,31 +17,53 @@ using namespace std;
 
 struct Vertex
 {
-    // Position
+    /// Position
     glm::vec3 Position;
-    // Normal
+    /// Normal
     glm::vec3 Normal;
-    // TexCoords
+    /// TexCoords
     glm::vec2 TexCoords;
 };
 
 struct Texture
 {
+	/// id of the texture
     GLuint id;
+	/// texture type
     string type;
+	/// file path of texture
     aiString path;
 };
 
+/**
+* @class Mesh
+* @brief Process the meshes of the model
+*
+*
+*
+*
+* @author ChengYu Yang
+* @version 01
+* @date 01/09/2017
+*
+*
+*
+*/
 class Mesh
 {
 public:
     /*  Mesh Data  */
+	/// mesh vertices
     vector<Vertex> vertices;
+	/// mesh indices
     vector<GLuint> indices;
+	/// textures of the meshes
     vector<Texture> textures;
     
     /*  Functions  */
-    // Constructor
+	/**
+	* @brief  constructor
+	*/
     Mesh( vector<Vertex> vertices, vector<GLuint> indices, vector<Texture> textures )
     {
         this->vertices = vertices;
@@ -52,7 +74,10 @@ public:
         this->setupMesh( );
     }
     
-    // Render the mesh
+	/**
+	* @brief  Render the mesh
+	* @param shader, using the specific shader to render each mesh
+	*/
     void Draw( Shader shader )
     {
         // Bind appropriate textures
@@ -98,6 +123,10 @@ public:
 private:
     unsigned int VAO, VBO, EBO;
     
+	/**
+	* @brief  initialize meshes
+	* @return void
+	*/
     void setupMesh( )
     {
 
