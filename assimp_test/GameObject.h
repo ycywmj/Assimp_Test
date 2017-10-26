@@ -170,10 +170,10 @@ private:
 	glm::vec3 Sca;
 	/// Rotation
 	glm::vec4 Rot;
-<<<<<<< HEAD
+
 	glm::vec3 BoxSize;
 
-=======
+
 
 	///Mass of the object
 	float mass;
@@ -189,7 +189,7 @@ private:
 	glm::vec3 BoundingBoxLengths;
 	
 	/// Bounding Box vertices
->>>>>>> c8190693b7f20a4a48cb5ab3465a04405fc5aa07
+
 	glm::vec3 model[8];
 	/// Bounding Box
 	AABB boundingBox;

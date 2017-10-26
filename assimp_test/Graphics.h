@@ -266,27 +266,24 @@ private:
 	// 2D textureing shader
 	/// shader for 2d texturing
 	Shader *shader_2d;
-<<<<<<< HEAD
+
 	GLuint VBO, VAO, EBO;
-=======
-	
-	unsigned int VBO, VAO, EBO;
+
 
 	/// Stores the texture just loaded up
->>>>>>> c8190693b7f20a4a48cb5ab3465a04405fc5aa07
 	unsigned int *ourTexture;
 
 	/// 2D Texture asset
 	map < string, unsigned int* > Textures_2d;
 
-<<<<<<< HEAD
+
 	//DrawBounding box
 	DrawBox *BoxModel;
 
 	// wrap the callback func
-=======
+
 	/// wrap the callback func
->>>>>>> c8190693b7f20a4a48cb5ab3465a04405fc5aa07
+
 	static OpenGL *opengl_instance;
 	void SetInstance(){ opengl_instance = this; };
 	static void KeyCallbackWrap(GLFWwindow *window, int key, int scancode, int action, int mode){

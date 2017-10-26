@@ -82,10 +82,10 @@ bool AABB::checkCollision(glm::vec3 worldXYZ, AABB &aabb2, glm::vec3 worldXYZ2)
 		return false; // no collision
 	if (obj1.max.z<obj2.min.z || obj2.max.z<obj1.min.z)
 		return false; // no collision
-	/*glm::vec3 testvec;
+	glm::vec3 testvec;
 	testvec = getCollisionPoint(obj1, obj2);
 	std::cout << "collision occurred at point: X:" << testvec.x << " Y: "<< testvec.y 
-		<< "Z: " << testvec.z << endl; */
+		<< "Z: " << testvec.z << endl; 
 	
 	return true; // collision 
 }
