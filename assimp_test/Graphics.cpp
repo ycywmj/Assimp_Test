@@ -77,6 +77,11 @@ void OpenGL::CreateGameWindow(){
 		GameLoop();
 
 	}
+	// optional: de-allocate all resources once they've outlived their purpose:
+	// ------------------------------------------------------------------------
+	glDeleteVertexArrays(1, &VAO);
+	glDeleteBuffers(1, &VBO);
+	glDeleteBuffers(1, &EBO);
 
 	glfwTerminate();
 }
@@ -95,6 +100,7 @@ void OpenGL::GameLoop(){
 	glClearColor(42.0f/ 255.0f, 74.0f / 255.0f, 117.0f / 255.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+
 	shader->Use();
 
 	// camera lookat function
@@ -111,6 +117,7 @@ void OpenGL::GameLoop(){
 
 	// Swap the buffers
 	glfwSwapBuffers(window);
+	glfwPollEvents();
 }
 
 // Moves/alters the camera positions based on user input
@@ -216,12 +223,12 @@ void OpenGL::RenderModel(string fname,glm::vec3 Pos, glm::vec3 Sca, glm::vec4 Ro
 	model = glm::scale(model, glm::vec3(Sca.x, Sca.y, Sca.z));	
 	model = glm::rotate(model, glm::radians(Rot.w), glm::vec3(Rot.x, Rot.y, Rot.z));
 	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-	//ourModel.Draw(*shader);
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	Models[fname]->Draw(*shader);
 }
 
 void OpenGL::Load2DTexture(string fname){
+
 	for (map<string, unsigned int*>::iterator it = Textures_2d.begin(); it != Textures_2d.end(); ++it)
 	{
 		if (fname == it->first)
@@ -241,7 +248,7 @@ void OpenGL::Load2DTexture(string fname){
 		0, 1, 3, // first triangle
 		1, 2, 3  // second triangle
 	};
-	
+
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
 	glGenBuffers(1, &EBO);
@@ -307,16 +314,20 @@ void OpenGL::Render2DTexture(string fname){
 	shader_2d->Use();
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-}
-
-void OpenGL::LoadBox()
-{
+	glBindVertexArray(0);
+	glBindTexture(GL_TEXTURE_2D,0);
 
 }
 
-void OpenGL::DrawBox()
+void OpenGL::loadBox(glm::vec3 pos, glm::vec3 siz)
 {
+	BoxModel = new DrawBox();
+	BoxModel->LoadBox(pos, siz);
+}
 
+void OpenGL::drawBox()
+{
+	BoxModel->Draw();
 }
 
 Graphics* GraphicsFactory::Create(const char* type){

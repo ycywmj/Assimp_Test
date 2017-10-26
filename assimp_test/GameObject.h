@@ -36,11 +36,11 @@ private:
 	glm::vec3 Pos;
 	glm::vec3 Sca;
 	glm::vec4 Rot;
-	
+	glm::vec3 BoxSize;
+
 	glm::vec3 model[8];
 	AABB boundingBox;
 
-	DrawBox BoxModel;
 };
 
 #endif

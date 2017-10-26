@@ -20,6 +20,7 @@
 #include "Shader.h"
 //#include "Camera.h"
 #include "Model.h"
+#include "DrawBox.h"
 // OpenGL end
 
 // General libraries
@@ -43,6 +44,8 @@ public:
 	virtual void RenderModel(string fname,glm::vec3 Pos, glm::vec3 Sca, glm::vec4 Rot) = 0;
 	virtual void Load2DTexture(string fname) = 0;
 	virtual void Render2DTexture(string fname) = 0;
+	virtual void loadBox(glm::vec3 pos,glm::vec3 siz)=0;
+	virtual void drawBox()=0;
 
 	int GetScreenWidth(){ return screen_width; };
 	int GetScreenHeight(){ return screen_height; };
@@ -81,8 +84,8 @@ public:
 	void Load2DTexture(string fname);
 	void Render2DTexture(string fname);
 
-	void LoadBox();
-	void DrawBox();
+	void loadBox(glm::vec3 pos, glm::vec3 siz);
+	void drawBox();
 	
 private:
 	void GameLoop();
@@ -121,9 +124,12 @@ private:
 
 	// 2D textureing shader
 	Shader *shader_2d;
-	unsigned int VBO, VAO, EBO;
+	GLuint VBO, VAO, EBO;
 	unsigned int *ourTexture;
 	map < string, unsigned int* > Textures_2d;
+
+	//DrawBounding box
+	DrawBox *BoxModel;
 
 	// wrap the callback func
 	static OpenGL *opengl_instance;

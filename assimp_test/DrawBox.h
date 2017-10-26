@@ -24,12 +24,12 @@ public:
 	// Constructor
 	DrawBox()
 	{
-
+		
 	}
 
 	void LoadBox(glm::vec3 Pos, glm::vec3 Siz)
 	{
-		shader = new Shader("res/shaders/Box.vs", "res/shaders/Box.frag");
+		shader3 = new Shader("res/shaders/Box.vs", "res/shaders/Box.frag");
 
 		glm::vec3 Si;
 		Si.x = Siz.x / 2;
@@ -53,10 +53,9 @@ public:
 		};
 
 		float vertices2[] = {
-			5.0f, 5.0f, 0.0f,  // top right
-			5.0f, -5.0f, 0.0f,  // bottom right
-			-5.0f, -5.0f, 0.0f,  // bottom left
-			-5.0f, 5.0f, 0.0f   // top left 
+			-0.5f, -0.5f, 0.0f, // Left
+			0.5f, -0.5f, 0.0f, // Right
+			0.0f, 0.5f, 0.0f  // Top
 		};
 		unsigned int indices2[] = {  // note that we start from 0!
 			0, 1, 3,  // first Triangle
@@ -71,58 +70,92 @@ public:
 			camera_instance->GetUp());
 		shader->Use();*/
 
-		this->setupMesh(vertices2, indices2);
+		setupMesh(vertices2, indices2);
 	}
 
 	// Render the mesh
 	void Draw()
 	{
+
 		//glUniformMatrix4fv(glGetUniformLocation(shader->Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 		//glUniformMatrix4fv(glGetUniformLocation(shader->Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
-		// Draw mesh
-		//glUseProgram(shader->Program);
-		glBindVertexArray(this->VAO);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		//Draw mesh
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glUseProgram(shader3->Program);
+		//shader->Use();
+		glBindVertexArray(vao);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 		glBindVertexArray(0);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-		cout << "aaaaaaa" << endl;
+
+		//cout << "aaaaaaa" << endl;
 
 	}
 
 private:
-	unsigned int VAO, VBO, EBO;
-	Shader *shader;
-	glm::mat4 projection;
-	Camera* camera_instance = Singleton<Camera>::Instance();
-	glm::mat4 view;
+	unsigned int vao, vbo;
+	Shader *shader3;
+	//glm::mat4 projection;
+	//Camera* camera_instance = Singleton<Camera>::Instance();
+	//glm::mat4 view;
 	//float vertices[24];
 	//unsigned int indices[8];
 
-	void setupMesh(float vertices[], unsigned int indices[])
+	void setupMesh(float vertices2[], unsigned int indices[])
 	{
-		glGenVertexArrays(1, &VAO);
-		glGenBuffers(1, &VBO);
-		glGenBuffers(1, &EBO);
-		// bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
-		glBindVertexArray(VAO);
+		static const GLfloat vertices[] = {
+			-1.0f, -1.0f, -1.0f, // triangle 1 : begin
+			-1.0f, -1.0f, 1.0f,
+			-1.0f, 1.0f, 1.0f, // triangle 1 : end
+			1.0f, 1.0f, -1.0f, // triangle 2 : begin
+			-1.0f, -1.0f, -1.0f,
+			-1.0f, 1.0f, -1.0f, // triangle 2 : end
+			1.0f, -1.0f, 1.0f,
+			-1.0f, -1.0f, -1.0f,
+			1.0f, -1.0f, -1.0f,
+			1.0f, 1.0f, -1.0f,
+			1.0f, -1.0f, -1.0f,
+			-1.0f, -1.0f, -1.0f,
+			-1.0f, -1.0f, -1.0f,
+			-1.0f, 1.0f, 1.0f,
+			-1.0f, 1.0f, -1.0f,
+			1.0f, -1.0f, 1.0f,
+			-1.0f, -1.0f, 1.0f,
+			-1.0f, -1.0f, -1.0f,
+			-1.0f, 1.0f, 1.0f,
+			-1.0f, -1.0f, 1.0f,
+			1.0f, -1.0f, 1.0f,
+			1.0f, 1.0f, 1.0f,
+			1.0f, -1.0f, -1.0f,
+			1.0f, 1.0f, -1.0f,
+			1.0f, -1.0f, -1.0f,
+			1.0f, 1.0f, 1.0f,
+			1.0f, -1.0f, 1.0f,
+			1.0f, 1.0f, 1.0f,
+			1.0f, 1.0f, -1.0f,
+			-1.0f, 1.0f, -1.0f,
+			1.0f, 1.0f, 1.0f,
+			-1.0f, 1.0f, -1.0f,
+			-1.0f, 1.0f, 1.0f,
+			1.0f, 1.0f, 1.0f,
+			-1.0f, 1.0f, 1.0f,
+			1.0f, -1.0f, 1.0f
+		};
 
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+		glGenVertexArrays(1, &vao);
+		glGenBuffers(1, &vbo);
+		// Bind the Vertex Array Object first, then bind and set vertex buffer(s) and attribute pointer(s).
+		glBindVertexArray(vao);
+
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid *)0);
 		glEnableVertexAttribArray(0);
 
-		// note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered VBO as the currently bound vertex buffer object so afterwards we can safely unbind
 
-		// remember: do NOT unbind the EBO while a VAO is active as the bound element buffer object IS stored in the VAO; keep the EBO bound.
-		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-		// You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
-		// VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
 		glBindVertexArray(0);
-	}
+	};
 };

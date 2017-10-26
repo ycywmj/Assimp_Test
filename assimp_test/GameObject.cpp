@@ -13,6 +13,7 @@ void GameObject::Load(Graphics *graphics_handler,string fname)
 {
 	pathName = fname;
 	graphics_handler->LoadModel(fname);
+	
 }
 
 void GameObject::Render(Graphics *graphics_handler)
@@ -56,17 +57,14 @@ void GameObject::SetBoundingBox(float x, float y, float z)
 	model[7] = glm::vec3(0, y, z);
 	boundingBox.createAABB(model, 8);
 
-	/*
-	glm::vec3 BoxSize;
 	BoxSize.x = x;
 	BoxSize.y = y;
 	BoxSize.z = z;
-	BoxModel.LoadBox(Pos, BoxSize);*/
 }
 
 void GameObject::DrawBoundingBox()
 {
-	BoxModel.Draw();
+	//BoxModel.Draw();
 }
 
 bool GameObject::processCollision(GameObject &obj)

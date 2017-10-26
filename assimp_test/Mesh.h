@@ -85,20 +85,22 @@ public:
         glBindVertexArray( this->VAO );
         glDrawElements( GL_TRIANGLES, this->indices.size( ), GL_UNSIGNED_INT, 0 );
         glBindVertexArray( 0 );
-        
+
         // Always good practice to set everything back to defaults once configured.
         for ( GLuint i = 0; i < this->textures.size( ); i++ )
         {
             glActiveTexture( GL_TEXTURE0 + i );
             glBindTexture( GL_TEXTURE_2D, 0 );
-        }
+		}
+
     }
     
 private:
-    GLuint VAO, VBO, EBO;
+    unsigned int VAO, VBO, EBO;
     
     void setupMesh( )
     {
+
         glGenVertexArrays( 1, &this->VAO );
         glGenBuffers( 1, &this->VBO );
         glGenBuffers( 1, &this->EBO );
@@ -123,5 +125,6 @@ private:
         glVertexAttribPointer( 2, 2, GL_FLOAT, GL_FALSE, sizeof( Vertex ), ( GLvoid * )offsetof( Vertex, TexCoords ) );
         
         glBindVertexArray( 0 );
+
     }
 };

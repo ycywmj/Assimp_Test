@@ -33,6 +33,9 @@ void World::InitializeGame(){
 	CurrentX = 0;
 	CurrentZ = 0;
 
+	glm::vec3 Pos;
+	glm::vec3 BoxSize;
+	graphics_handler->loadBox(Pos,BoxSize);
 	//texture2d.SetTextureCount(1);
 	//texture2d.LoadRawTexture2D( "", 860, 640, CREDIT_TEXTURE);
 }
@@ -51,6 +54,18 @@ void World::RunGame(const char* api){
 }
 
 void World::UpdateGame(){
+
+
+	//Render Models
+	DrawBench1();
+	DrawBench2();
+	DrawChair1();
+	DrawChair2();
+	DrawTable1();
+	DrawScene();
+	graphics_handler->drawBox();
+
+
 	if (*game_status != GAME_PLAYING){
 		if (*game_status == GAME_DONE){
 			GameDestruction();
@@ -72,14 +87,11 @@ void World::UpdateGame(){
 
 	}
 
-	//Render Models
-	DrawBench1();
-	DrawBench2();
-	DrawChair1();
-	DrawChair2();
-	DrawTable1();
-	DrawScene();
+	
+	//graphics_handler->Render2DTexture("res/2d_imgs/Credit.jpg");
+	
 
+	
 
 	//cout << "Camera position:" << "X:" << camera->GetPosition().x << " Y:" << camera->GetPosition().y << " Z:" << camera->GetPosition().z << endl << endl;
 
