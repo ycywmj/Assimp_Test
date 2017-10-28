@@ -11,6 +11,7 @@
 #include "DrawBox.h"
 
 
+
 /**
 * @class GameObject
 * @brief GameObject does stuff
@@ -90,7 +91,7 @@ public:
 	* @param obj, target object
 	* @return bool, true if collide, false otherwise
 	*/
-	bool processCollision(GameObject &obj);
+	bool processCollision(GameObject &obj, glm::vec3 *collisionPoint);
 
 	/**
 	* @brief  Get function for center of mass

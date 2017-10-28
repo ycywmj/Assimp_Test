@@ -5,6 +5,8 @@
 #include "GameObject.h"
 #include "Camera.h"
 #include "Singleton.h"
+#include "Physics.h"
+
 
 
 //---------------------------------------------------------------------------------
@@ -213,6 +215,9 @@ private:
 
 	/// Whole bar scene
 	GameObject Scene;
+
+	/// Stores the objects to test collisions
+	vector<GameObject> WorldObjects;
 
 	/// Stores all the walls need to detect collusion
 	map<int, GameObject> BoundingWalls;
