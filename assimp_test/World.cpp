@@ -208,7 +208,7 @@ void World::InitialBench1()
 	Bench1->Scale(scale, scale, scale);
 	Bench1->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
 	Bench1->SetBoundingBox(2.0f, 4.0f, 3.0f);
-	 vel = {0,0,0};
+	 vel = {0.5,0,0};
 	Bench1->SetVel(vel);
 	Bench1s[2] = *Bench1;
 	WorldObjects.push_back(*Bench1);
@@ -505,7 +505,7 @@ void World::CheckBoundingBox()
 
 	for (int i = 0; i < WorldObjects.size(); i++)
 	{
-		for (int j=0; j < WorldObjects.size(); j++)
+		for (int j=i; j < WorldObjects.size(); j++)
 		{
 			if (i != j)
 			{

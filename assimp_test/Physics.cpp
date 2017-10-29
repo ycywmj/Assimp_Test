@@ -25,7 +25,8 @@ void Physics::ObjectCollision(GameObject *obj1, GameObject *obj2, glm::vec3 colP
 	r2 = colPoint - obj2->GetCOM();
 
 	//Calculate the normal vector
-	normal = glm::cross(r1, r2);
+	//normal = glm::cross(r1, r2);
+	normal = { 1.0f, 0.0f, 0.0f };
 
 	//Normalise the normal vector
 	unitNormal = glm::normalize(normal);
@@ -63,16 +64,18 @@ void Physics::ObjectCollision(GameObject *obj1, GameObject *obj2, glm::vec3 colP
 	angVr2unitN = glm::dot(angV2, r2unitN);
 
 	// 1/m1 + 1/m2 
-	massPlus = (1 / (obj1->GetMass())) + (1 / (obj2->GetMass()));
+	massPlus = (1.0f / (obj1->GetMass())) + (1.0f / (obj2->GetMass()));
 
 	//r1unitN * by inertia matrix 1 * r1unitN
 	convertedJ1 = r1unitN * J1 * r1unitN;
 
 	//r2unitN * by inertia matrix 2 * r2unitN
 	convertedJ2 = r2unitN * J2 * r2unitN;
-
-	impulse = (-(1 + restitutionCoefficient) * (nV1V2 + angVr1unitN - angVr2unitN) )/
-					(massPlus + convertedJ1 + convertedJ2);
+	float impulse1;
+	glm::vec3 impulse2;
+	impulse1 = (-(1 + restitutionCoefficient) * (nV1V2 + angVr1unitN - angVr2unitN));
+	impulse2 = (massPlus + convertedJ1 + convertedJ2);
+	impulse = impulse1 / impulse2;
 	//-------------------------------------------------------------------------------------
 
 	//directional Impulse: just impulse * unitNormal
@@ -87,9 +90,9 @@ void Physics::ObjectCollision(GameObject *obj1, GameObject *obj2, glm::vec3 colP
 	
 
 	//new velocity of object2
-	vec3Temp = obj2->GetVel() + directionalImpulse / (obj2->GetMass());
+	vec3Temp = obj2->GetVel() - directionalImpulse / (obj2->GetMass());
 	obj2->SetVel(vec3Temp);
-	cout << "vec x: " << vec3Temp.x << endl;
+	//cout << "vec x: " << vec3Temp.x << endl;
 	//new Angular momentum of object1
 	vec3Temp = obj1->GetAngularVel() + impulse * J1 * r1unitN;
 	obj1->SetAngVel(vec3Temp);
@@ -104,6 +107,7 @@ glm::mat3 Physics::jCalculator(GameObject *Obj)
 	float xLength, yLength, zLength;
 	float Ixx, Iyy, Izz;
 	glm::mat3 jValue;
+	float value = 1.0f / 12.0f;
 
 	//get the lengths of the sides of the bounding box
 	xLength = Obj->GetBBLengths().x;
@@ -111,9 +115,9 @@ glm::mat3 Physics::jCalculator(GameObject *Obj)
 	zLength = Obj->GetBBLengths().z;
 	
 	//calculate the initia values for x, y, z
-	Ixx = (1 / 12) * (Obj->GetMass()) * (yLength*yLength + zLength*zLength);
-	Iyy = (1 / 12) * (Obj->GetMass()) * (xLength*xLength + zLength*zLength);
-	Izz = (1 / 12) * (Obj->GetMass()) * (xLength*xLength + yLength*yLength);
+	Ixx = (value)* (Obj->GetMass()) * (yLength*yLength + zLength*zLength);
+	Iyy = (value)* (Obj->GetMass()) * (xLength*xLength + zLength*zLength);
+	Izz = (value)* (Obj->GetMass()) * (xLength*xLength + yLength*yLength);
 
 	jValue = { Ixx, 0, 0,
 				0, Iyy, 0,

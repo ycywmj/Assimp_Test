@@ -1,23 +1,9 @@
-﻿Build started 29/10/2017 3:08:29 PM.
+﻿Build started 29/10/2017 4:29:30 PM.
      1>Project "C:\Users\33014212\Desktop\Dev\assimp_test\assimp_test.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Iinclude /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Physics.cpp
-         Physics.cpp
-     1>c:\users\33014212\desktop\dev\assimp_test\physics.cpp(5): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>c:\users\33014212\desktop\dev\assimp_test\physics.cpp(140): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\33014212\desktop\dev\assimp_test\physics.cpp(141): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\33014212\desktop\dev\assimp_test\physics.cpp(142): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\33014212\desktop\dev\assimp_test\physics.cpp(148): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\33014212\Desktop\Dev\Debug\assimp_test.exe" /INCREMENTAL /NOLOGO /LIBPATH:lib assimp.lib glew32s.lib glfw3.lib glfw3dll.lib freeglut.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\33014212\Desktop\Dev\Debug\assimp_test.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\33014212\Desktop\Dev\Debug\assimp_test.lib" /MACHINE:X86 Debug\AABB.obj
-         Debug\GameObject.obj
-         Debug\main.obj
-         Debug\Graphics.obj
-         Debug\Physics.obj
-         Debug\World.obj
+     1>Link:
          assimp_test.vcxproj -> C:\Users\33014212\Desktop\Dev\Debug\assimp_test.exe
      1>Done Building Project "C:\Users\33014212\Desktop\Dev\assimp_test\assimp_test.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.07
+Time Elapsed 00:00:00.04
