@@ -25,6 +25,7 @@ void World::InitializeGame(){
 	//Initial wall collision detection
 	//SetBoundingWall();
 	
+	camera->SetPostion(2.0f, 1.25f, 3.0f);
 	cameraPlayer.Postition(camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
 	cameraPlayer.SetBoundingBox(0.1f, 0.1f, 0.1f);
 	
@@ -197,7 +198,7 @@ void World::InitialBench1()
 	Bench1->Scale(scale, scale, scale);
 	Bench1->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
 	Bench1->SetBoundingBox(2.0f, 4.0f, 3.0f);
-	glm::vec3 vel = { -1, 0, 0 };
+	glm::vec3 vel = { -0.3, 0, 0 };
 	Bench1->SetVel(vel);
 	Bench1s[1] = *Bench1;
 	WorldObjects.push_back(*Bench1);
@@ -206,7 +207,7 @@ void World::InitialBench1()
 	Bench1->Load(graphics_handler, fileName);
 	Bench1->Postition(0.0f, height, -3.0f);
 	Bench1->Scale(scale, scale, scale);
-	Bench1->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	Bench1->Rotate(0.0f, .5f, 0.0f, 0.0f);
 	Bench1->SetBoundingBox(2.0f, 4.0f, 3.0f);
 	 vel = {0.5,0,0};
 	Bench1->SetVel(vel);

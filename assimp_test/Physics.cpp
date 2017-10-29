@@ -26,7 +26,8 @@ void Physics::ObjectCollision(GameObject *obj1, GameObject *obj2, glm::vec3 colP
 
 	//Calculate the normal vector
 	//normal = glm::cross(r1, r2);
-	normal = { 1.0f, 0.0f, 0.0f };
+	//normal = { 1.0f, 0.0f, 0.0f };
+	normal = (obj1->GetPosition()) - (obj2->GetPosition());
 
 	//Normalise the normal vector
 	unitNormal = glm::normalize(normal);
@@ -98,7 +99,7 @@ void Physics::ObjectCollision(GameObject *obj1, GameObject *obj2, glm::vec3 colP
 	obj1->SetAngVel(vec3Temp);
 
 	//new Angular momentum of object2
-	vec3Temp = obj2->GetAngularVel() + impulse * J2 * r2unitN;
+	vec3Temp = obj2->GetAngularVel() - impulse * J2 * r2unitN;
 	obj2->SetAngVel(vec3Temp);
 }
 
