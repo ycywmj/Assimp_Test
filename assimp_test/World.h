@@ -76,6 +76,14 @@ public:
 	void UpdateGame();
 
 	/**
+	* @brief  Updates the objects positions and rotations based upon the objects
+	*			velocity and angular velocity.
+	*
+	* @return void
+	*/
+	void UpdateObjects();
+
+	/**
 	* @brief  Willl be responsible for destruction of game
 	* 
 	* @return void
@@ -187,6 +195,8 @@ public:
 	* @return void
 	*/
 	void CheckBoundingBox();
+
+	void DrawWorldObjects();
 
 private:
 	/// Generates a specific graphics api handler object

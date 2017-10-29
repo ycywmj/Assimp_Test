@@ -9,6 +9,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "DrawBox.h"
+#include "Physics.h"
 
 
 
@@ -93,6 +94,8 @@ public:
 	*/
 	bool processCollision(GameObject &obj, glm::vec3 *collisionPoint);
 
+	void UpdateObject(double deltaTime);
+
 	/**
 	* @brief  Get function for center of mass
 	* 
@@ -100,7 +103,7 @@ public:
 	*/
 	glm::vec3 GetCOM()
 	{
-		return(COM);
+		return(Pos);
 	}
 
 	/**
@@ -158,7 +161,31 @@ public:
 	{
 		AngV = newAngVelocity;
 	}
-	
+
+	/*
+	* @brief  Set function for Scene body
+	*/
+	void SetSceneObject(bool sceneobj)
+	{
+		sceneBody = sceneobj;
+	}
+
+	/*
+	* @brief  get function for Scene body
+	*/
+	bool GetSceneObject()
+	{
+		return sceneBody;
+	}
+
+	/*
+	* @brief  get function for Position
+	*/
+	glm::vec3 GetPosition()
+	{
+		return Pos;
+	}
+
 	void DrawBoundingBox();
 
 private:
@@ -188,6 +215,8 @@ private:
 	glm::vec3 AngV;
 	///Object Lengths
 	glm::vec3 BoundingBoxLengths;
+	///moveable body or not
+	bool sceneBody;
 	
 	/// Bounding Box vertices
 

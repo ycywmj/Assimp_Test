@@ -1,5 +1,8 @@
 #pragma once
-#include "GameObject.h"
+
+#include "glm/glm.hpp"
+
+class GameObject;
 
 /**
 * @class Physics
@@ -20,13 +23,6 @@ class Physics
 public:
 	Physics()
 	{
-		gravity = -9.8f;
-		/*the coefficient of restitution(e) is:
-			e = 1, perfectly elastic collision
-			e = 0, perfectly inelastic collision
-			0 < e < 1, real world inelastic collision
-		*/
-		restitutionCoefficient = 1;
 	}
 	~Physics();
 
@@ -37,17 +33,29 @@ public:
 	* @param glm::vec3, the point of collision
 	* @param fragmentPath, fragment file path
 	*/
-	void ObjectCollision(GameObject *obj1, GameObject *obj2, glm::vec3 colPoint);
+	static void ObjectCollision(GameObject *obj1, GameObject *obj2, glm::vec3 colPoint);
 	
-private:
 	/**
 	* @brief Calculates the Inertia tensor for an object
 	* @param GameObject *Obj, the object
 	* @return glm::mat3, a 3x3 matrix, the inertia tensor
 	*/
-	glm::mat3 jCalculator(GameObject *Obj);
+	static glm::mat3 jCalculator(GameObject *Obj);
 
-	float gravity;
-	float restitutionCoefficient;
+	/**
+	* @brief Calculates the Euler vec4 based on the angular velocity vec3
+	* @param glm::vec3, the angular velocity
+	* @return glm::vec4 Euler
+	*/
+	static glm::vec4 AngularRotationToEuler(glm::vec3 AngV);
+
+	const static float gravity;
+	/*the coefficient of restitution(e) is:
+	e = 1, perfectly elastic collision
+	e = 0, perfectly inelastic collision
+	0 < e < 1, real world inelastic collision
+	*/
+	const static float restitutionCoefficient;
+	
 };
 

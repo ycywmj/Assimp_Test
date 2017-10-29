@@ -1,4 +1,14 @@
 #include "Physics.h"
+#include "GameObject.h"
+
+
+const float Physics::gravity = -9.8;
+/*the coefficient of restitution(e) is:
+e = 1, perfectly elastic collision
+e = 0, perfectly inelastic collision
+0 < e < 1, real world inelastic collision
+*/
+const float Physics::restitutionCoefficient = 1;
 
 Physics::~Physics()
 {
@@ -74,11 +84,12 @@ void Physics::ObjectCollision(GameObject *obj1, GameObject *obj2, glm::vec3 colP
 	//new velocity of object1
 	vec3Temp = obj1->GetVel() + directionalImpulse / (obj1->GetMass());
 	obj1->SetVel(vec3Temp);
+	
 
 	//new velocity of object2
 	vec3Temp = obj2->GetVel() + directionalImpulse / (obj2->GetMass());
 	obj2->SetVel(vec3Temp);
-
+	cout << "vec x: " << vec3Temp.x << endl;
 	//new Angular momentum of object1
 	vec3Temp = obj1->GetAngularVel() + impulse * J1 * r1unitN;
 	obj1->SetAngVel(vec3Temp);
@@ -109,4 +120,32 @@ glm::mat3 Physics::jCalculator(GameObject *Obj)
 				0, 0, Izz };
 	
 	return jValue;
+}
+
+glm::vec4 Physics::AngularRotationToEuler(glm::vec3 AngV)
+{
+	glm::vec4 euler;
+	glm::vec3 temp;
+	double c1 = glm::cos(AngV.x / 2);
+	double s1 = glm::sin(AngV.x / 2);
+	double c2 = glm::cos(AngV.y / 2);
+	double s2 = glm::sin(AngV.y / 2);
+	double c3 = glm::cos(AngV.z / 2);
+	double s3 = glm::sin(AngV.z / 2);
+
+	double c1c2 = c1*c2;
+	double s1s2 = s1*s2;
+
+	double w = c1c2*c3 - s1s2*s3;
+	temp.x = c1c2 * s3 + s1s2*c3;
+	temp.y = s1 * s2 * s3 - c1 * s2 * s3;
+	temp.z = c1*s2*c3 - s1*c2*s3;
+	glm::normalize(temp);
+	euler.x = temp.x;
+	euler.y = temp.y;
+	euler.z = temp.z;
+
+	euler.w = 2 * glm::acos(w);
+		
+	return euler;
 }
