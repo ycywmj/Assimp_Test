@@ -1,9 +1,35 @@
-#include <iostream>
-
 #include "World.h"
 
+#include <iostream>
 
-World::~World(){
+void World::GameDestruction(){
+	if (game_status){
+		delete game_status;
+		game_status = NULL;
+	}
+
+	if (camera){
+		delete camera;
+		camera = NULL;
+	}
+
+	// bullet physics
+	if (!bt_collision_configuration){
+		delete bt_collision_configuration;
+	};
+	if (!bt_dispatcher){
+		delete bt_dispatcher;
+	};
+	if (!bt_broadphase){
+		delete bt_broadphase;
+	};
+	if (!bt_collision_world){
+		delete bt_collision_world;
+	};
+
+	// after all destruction, close the window and delete graphics handler
+	graphics_handler->RequestCloseWindow();
+
 	if (graphics_handler){
 		delete graphics_handler;
 		graphics_handler = NULL;
@@ -14,11 +40,11 @@ void World::InitializeGame(){
 
 	//Initial Models
 	InitialBench1();
-	//InitialBench2();
-	//InitialChair1();
-	//InitialChair2();
-	//InitialTable1();
-	//InitialScene();
+	/*InitialBench2();
+	InitialChair1();
+	InitialChair2();
+	InitialTable1();
+	InitialScene();*/
 
 	Initial2DTexture();
 
@@ -28,7 +54,9 @@ void World::InitializeGame(){
 	camera->SetPostion(2.0f, 1.25f, 3.0f);
 	cameraPlayer.Postition(camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
 	cameraPlayer.SetBoundingBox(0.1f, 0.1f, 0.1f);
-	
+	btCollisionObject* new_col_obj = cameraPlayer.SetBulletBoundingBox(0.05f, 0.05f, 0.05f);
+	if (new_col_obj)
+		bt_collision_world->addCollisionObject(new_col_obj);
 
 	CurrentX = 0;
 	CurrentZ = 0;
@@ -54,24 +82,6 @@ void World::RunGame(const char* api){
 }
 
 void World::UpdateGame(){
-
-	
-	cameraPlayer.Postition(camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
-
-	CheckBoundingBox();
-	//update positions
-	UpdateObjects();
-	//Render Models
-	DrawWorldObjects();
-	//DrawBench1();
-	//DrawBench2();
-	//DrawChair1();
-	//DrawChair2();
-	//DrawTable1();
-	//DrawScene();
-	graphics_handler->drawBox();
-
-
 	if (*game_status != GAME_PLAYING){
 		if (*game_status == GAME_DONE){
 			GameDestruction();
@@ -92,6 +102,25 @@ void World::UpdateGame(){
 		}
 
 	}
+	
+	cameraPlayer.Postition(camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
+
+	//CheckBoundingBox();
+	
+	//update positions
+	UpdateObjects();
+	//Render Models
+	DrawWorldObjects();
+	//DrawBench1();
+	//DrawBench2();
+	//DrawChair1();
+	//DrawChair2();
+	//DrawTable1();
+	//DrawScene();
+	graphics_handler->drawBox();
+
+	CheckBulletCollision();
+	
 
 	
 	//graphics_handler->Render2DTexture("res/2d_imgs/Credit.jpg");
@@ -194,22 +223,28 @@ void World::InitialBench1()
 
 	Bench1 = new GameObject();
 	Bench1->Load(graphics_handler, fileName);
+	btCollisionObject* new_col_obj = Bench1->SetBulletBoundingBox(1.0f, 2.0f, 1.5f);
 	Bench1->Postition(4.0f, height, -3.0f);
 	Bench1->Scale(scale, scale, scale);
 	Bench1->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
 	Bench1->SetBoundingBox(2.0f, 4.0f, 3.0f);
-	glm::vec3 vel = { -0.3, 0, 0 };
+	if (new_col_obj)
+		bt_collision_world->addCollisionObject(new_col_obj);
+	glm::vec3 vel = { -.1f, .0f, .0f };
 	Bench1->SetVel(vel);
 	Bench1s[1] = *Bench1;
 	WorldObjects.push_back(*Bench1);
 
 	Bench1 = new GameObject();
 	Bench1->Load(graphics_handler, fileName);
+	new_col_obj = Bench1->SetBulletBoundingBox(1.0f, 2.0f, 1.5f);
 	Bench1->Postition(0.0f, height, -3.0f);
 	Bench1->Scale(scale, scale, scale);
 	Bench1->Rotate(0.0f, .5f, 0.0f, 0.0f);
 	Bench1->SetBoundingBox(2.0f, 4.0f, 3.0f);
-	 vel = {0.5,0,0};
+	if (new_col_obj)
+		bt_collision_world->addCollisionObject(new_col_obj);
+	vel = { .1f, .0f, .0f };
 	Bench1->SetVel(vel);
 	Bench1s[2] = *Bench1;
 	WorldObjects.push_back(*Bench1);
@@ -525,6 +560,34 @@ void World::CheckBoundingBox()
 }
 
 void World::CheckBulletCollision(){
+	//Perform collision detection
+	bt_collision_world->performDiscreteCollisionDetection();
 
+	int numManifolds = bt_collision_world->getDispatcher()->getNumManifolds();
+	//std::cout << "numManifolds: " << numManifolds << std::endl;
+
+	//For each contact manifold
+	for (int i = 0; i < numManifolds; i++) {
+		btPersistentManifold* contactManifold = bt_collision_world->getDispatcher()->getManifoldByIndexInternal(i);
+		const btCollisionObject* obA = contactManifold->getBody0();
+		const btCollisionObject* obB = contactManifold->getBody1();
+		//contactManifold->refreshContactPoints(obA->getWorldTransform(), obB->getWorldTransform());
+		int numContacts = contactManifold->getNumContacts();
+		//For each contact point in that manifold
+		for (int j = 0; j < numContacts; j++) {
+			//Get the contact information
+			btManifoldPoint& pt = contactManifold->getContactPoint(j);
+			btVector3 ptA = pt.getPositionWorldOnA();
+			btVector3 ptB = pt.getPositionWorldOnB();
+			double ptdist = pt.getDistance();
+
+			/*std::cout << "pt: " << pt.getAppliedImpulse() << std::endl;
+			std::cout << "ptA: " << ptA.getX() << ", " << ptA.getY() << ", " << ptA.getZ() << ", " << std::endl;
+			std::cout << "ptB: " << ptB.getX() << ", " << ptB.getY() << ", " << ptB.getZ() << ", " << std::endl;
+			std::cout << "ptdist: " << ptdist << std::endl;*/
+
+			camera->SetPostion(CurrentX, camera->GetPosition().y, CurrentZ);
+		}
+	}
 }
 

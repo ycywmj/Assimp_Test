@@ -199,7 +199,9 @@ void OpenGL::MouseButtonCallback(GLFWwindow *window, int button, int action, int
 	GameStatus* game_status = Singleton<GameStatus>::Instance();
 	if ((*game_status) == GAME_CREDIT_PAGE){
 		if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS){
-			glfwSetWindowShouldClose(window, GL_TRUE);
+			World* world_instance = Singleton<World>::Instance();
+			world_instance->GameDestruction();
+			exit(0);
 		}
 	}
 }

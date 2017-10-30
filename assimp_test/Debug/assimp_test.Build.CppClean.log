@@ -1,38 +1,20 @@
-<<<<<<< HEAD
-c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\vc120.pdb
-c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\vc120.idb
-c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\aabb.obj
-c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\gameobject.obj
-c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\main.obj
-c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\graphics.obj
-c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\texture2d.obj
-c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\world.obj
-c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\physics.obj
-c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\debug\assimp_test.ilk
-c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\debug\assimp_test.exe
-c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\debug\assimp_test.pdb
-c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\assimp_test.tlog\cl.command.1.tlog
-c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\assimp_test.tlog\cl.read.1.tlog
-c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\assimp_test.tlog\cl.write.1.tlog
-c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\assimp_test.tlog\link.command.1.tlog
-c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\assimp_test.tlog\link.read.1.tlog
-c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\assimp_test.tlog\link.write.1.tlog
-=======
-c:\users\33014212\desktop\dev\assimp_test\debug\vc120.pdb
-c:\users\33014212\desktop\dev\assimp_test\debug\vc120.idb
-c:\users\33014212\desktop\dev\assimp_test\debug\aabb.obj
-c:\users\33014212\desktop\dev\assimp_test\debug\gameobject.obj
-c:\users\33014212\desktop\dev\assimp_test\debug\main.obj
-c:\users\33014212\desktop\dev\assimp_test\debug\graphics.obj
-c:\users\33014212\desktop\dev\assimp_test\debug\physics.obj
-c:\users\33014212\desktop\dev\assimp_test\debug\world.obj
-c:\users\33014212\desktop\dev\debug\assimp_test.ilk
-c:\users\33014212\desktop\dev\debug\assimp_test.exe
-c:\users\33014212\desktop\dev\debug\assimp_test.pdb
-c:\users\33014212\desktop\dev\assimp_test\debug\assimp_test.tlog\cl.command.1.tlog
-c:\users\33014212\desktop\dev\assimp_test\debug\assimp_test.tlog\cl.read.1.tlog
-c:\users\33014212\desktop\dev\assimp_test\debug\assimp_test.tlog\cl.write.1.tlog
-c:\users\33014212\desktop\dev\assimp_test\debug\assimp_test.tlog\link.command.1.tlog
-c:\users\33014212\desktop\dev\assimp_test\debug\assimp_test.tlog\link.read.1.tlog
-c:\users\33014212\desktop\dev\assimp_test\debug\assimp_test.tlog\link.write.1.tlog
->>>>>>> 4341370f5826ff75a557dbe0de226ded6ba1751b
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\vc120.pdb
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\vc120.idb
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\aabb.obj
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\gameobject.obj
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\main.obj
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\graphics.obj
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\npcs.obj
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\npcstates.obj
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\physics.obj
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\player.obj
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\world.obj
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\debug\assimp_test.ilk
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\debug\assimp_test.exe
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\debug\assimp_test.pdb
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\assimp_test.tlog\cl.command.1.tlog
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\assimp_test.tlog\cl.read.1.tlog
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\assimp_test.tlog\cl.write.1.tlog
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\assimp_test.tlog\link.command.1.tlog
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\assimp_test.tlog\link.read.1.tlog
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\assimp_test.tlog\link.write.1.tlog

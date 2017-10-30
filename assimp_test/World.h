@@ -7,7 +7,7 @@
 #include "Singleton.h"
 #include "Physics.h"
 
-
+#include <btBulletDynamicsCommon.h>
 
 //---------------------------------------------------------------------------------
 
@@ -39,14 +39,22 @@ public:
 	* Initialises game_status singleton and sets game status to GAME_PLAYING
 	*/
 	World(){
+		WorldObjects.reserve(2);
+
 		game_status = Singleton<GameStatus>::Instance();
 		*game_status = GAME_PLAYING;
 		camera = Singleton<Camera>::Instance();
+
+		// bullet physics setup
+		bt_collision_configuration = new btDefaultCollisionConfiguration();
+		bt_dispatcher = new btCollisionDispatcher(bt_collision_configuration);
+		bt_broadphase = new btDbvtBroadphase();
+		bt_collision_world = new btCollisionWorld(bt_dispatcher, bt_broadphase, bt_collision_configuration);
 	};
 	/**
 	* @brief  Destructor
 	*/
-	~World();
+	~World(){};
 	/**
 	* @brief  Copy constructor
 	*/
@@ -88,7 +96,7 @@ public:
 	* 
 	* @return void
 	*/
-	void GameDestruction(){};
+	void GameDestruction();
 	
 	/**
 	* @brief  Loads the scene
@@ -198,6 +206,8 @@ public:
 
 	void CheckBulletCollision();
 
+	btCollisionWorld* GetCollisionWorld(){ return bt_collision_world; };
+
 	void DrawWorldObjects();
 
 private:
@@ -267,5 +277,9 @@ private:
 	/// Stores multiple tables
 	GameObject *Table1;
 
-
+	// bullet physics stuff
+	btCollisionConfiguration* bt_collision_configuration;
+	btCollisionDispatcher* bt_dispatcher;
+	btBroadphaseInterface* bt_broadphase;
+	btCollisionWorld* bt_collision_world;
 };

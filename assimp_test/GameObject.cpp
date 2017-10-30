@@ -4,6 +4,7 @@
 
 GameObject::GameObject()
 { 
+	bulletBox = new btCollisionObject();
 	Pos.x = 0; Pos.y = 0; Pos.z = 0;
 	Sca.x = 1; Sca.y = 1; Sca.z = 1;
 	Rot.x = 0; Rot.y = 1.0; Rot.z = 0; Rot.w = 0;
@@ -31,6 +32,8 @@ void GameObject::Postition(float x, float y, float z)
 	Pos.x = x;
 	Pos.y = y;
 	Pos.z = z;
+	if (bulletBox)
+		bulletBox->getWorldTransform().setOrigin(btVector3(x, y, z));
 }
 
 void GameObject::Scale(float x, float y, float z)
@@ -46,6 +49,11 @@ void GameObject::Rotate(float x, float y, float z,float degree)
 	Rot.y = y;
 	Rot.z = z;
 	Rot.w = degree;
+	if (bulletBox){
+		btQuaternion quat;
+		quat.setRotation(btVector3(x, y, z), glm::radians(degree));
+		bulletBox->getWorldTransform().setRotation(quat);
+	}
 }
 
 void GameObject::SetBoundingBox(float x, float y, float z)
@@ -74,6 +82,21 @@ void GameObject::SetBoundingBox(float x, float y, float z)
 	BoxSize.z = z;
 }
 
+btCollisionObject* GameObject::SetBulletBoundingBox(float size_x, float size_y, float size_z){
+
+
+	if (!bulletBox) {
+		std::cout << "bulletBox is Null" << std::endl;
+		return NULL;
+	}
+
+	bulletBox->getWorldTransform().setOrigin(btVector3(Pos.x, Pos.y, Pos.z));
+	btBoxShape* box_shape = new btBoxShape(btVector3(size_x, size_y, size_z));
+	bulletBox->setCollisionShape(box_shape);
+
+	return bulletBox;
+}
+
 void GameObject::DrawBoundingBox()
 {
 	//BoxModel.Draw();
@@ -91,9 +114,9 @@ bool GameObject::processCollision(GameObject &obj, glm::vec3 *collisionPoint)
 
 void GameObject::UpdateObject(double deltaTime)
 {
-	Pos.x += Vel.x * deltaTime;
-	Pos.y += Vel.y * deltaTime;
-	Pos.z += Vel.z * deltaTime;
+	Postition(Pos.x + Vel.x * deltaTime, 
+		Pos.y + Vel.y * deltaTime, 
+		Pos.z + Vel.z * deltaTime);
 
 	//cout << "position y:" << Pos.y << endl;
 
@@ -104,8 +127,5 @@ void GameObject::UpdateObject(double deltaTime)
 	angVdt.z = AngV.z * deltaTime;
 	newRot = Physics::AngularVelToRotQuat(angVdt);
 
-	Rot.x = newRot.x;
-	Rot.y = newRot.y;
-	Rot.z = newRot.z;
-	Rot.w += newRot.w;
+	Rotate(newRot.x, newRot.y, newRot.z, newRot.w);
 }

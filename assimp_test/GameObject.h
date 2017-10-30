@@ -11,7 +11,7 @@
 #include "DrawBox.h"
 #include "Physics.h"
 
-
+#include <btBulletDynamicsCommon.h>
 
 /**
 * @class GameObject
@@ -35,6 +35,16 @@ public:
 	* @brief  constructor
 	*/
 	GameObject();
+
+	/**
+	* @brief  destructor
+	*/
+	~GameObject(){
+		if (bulletBox){
+			delete bulletBox;
+			bulletBox = NULL;
+		}
+	}
 
 	/**
 	* @brief  Load the model file and bind as this game object
@@ -178,6 +188,8 @@ public:
 		return sceneBody;
 	}
 
+	btCollisionObject* SetBulletBoundingBox(float size_x, float size_y, float size_z);
+
 	/*
 	* @brief  get function for Position
 	*/
@@ -223,6 +235,9 @@ private:
 	glm::vec3 model[8];
 	/// Bounding Box
 	AABB boundingBox;
+
+	// bullet physics
+	btCollisionObject* bulletBox;
 
 };
 

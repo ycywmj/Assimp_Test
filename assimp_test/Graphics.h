@@ -108,6 +108,12 @@ public:
 	virtual void drawBox()=0;
 
 	/**
+	* @brief pure virtual function
+	* @return void
+	*/
+	virtual void RequestCloseWindow() = 0;
+
+	/**
 	* @brief  Getter function for screen width
 	* 
 	* @return int - screen_width
@@ -210,7 +216,13 @@ public:
 	*/
 	void Render2DTexture(string fname);
 
-	
+	/**
+	* @brief Request opengl to close the window
+	* @return void
+	*/
+	void RequestCloseWindow(){
+		glfwSetWindowShouldClose(window, GL_TRUE);
+	};
 
 	void loadBox(glm::vec3 pos, glm::vec3 siz);
 	void drawBox();
