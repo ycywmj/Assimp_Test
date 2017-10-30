@@ -47,7 +47,7 @@ public:
 	* @param glm::vec3, the angular velocity
 	* @return glm::vec4 Euler
 	*/
-	static glm::vec4 AngularRotationToEuler(glm::vec3 AngV);
+	static glm::vec4 AngularVelToRotQuat(glm::vec3 AngV);
 
 	const static float gravity;
 	/*the coefficient of restitution(e) is:

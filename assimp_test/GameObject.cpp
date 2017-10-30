@@ -102,10 +102,10 @@ void GameObject::UpdateObject(double deltaTime)
 	angVdt.x = AngV.x * deltaTime;
 	angVdt.y = AngV.y * deltaTime;
 	angVdt.z = AngV.z * deltaTime;
-	newRot = Physics::AngularRotationToEuler(angVdt);
+	newRot = Physics::AngularVelToRotQuat(angVdt);
 
-	//Rot.x = newRot.x;
-	//Rot.y = newRot.y;
-	//Rot.z = newRot.z;
-	//Rot.w += newRot.w;
+	Rot.x = newRot.x;
+	Rot.y = newRot.y;
+	Rot.z = newRot.z;
+	Rot.w += newRot.w;
 }

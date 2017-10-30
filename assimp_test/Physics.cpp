@@ -26,8 +26,8 @@ void Physics::ObjectCollision(GameObject *obj1, GameObject *obj2, glm::vec3 colP
 
 	//Calculate the normal vector
 	//normal = glm::cross(r1, r2);
-	//normal = { 1.0f, 0.0f, 0.0f };
-	normal = (obj1->GetPosition()) - (obj2->GetPosition());
+	normal = { 1.0f, 0.0f, 0.0f };
+	//normal = (obj1->GetPosition()) - (obj2->GetPosition());
 
 	//Normalise the normal vector
 	unitNormal = glm::normalize(normal);
@@ -127,30 +127,19 @@ glm::mat3 Physics::jCalculator(GameObject *Obj)
 	return jValue;
 }
 
-glm::vec4 Physics::AngularRotationToEuler(glm::vec3 AngV)
+glm::vec4 Physics::AngularVelToRotQuat(glm::vec3 AngV)
 {
-	glm::vec4 euler;
-	glm::vec3 temp;
-	double c1 = glm::cos(AngV.x / 2);
-	double s1 = glm::sin(AngV.x / 2);
-	double c2 = glm::cos(AngV.y / 2);
-	double s2 = glm::sin(AngV.y / 2);
-	double c3 = glm::cos(AngV.z / 2);
-	double s3 = glm::sin(AngV.z / 2);
+	glm::quat temp(AngV);
+	glm::vec4 ret_q(.0f, .0f, .0f, .0f);
+	ret_q.w = temp.w;
+	ret_q.x = temp.x;
+	ret_q.y = temp.y;
+	ret_q.z = temp.z;
 
-	double c1c2 = c1*c2;
-	double s1s2 = s1*s2;
+	if (ret_q.x == .0f && ret_q.y == .0f &&ret_q.z == .0f){
+		ret_q.y = 1.0f;
+		ret_q.w = .0f;
+	}
 
-	double w = c1c2*c3 - s1s2*s3;
-	temp.x = c1c2 * s3 + s1s2*c3;
-	temp.y = s1 * s2 * s3 - c1 * s2 * s3;
-	temp.z = c1*s2*c3 - s1*c2*s3;
-	glm::normalize(temp);
-	euler.x = temp.x;
-	euler.y = temp.y;
-	euler.z = temp.z;
-
-	euler.w = 2 * glm::acos(w);
-		
-	return euler;
+	return ret_q;
 }

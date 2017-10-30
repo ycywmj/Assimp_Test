@@ -196,6 +196,8 @@ public:
 	*/
 	void CheckBoundingBox();
 
+	void CheckBulletCollision();
+
 	void DrawWorldObjects();
 
 private:

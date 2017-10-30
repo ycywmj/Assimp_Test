@@ -522,37 +522,9 @@ void World::CheckBoundingBox()
 		}
 	}
 
-	
-	/*for (int i = 0; i < WorldObjects.size(); i++)
-	{
-		if (WorldObjects[i+1].processCollision(cameraPlayer, &collisionPoint))
-		{
-			camera->SetPostion(CurrentX, camera->GetPosition().y, CurrentZ);
-		}
-	}*/
+}
 
-	////check bench1 bounding box
-	//for (int i = 0; i < Bench1s.size(); i++)
-	//{
-	//	if (Bench1s[i + 1].processCollision(cameraPlayer, &collisionPoint))
-	//	{
-	//		camera->SetPostion(CurrentX, camera->GetPosition().y, CurrentZ);
-	//		//cout << "Collied!" << endl;
-	//	}
-	//}
-
-	//for (int i = 0; i < BoundingWalls.size(); i++)
-	//{
-	//	for (int j = 0; j < Bench1s.size();j++)
-	//	{
-	//		if (BoundingWalls[i + 1].processCollision(Bench1s[j + 1], &collisionPoint))
-	//		{
-	//			//camera->SetPostion(CurrentX, camera->GetPosition().y, CurrentZ);
-	//		}
-	//	}
-	//	
-	//}
-
+void World::CheckBulletCollision(){
 
 }
 
