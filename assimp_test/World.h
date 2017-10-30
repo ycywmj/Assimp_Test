@@ -5,6 +5,8 @@
 #include "GameObject.h"
 #include "Camera.h"
 #include "Singleton.h"
+#include "Physics.h"
+
 
 
 //---------------------------------------------------------------------------------
@@ -72,6 +74,14 @@ public:
 	* @return void
 	*/
 	void UpdateGame();
+
+	/**
+	* @brief  Updates the objects positions and rotations based upon the objects
+	*			velocity and angular velocity.
+	*
+	* @return void
+	*/
+	void UpdateObjects();
 
 	/**
 	* @brief  Willl be responsible for destruction of game
@@ -186,6 +196,8 @@ public:
 	*/
 	void CheckBoundingBox();
 
+	void DrawWorldObjects();
+
 private:
 	/// Generates a specific graphics api handler object
 	GraphicsFactory graphics_factory;
@@ -213,6 +225,9 @@ private:
 
 	/// Whole bar scene
 	GameObject Scene;
+
+	/// Stores the objects to test collisions
+	vector<GameObject> WorldObjects;
 
 	/// Stores all the walls need to detect collusion
 	map<int, GameObject> BoundingWalls;

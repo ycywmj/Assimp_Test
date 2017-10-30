@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿Build started 2017/10/30 21:34:51.
      1>Project "C:\Study\Murdoch\2017_S2\ICT398\FinalProject\Assimp_Test\assimp_test\assimp_test.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
@@ -44,3 +45,6 @@
 Build succeeded.
 
 Time Elapsed 00:00:12.84
+=======
+﻿  assimp_test.vcxproj -> X:\Study\Uni\Yr3_S2\ICT398 - AdvGame\GithubBackup\Assimp_Test\Debug\assimp_test.exe
+>>>>>>> 4341370f5826ff75a557dbe0de226ded6ba1751b

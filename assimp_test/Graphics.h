@@ -120,10 +120,25 @@ public:
 	* @return int - screen_height
 	*/
 	int GetScreenHeight(){ return screen_height; };
+
+	/**
+	* @brief  Get function for time since last update
+	*
+	* @return deltaTime
+	*/
+	double GetDeltaTime()
+	{
+		return deltaTime;
+	}
 									
 protected:
 	///the screen width and height
 	int screen_width, screen_height;
+
+	/// time elapsed
+	double deltaTime = 0.0;
+	/// time elapsed
+	double lastFrame = 0.0;
 };
 
 class OpenGL : public Graphics{
@@ -195,6 +210,8 @@ public:
 	*/
 	void Render2DTexture(string fname);
 
+	
+
 	void loadBox(glm::vec3 pos, glm::vec3 siz);
 	void drawBox();
 	
@@ -244,10 +261,7 @@ private:
 	/// keys from keyboard
 	bool keys[1024];
 
-	/// time elapsed
-	double deltaTime = 0.0;
-	/// time elapsed
-	double lastFrame = 0.0;
+	
 
 	// Camera
 	double lastX = 400.0, lastY = 300.0;

@@ -7,6 +7,11 @@ GameObject::GameObject()
 	Pos.x = 0; Pos.y = 0; Pos.z = 0;
 	Sca.x = 1; Sca.y = 1; Sca.z = 1;
 	Rot.x = 0; Rot.y = 1.0; Rot.z = 0; Rot.w = 0;
+	Vel.x = 0; Vel.y = 0; Vel.z = 0;
+	AngV.x = 0; AngV.y = 0; AngV.z = 0;
+	mass = 10;
+	COM = Pos;
+	sceneBody = false;
 }
 
 void GameObject::Load(Graphics *graphics_handler,string fname)
@@ -74,11 +79,33 @@ void GameObject::DrawBoundingBox()
 	//BoxModel.Draw();
 }
 
-bool GameObject::processCollision(GameObject &obj)
+bool GameObject::processCollision(GameObject &obj, glm::vec3 *collisionPoint)
 {
-	if (boundingBox.checkCollision(Pos, obj.boundingBox, obj.Pos))
+	//glm::vec3 collisionPoint;
+	if (boundingBox.checkCollision(Pos, obj.boundingBox, obj.Pos, collisionPoint))
 	{
-		return true;
+			return true;
 	}
 	return false;
+}
+
+void GameObject::UpdateObject(double deltaTime)
+{
+	Pos.x += Vel.x * deltaTime;
+	Pos.y += Vel.y * deltaTime;
+	Pos.z += Vel.z * deltaTime;
+
+	//cout << "position y:" << Pos.y << endl;
+
+	glm::vec3 angVdt; 
+	glm::vec4 newRot;
+	angVdt.x = AngV.x * deltaTime;
+	angVdt.y = AngV.y * deltaTime;
+	angVdt.z = AngV.z * deltaTime;
+	newRot = Physics::AngularRotationToEuler(angVdt);
+
+	//Rot.x = newRot.x;
+	//Rot.y = newRot.y;
+	//Rot.z = newRot.z;
+	//Rot.w += newRot.w;
 }
