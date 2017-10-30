@@ -86,11 +86,15 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="NPCs.cpp" />
+    <ClCompile Include="NPCStates.cpp" />
     <ClCompile Include="Physics.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AABB.h" />
+    <ClInclude Include="AISingleton.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DrawBox.h" />
     <ClInclude Include="GameObject.h" />
@@ -98,9 +102,13 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="NPCs.h" />
+    <ClInclude Include="NPCStates.h" />
     <ClInclude Include="Physics.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="State.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

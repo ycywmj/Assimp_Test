@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="AI">
+      <UniqueIdentifier>{4d953fb6-8ffb-4372-9d3a-5b2ffad27d96}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -35,6 +38,15 @@
     </ClCompile>
     <ClCompile Include="Physics.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NPCStates.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
+    <ClCompile Include="NPCs.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +84,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Physics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NPCStates.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="NPCs.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="AISingleton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

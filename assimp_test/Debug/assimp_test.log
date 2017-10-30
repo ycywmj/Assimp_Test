@@ -1,17 +1,17 @@
-﻿Build started 2017/10/23 16:33:26.
+﻿Build started 2017/10/30 21:34:51.
      1>Project "C:\Study\Murdoch\2017_S2\ICT398\FinalProject\Assimp_Test\assimp_test\assimp_test.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Iinclude /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt GameObject.cpp Graphics.cpp World.cpp main.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Iinclude /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt GameObject.cpp Graphics.cpp NPCStates.cpp NPCs.cpp Physics.cpp Player.cpp World.cpp main.cpp
+         main.cpp
          World.cpp
-     1>c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\world.cpp(320): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\world.cpp(328): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\world.cpp(336): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\world.cpp(344): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\world.cpp(352): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\world.cpp(420): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\world.cpp(429): warning C4018: '<' : signed/unsigned mismatch
-         Generating Code...
-         Compiling...
+     1>c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\world.cpp(319): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\world.cpp(327): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\world.cpp(335): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\world.cpp(343): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\world.cpp(351): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\world.cpp(419): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\world.cpp(428): warning C4018: '<' : signed/unsigned mismatch
+         NPCStates.cpp
          Graphics.cpp
      1>c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\graphics.cpp(130): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
      1>c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\graphics.cpp(135): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
@@ -19,19 +19,28 @@
      1>c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\graphics.cpp(145): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
      1>c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\graphics.cpp(195): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
          Generating Code...
-         Skipping... (no relevant changes detected)
-         main.cpp
+         Compiling...
+         Player.cpp
+         Physics.cpp
+         NPCs.cpp
          GameObject.cpp
+         Generating Code...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Study\Murdoch\2017_S2\ICT398\FinalProject\Assimp_Test\Debug\assimp_test.exe" /INCREMENTAL /NOLOGO /LIBPATH:lib assimp.lib glew32s.lib glfw3.lib glfw3dll.lib freeglut.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Study\Murdoch\2017_S2\ICT398\FinalProject\Assimp_Test\Debug\assimp_test.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Study\Murdoch\2017_S2\ICT398\FinalProject\Assimp_Test\Debug\assimp_test.lib" /MACHINE:X86 Debug\AABB.obj
          Debug\GameObject.obj
          Debug\main.obj
          Debug\Graphics.obj
-         Debug\Texture2D.obj
+         Debug\NPCs.obj
+         Debug\NPCStates.obj
+         Debug\Physics.obj
+         Debug\Player.obj
          Debug\World.obj
+     1>LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
+     1>LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+     1>glew32s.lib(glew.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'glew32s.lib(glew.obj)' or at 'C:\Study\Murdoch\2017_S2\ICT398\FinalProject\Assimp_Test\Debug\vc120.pdb'; linking object as if no debug info
          assimp_test.vcxproj -> C:\Study\Murdoch\2017_S2\ICT398\FinalProject\Assimp_Test\Debug\assimp_test.exe
      1>Done Building Project "C:\Study\Murdoch\2017_S2\ICT398\FinalProject\Assimp_Test\assimp_test\assimp_test.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:04.11
+Time Elapsed 00:00:12.84
