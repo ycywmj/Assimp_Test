@@ -74,14 +74,15 @@ void World::RunGame(const char* api){
 
 void World::UpdateGame(){
 	delta_time = graphics_handler->GetDeltaTime();
+	game_total_time += delta_time;
 
 	DrawWorldObjects();
 
 	cameraPlayer.Postition(camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
 
-<<<<<<< HEAD
-	graphics_handler->drawBox();
-=======
+
+	//graphics_handler->drawBox();
+
 	//CheckBoundingBox();
 
 	//update positions
@@ -95,7 +96,7 @@ void World::UpdateGame(){
 	//DrawTable1();
 	//DrawScene();
 	//graphics_handler->drawBox();
->>>>>>> origin/master
+
 
 	CheckBulletCollision();
 
@@ -152,6 +153,7 @@ void World::InitialWorldObjects()
 	InitialTable1();
 	InitialScene();
 	InitialNPCs();
+	//InitialPlayer();
 
 }
 
@@ -169,6 +171,7 @@ void World::DrawWorldObjects()
 	DrawTable1();
 	DrawScene();
 	DrawNPCs();
+	//DrawPlayer();
 }
 
 void World::InitialScene()
@@ -418,12 +421,28 @@ void World::InitialNPCs()
 	Agent->Postition(-18.0f, 0.2f, -2.6f);
 	Agent->Scale(scale, scale, scale);
 	Agent->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	Agent->InitialState();
 	Agents[1] = *Agent;
 }
 
 void World::DrawNPCs()
 {
+
+	Agents[1].UpdateState();
 	Agents[1].Render(graphics_handler);
+}
+
+
+void World::InitialPlayer()
+{
+	Player1 = new Player();
+	Players[1] = *Player1;
+
+}
+
+void World::DrawPlayer()
+{
+
 }
 
 void World::DrawScene()

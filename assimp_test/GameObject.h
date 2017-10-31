@@ -52,14 +52,14 @@ public:
 	* @param fname, path with file name of the model
 	* @return void
 	*/
-	void Load(Graphics *graphics_handler, string fname);
+	virtual void Load(Graphics *graphics_handler, string fname);
 
 	/**
 	* @brief  Render the model of this game object
 	* @param graphics_handler, using specific graphics api same as the entire game program to render the model
 	* @return void
 	*/
-	void Render(Graphics *graphics_handler);
+	virtual void Render(Graphics *graphics_handler);
 
 	/**
 	* @brief  Set the game object's position
@@ -68,7 +68,7 @@ public:
 	* @param z, value in z-axis
 	* @return void
 	*/
-	void Postition(float x, float y, float z);
+	virtual void Postition(float x, float y, float z);
 
 	/**
 	* @brief  Set the game object's scaling value
@@ -77,7 +77,7 @@ public:
 	* @param z, value in z-axis
 	* @return void
 	*/
-	void Scale(float x, float y, float z);
+	virtual void Scale(float x, float y, float z);
 
 	/**
 	* @brief  Set the game object's rotation value
@@ -86,7 +86,7 @@ public:
 	* @param z, value in z-axis
 	* @return void
 	*/
-	void Rotate(float x, float y, float z, float degree);
+	virtual void Rotate(float x, float y, float z, float degree);
 
 	/**
 	* @brief  Set the game object's bounding box by passing its size
@@ -95,23 +95,23 @@ public:
 	* @param z, size in z-axis
 	* @return void
 	*/
-	void SetBoundingBox(float x, float y, float z);
+	virtual void SetBoundingBox(float x, float y, float z);
 
 	/**
 	* @brief  Determine the collision happens between 2 objs
 	* @param obj, target object
 	* @return bool, true if collide, false otherwise
 	*/
-	bool processCollision(GameObject &obj, glm::vec3 *collisionPoint);
+	virtual bool processCollision(GameObject &obj, glm::vec3 *collisionPoint);
 
-	void UpdateObject(double deltaTime);
+	virtual void UpdateObject(double deltaTime);
 
 	/**
 	* @brief  Get function for center of mass
 	* 
 	* @return glm::vec3 COM
 	*/
-	glm::vec3 GetCOM()
+	virtual glm::vec3 GetCOM()
 	{
 		return(Pos);
 	}
@@ -121,7 +121,7 @@ public:
 	*
 	* @return glm::vec3 COM
 	*/
-	glm::vec3 GetVel()
+	virtual glm::vec3 GetVel()
 	{
 		return(Vel);
 	}
@@ -131,7 +131,7 @@ public:
 	*
 	* @return float mass, the mass
 	*/
-	float GetMass()
+	virtual float GetMass()
 	{
 		return(mass);
 	}
@@ -141,7 +141,7 @@ public:
 	*
 	* @return glm::vec3 lengths of bounding box sides
 	*/
-	glm::vec3 GetBBLengths()
+	virtual glm::vec3 GetBBLengths()
 	{
 		return(BoundingBoxLengths);
 	}
@@ -151,7 +151,7 @@ public:
 	*
 	* @return glm::vec3 lengths of bounding box sides
 	*/
-	glm::vec3 GetAngularVel()
+	virtual glm::vec3 GetAngularVel()
 	{
 		return(AngV);
 	}
@@ -159,7 +159,7 @@ public:
 	/**
 	* @brief  Set function for Velocity
 	*/
-	void SetVel(glm::vec3 newVelocity)
+	virtual void SetVel(glm::vec3 newVelocity)
 	{
 		Vel = newVelocity;
 	}
@@ -167,7 +167,7 @@ public:
 	/**
 	* @brief  Set function for Angular Velocity
 	*/
-	void SetAngVel(glm::vec3 newAngVelocity)
+	virtual void SetAngVel(glm::vec3 newAngVelocity)
 	{
 		AngV = newAngVelocity;
 	}
@@ -175,7 +175,7 @@ public:
 	/*
 	* @brief  Set function for Scene body
 	*/
-	void SetSceneObject(bool sceneobj)
+	virtual void SetSceneObject(bool sceneobj)
 	{
 		sceneBody = sceneobj;
 	}
@@ -183,7 +183,7 @@ public:
 	/*
 	* @brief  get function for Scene body
 	*/
-	bool GetSceneObject()
+	virtual bool GetSceneObject()
 	{
 		return sceneBody;
 	}
@@ -193,17 +193,25 @@ public:
 	/*
 	* @brief  get function for Position
 	*/
-	glm::vec3 GetPosition()
+	virtual glm::vec3 GetPosition()
 	{
 		return Pos;
 	}
 
-	void DrawBoundingBox();
+	virtual void setX(double x){ Pos.x = x; };
+	virtual void setY(double y){ Pos.y = y; };
+	virtual void setZ(double z){ Pos.z = z; };
+
+	virtual void setRotation(glm::vec4 Ro){ Rot = Ro; };
+	virtual void DrawBoundingBox();
+
+	virtual void setRigidID(int id){ RID = id; };
+	virtual int getRigidID(){ return RID; };
 
 private:
 	/// path of the model file
 	string pathName;
-
+	int RID=0;
 	/// Position
 	glm::vec3 Pos;
 	/// Scale

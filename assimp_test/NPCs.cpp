@@ -28,9 +28,9 @@ void NPCs::changeState(State<NPCs> *newState)
 }
 
 // state machine
-void NPCs::UpdateState(Player p){
+void NPCs::UpdateState(){
 
-	this->PL = p;
+	//this->PL = p;
 	if (currentState)
 	{
 		currentState->Execute(this);

@@ -7,6 +7,7 @@
 #include "Singleton.h"
 #include "Physics.h"
 #include "NPCs.h"
+#include "Player.h"
 #include <btBulletDynamicsCommon.h>
 
 //---------------------------------------------------------------------------------
@@ -40,6 +41,7 @@ public:
 	*/
 	World(){
 		delta_time = 0.0;
+		game_total_time = 0.0;
 
 		game_status = Singleton<GameStatus>::Instance();
 		*game_status = GAME_PLAYING;
@@ -225,11 +227,16 @@ public:
 
 	double GetDeltaTime(){ return delta_time; };
 	
+	double GetGameTotalTime(){ return game_total_time; };
+
 	btCollisionWorld* GetCollisionWorld(){ return bt_collision_world; };
 
 
 	void InitialWorldObjects();
 	void DrawWorldObjects();
+
+	void InitialPlayer();
+	void DrawPlayer();
 
 private:
 	/// Generates a specific graphics api handler object
@@ -252,6 +259,9 @@ private:
 
 	/// Update frame delta time
 	double delta_time;
+
+	/// Total time passed
+	double game_total_time;
 
 	/// Number of benches in the virtual world
 	int numberOfBenchs;
@@ -303,6 +313,10 @@ private:
 
 	map<int, NPCs> Agents;
 	NPCs *Agent;
+
+	map<int, Player> Players;
+	Player *Player1;
+
 
 	// bullet physics stuff
 	btCollisionConfiguration* bt_collision_configuration;

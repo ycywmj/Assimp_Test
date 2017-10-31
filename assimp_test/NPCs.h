@@ -13,10 +13,11 @@ public:
 	void SetHealth(int HP);
 	int GetHealth();
 
-	Player GetTarget(){ return PL; };
+	//Player GetTarget(){ return PL; };
 	void changeState(State<NPCs>* newState);
 	// state machine
-	void UpdateState(Player P);
+	//void UpdateState(Player P);
+	void UpdateState();
 private:
 	int Health;
 	//Vector3 TargetPos;
