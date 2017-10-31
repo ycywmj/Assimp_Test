@@ -6,7 +6,7 @@
 #include "Camera.h"
 #include "Singleton.h"
 #include "Physics.h"
-
+#include "NPCs.h"
 #include <btBulletDynamicsCommon.h>
 
 //---------------------------------------------------------------------------------
@@ -147,7 +147,15 @@ public:
 	* @return void
 	*/
 	void Initial2DTexture();
-	
+
+	/**
+	* @brief  Loads NPCs
+	*
+	* @return void
+	*/
+	void InitialNPCs();
+
+
 	/**
 	* @brief  Loads model into world
 	*
@@ -189,6 +197,15 @@ public:
 	* @return void
 	*/
 	void DrawTable1();
+
+	/**
+	* @brief  Loads NPCs into world
+	*
+	* @return void
+	*/
+	void DrawNPCs();
+
+
 
 	/**
 	* @brief  Sets the scenes bounding walls
@@ -276,6 +293,9 @@ private:
 
 	/// Stores multiple tables
 	GameObject *Table1;
+
+	map<int, NPCs> Agents;
+	NPCs *Agent;
 
 	// bullet physics stuff
 	btCollisionConfiguration* bt_collision_configuration;
