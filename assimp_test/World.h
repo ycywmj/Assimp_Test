@@ -227,6 +227,8 @@ public:
 	
 	btCollisionWorld* GetCollisionWorld(){ return bt_collision_world; };
 
+
+	void InitialWorldObjects();
 	void DrawWorldObjects();
 
 private:

@@ -37,16 +37,8 @@ void World::GameDestruction(){
 }
 
 void World::InitializeGame(){
-	Initial2DTexture();
 
-	//Initial Models
-	InitialBench1();
-	InitialBench2();
-	InitialChair1();
-	InitialChair2();
-	InitialTable1();
-	InitialScene();
-
+	InitialWorldObjects();
 	//Initial wall collision detection
 	//SetBoundingWall();
 	
@@ -62,7 +54,7 @@ void World::InitializeGame(){
 
 	glm::vec3 Pos;
 	glm::vec3 BoxSize;
-	graphics_handler->loadBox(Pos,BoxSize);
+	//graphics_handler->loadBox(Pos,BoxSize);
 	//texture2d.SetTextureCount(1);
 	//texture2d.LoadRawTexture2D( "", 860, 640, CREDIT_TEXTURE);
 }
@@ -87,7 +79,23 @@ void World::UpdateGame(){
 
 	cameraPlayer.Postition(camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
 
+<<<<<<< HEAD
 	graphics_handler->drawBox();
+=======
+	//CheckBoundingBox();
+
+	//update positions
+	//UpdateObjects();
+	//Render Models
+
+	//DrawBench1();
+	//DrawBench2();
+	//DrawChair1();
+	//DrawChair2();
+	//DrawTable1();
+	//DrawScene();
+	//graphics_handler->drawBox();
+>>>>>>> origin/master
 
 	CheckBulletCollision();
 
@@ -130,6 +138,38 @@ void World::UpdateGame(){
 //	//	}
 //	//}
 //}
+
+
+void World::InitialWorldObjects()
+{
+	Initial2DTexture();
+
+	//Initial Models
+	InitialBench1();
+	InitialBench2();
+	InitialChair1();
+	InitialChair2();
+	InitialTable1();
+	InitialScene();
+	InitialNPCs();
+
+}
+
+void World::DrawWorldObjects()
+{
+	/*for (int i = 0; i < WorldObjects.size(); i++)
+	{
+	WorldObjects[i].Render(graphics_handler);
+	}*/
+
+	DrawBench1();
+	DrawBench2();
+	DrawChair1();
+	DrawChair2();
+	DrawTable1();
+	DrawScene();
+	DrawNPCs();
+}
 
 void World::InitialScene()
 {
@@ -368,25 +408,27 @@ void World::Initial2DTexture(){
 	graphics_handler->Load2DTexture("res/2d_imgs/Credit.jpg");
 }
 
+void World::InitialNPCs()
+{
+	float scale = 0.05f;
+	string fileName = "res/models/c1/c1.obj";
+
+	Agent = new NPCs();
+	Agent->Load(graphics_handler, fileName);
+	Agent->Postition(-18.0f, 0.2f, -2.6f);
+	Agent->Scale(scale, scale, scale);
+	Agent->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	Agents[1] = *Agent;
+}
+
+void World::DrawNPCs()
+{
+	Agents[1].Render(graphics_handler);
+}
 
 void World::DrawScene()
 {
 	Scene.Render(graphics_handler);
-}
-
-void World::DrawWorldObjects()
-{
-	/*for (int i = 0; i < WorldObjects.size(); i++)
-	{
-		WorldObjects[i].Render(graphics_handler);
-	}*/
-
-	DrawBench1();
-	DrawBench2();
-	DrawChair1();
-	DrawChair2();
-	DrawTable1();
-	DrawScene();
 }
 
 void World::DrawBench1()
