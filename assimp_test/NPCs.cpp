@@ -28,11 +28,82 @@ void NPCs::changeState(State<NPCs> *newState)
 }
 
 // state machine
-void NPCs::UpdateState(){
+void NPCs::UpdateState(Player *P){
 
-	//this->PL = p;
+	this->PL = P;
 	if (currentState)
 	{
 		currentState->Execute(this);
+	}
+}
+
+void NPCs::CheckMaxValues()
+{
+	if (Emotions.x > 1)
+	{
+		Emotions.x = 1;
+	}
+	if (Emotions.x < -1)
+	{
+		Emotions.x = -1;
+	}
+	if (Emotions.y > 1)
+	{
+		Emotions.y = 1;
+	}
+	if (Emotions.y < -1)
+	{
+		Emotions.y = -1;
+	}
+
+	if (Moods.x > 1)
+	{
+		Moods.x = 1;
+	}
+	if (Moods.x < -1)
+	{
+		Moods.x = -1;
+	}
+	if (Moods.y > 1)
+	{
+		Moods.y = 1;
+	}
+	if (Moods.y < -1)
+	{
+		Moods.y = -1;
+	}
+
+	if (Traits.x > 1)
+	{
+		Traits.x = 1;
+	}
+	if (Traits.x < -1)
+	{
+		Traits.x = -1;
+	}
+	if (Traits.y > 1)
+	{
+		Traits.y = 1;
+	}
+	if (Traits.y < -1)
+	{
+		Traits.y = -1;
+	}
+
+	if (Personalities.x > 1)
+	{
+		Personalities.x = 1;
+	}
+	if (Personalities.x < -1)
+	{
+		Personalities.x = -1;
+	}
+	if (Personalities.y > 1)
+	{
+		Personalities.y = 1;
+	}
+	if (Personalities.y < -1)
+	{
+		Personalities.y = -1;
 	}
 }

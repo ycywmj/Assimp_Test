@@ -71,7 +71,7 @@ bool AABB::checkCollisionWithPoint(glm::vec3 &point, glm::vec3 worldXYZ)
 		(point.z >= worldAABB.min.z) && (point.z <= worldAABB.max.z));
 }
 
-bool AABB::checkCollision(glm::vec3 worldXYZ, AABB &aabb2, glm::vec3 worldXYZ2, glm::vec3 *collisionPoint)
+bool AABB::checkCollision(glm::vec3 worldXYZ, AABB &aabb2, glm::vec3 worldXYZ2)
 {
 	AABB obj1 = createWorldAABB(*this, worldXYZ);
 	AABB obj2 = createWorldAABB(aabb2, worldXYZ2);
@@ -86,7 +86,7 @@ bool AABB::checkCollision(glm::vec3 worldXYZ, AABB &aabb2, glm::vec3 worldXYZ2, 
 	testvec = getCollisionPoint(obj1, obj2);
 	std::cout << "collision occurred at point: X:" << testvec.x << " Y: "<< testvec.y 
 		<< "Z: " << testvec.z << endl; */
-	*collisionPoint = getCollisionPoint(obj1, obj2);
+	//*collisionPoint = getCollisionPoint(obj1, obj2);
 	
 	return true; // collision 
 }

@@ -161,6 +161,7 @@ void OpenGL::KeyCallback(GLFWwindow *window, int key, int scancode, int action, 
 			if (action == GLFW_PRESS)
 			{
 				keys[key] = true;
+				//cout << key << endl;
 			}
 			else if (action == GLFW_RELEASE)
 			{

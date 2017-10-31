@@ -104,10 +104,10 @@ void GameObject::DrawBoundingBox()
 	//BoxModel.Draw();
 }
 
-bool GameObject::processCollision(GameObject &obj, glm::vec3 *collisionPoint)
+bool GameObject::processCollision(GameObject *obj)
 {
 	//glm::vec3 collisionPoint;
-	if (boundingBox.checkCollision(Pos, obj.boundingBox, obj.Pos, collisionPoint))
+	if (boundingBox.checkCollision(Pos, obj->boundingBox, obj->Pos))
 	{
 			return true;
 	}

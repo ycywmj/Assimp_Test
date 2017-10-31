@@ -38,16 +38,13 @@ void World::GameDestruction(){
 
 void World::InitializeGame(){
 
+	InitialPlayer();
 	InitialWorldObjects();
 	//Initial wall collision detection
 	//SetBoundingWall();
 	
 	camera->SetPostion(2.0f, 1.25f, 3.0f);
-	cameraPlayer.Postition(camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
-	cameraPlayer.SetBoundingBox(0.1f, 0.1f, 0.1f);
-	btCollisionObject* new_col_obj = cameraPlayer.SetBulletBoundingBox(0.05f, 0.05f, 0.05f);
-	if (new_col_obj)
-		bt_collision_world->addCollisionObject(new_col_obj);
+
 
 	CurrentX = 0;
 	CurrentZ = 0;
@@ -77,9 +74,9 @@ void World::UpdateGame(){
 	game_total_time += delta_time;
 
 	DrawWorldObjects();
-
-	cameraPlayer.Postition(camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
-
+	DrawPlayer();
+	
+	PlayerActions();
 
 	//graphics_handler->drawBox();
 
@@ -431,6 +428,7 @@ void World::InitialNPCs()
 	Agent->Postition(10.0f, 0.0f, -8.0f);
 	Agent->Scale(scale, scale, scale);
 	Agent->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	Agent->SetBoundingBox(4.0f, 4.0f, 4.0f);
 	Agent->InitialState();
 	Agent->setPath(*Path);
 	//Agent->setEmotions(1.0f, 0.0f);
@@ -443,20 +441,31 @@ void World::InitialNPCs()
 void World::DrawNPCs()
 {
 
-	Agents[1].UpdateState();
+	Agents[1].UpdateState(cameraPlayer);
 	Agents[1].Render(graphics_handler);
+
+	cout << Agents[1].getEmotions().x << endl;
+	cout<<Agents[1].getMoods().x<<endl;
+	cout << Agents[1].getTraits().x << endl;
+	cout << Agents[1].getPersonalities().x << endl<<endl;
 }
 
 
 void World::InitialPlayer()
 {
-	Player1 = new Player();
-	Players[1] = *Player1;
+	cameraPlayer = new Player();
+	cameraPlayer->Postition(camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
+	cameraPlayer->SetBoundingBox(0.1f, 0.1f, 0.1f);
+	btCollisionObject* new_col_obj = cameraPlayer->SetBulletBoundingBox(0.05f, 0.05f, 0.05f);
+	if (new_col_obj)
+		bt_collision_world->addCollisionObject(new_col_obj);
 
 }
 
 void World::DrawPlayer()
 {
+
+	cameraPlayer->Postition(camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
 
 }
 
@@ -587,39 +596,40 @@ void World::SetBoundingWall()
 
 }
 
-void World::CheckBoundingBox()
-{
-	glm::vec3 collisionPoint;
-	//check wall bounding box
-
-	for (int i = 0; i < WorldObjects.size(); i++)
-	{
-		if (WorldObjects[i].processCollision(cameraPlayer, &collisionPoint))
-		{
-			camera->SetPostion(CurrentX, camera->GetPosition().y, CurrentZ);
-			//cout << "collision with object:"<< i << endl;
-		}
-	}
-
-	for (int i = 0; i < WorldObjects.size(); i++)
-	{
-		for (int j=i; j < WorldObjects.size(); j++)
-		{
-			if (i != j)
-			{
-				if (WorldObjects[i].processCollision(WorldObjects[j], &collisionPoint))
-				{
-					Physics::ObjectCollision(&WorldObjects[i], &WorldObjects[j], collisionPoint);
-					cout << "something is colliding" << endl;
-					cout << "collision point" << collisionPoint.x << endl;
-					//cout << "i value:" << i << endl;
-					//cout << "j value: " << j << endl;
-				}
-			}
-		}
-	}
-
-}
+//
+//void World::CheckBoundingBox()
+//{
+//	glm::vec3 collisionPoint;
+//	//check wall bounding box
+//
+//	for (int i = 0; i < WorldObjects.size(); i++)
+//	{
+//		if (WorldObjects[i].processCollision(cameraPlayer, &collisionPoint))
+//		{
+//			camera->SetPostion(CurrentX, camera->GetPosition().y, CurrentZ);
+//			//cout << "collision with object:"<< i << endl;
+//		}
+//	}
+//
+//	for (int i = 0; i < WorldObjects.size(); i++)
+//	{
+//		for (int j=i; j < WorldObjects.size(); j++)
+//		{
+//			if (i != j)
+//			{
+//				if (WorldObjects[i].processCollision(WorldObjects[j], &collisionPoint))
+//				{
+//					Physics::ObjectCollision(&WorldObjects[i], &WorldObjects[j], collisionPoint);
+//					cout << "something is colliding" << endl;
+//					cout << "collision point" << collisionPoint.x << endl;
+//					//cout << "i value:" << i << endl;
+//					//cout << "j value: " << j << endl;
+//				}
+//			}
+//		}
+//	}
+//
+//}
 
 void World::CheckBulletCollision(){
 	//Perform collision detection
@@ -665,15 +675,15 @@ void World::CheckBulletCollision(){
 
 		if (
 				(
-					obAtemp.x == cameraPlayer.GetPosition().x &&
-					obAtemp.y == cameraPlayer.GetPosition().y &&
-					obAtemp.z == cameraPlayer.GetPosition().z
+					obAtemp.x == cameraPlayer->GetPosition().x &&
+					obAtemp.y == cameraPlayer->GetPosition().y &&
+					obAtemp.z == cameraPlayer->GetPosition().z
 				)
 				||
 				(
-					obBtemp.x == cameraPlayer.GetPosition().x &&
-					obBtemp.y == cameraPlayer.GetPosition().y &&
-					obBtemp.z == cameraPlayer.GetPosition().z
+					obBtemp.x == cameraPlayer->GetPosition().x &&
+					obBtemp.y == cameraPlayer->GetPosition().y &&
+					obBtemp.z == cameraPlayer->GetPosition().z
 				)
 			){
 
@@ -682,3 +692,13 @@ void World::CheckBulletCollision(){
 	}
 }
 
+void World::PlayerActions()
+{
+	bool* keyPressed = graphics_handler->getPressedKey();
+
+	if (keyPressed[70])
+	{
+		cameraPlayer->setActions(1);
+	}
+	
+}

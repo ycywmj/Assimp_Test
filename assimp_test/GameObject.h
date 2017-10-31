@@ -102,7 +102,7 @@ public:
 	* @param obj, target object
 	* @return bool, true if collide, false otherwise
 	*/
-	virtual bool processCollision(GameObject &obj, glm::vec3 *collisionPoint);
+	virtual bool processCollision(GameObject *obj);
 
 	virtual void UpdateObject(double deltaTime);
 

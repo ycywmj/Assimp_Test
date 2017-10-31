@@ -238,6 +238,9 @@ public:
 	void InitialPlayer();
 	void DrawPlayer();
 
+	void PlayerActions();
+	
+
 private:
 	/// Generates a specific graphics api handler object
 	GraphicsFactory graphics_factory;
@@ -267,7 +270,7 @@ private:
 	int numberOfBenchs;
 	
 	/// Player itself in the world as a game object
-	GameObject cameraPlayer;
+	Player *cameraPlayer;
 
 	/// Whole bar scene
 	GameObject Scene;

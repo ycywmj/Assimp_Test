@@ -46,7 +46,7 @@ void Wander::Execute(NPCs *npc){
 
 	moveTo(targetXZ, targetPos, targetVel, timeDiff);
 
-	cout << timeDiff << endl;
+	//cout << timeDiff << endl;
 	double z = targetXZ.getY() - targetPos.getY();
 	double x = targetXZ.getX() - targetPos.getX();
 	double angle = atan2(x, z) * 180 / PI;
@@ -68,6 +68,17 @@ void Wander::Execute(NPCs *npc){
 		//npc->setCurrentEvent(0.0f, 0.0f);
 		//npc->changeState(&emotions_state::Instance());
 	}
+
+
+	if (npc->processCollision(npc->GetPlayer()) && npc->GetPlayer()->isPlayerKicking())
+	{
+
+		npc->setCurrentEvent(0.5f, 0.5f);
+		npc->changeState(&emotions_state::Instance());
+	}
+
+	npc->GetPlayer()->setActions(0);
+
 
 	
 
@@ -97,19 +108,89 @@ void Emotions::Execute(NPCs *npc){
 
 	glm::vec2 FinalEmotion;
 
-	FinalEmotion.x=npc->getCurrentEvent().x * 1 + npc->getMoods().x * 1 + npc->getTraits().x * 0.1 + npc->getPersonalities().x * 0.01;
-	FinalEmotion.y = npc->getCurrentEvent().y * 1 + npc->getMoods().y * 1 + npc->getTraits().y * 0.1 + npc->getPersonalities().y * 0.01;
+	FinalEmotion.x = npc->getCurrentEvent().x * 1 + npc->getMoods().x / 2 + npc->getTraits().x *0.05 + npc->getPersonalities().x * 0.01;
+	FinalEmotion.y = npc->getCurrentEvent().y * 1 + npc->getMoods().y / 2 + npc->getTraits().y * 0.05 + npc->getPersonalities().y * 0.01;
+	
+	npc->setEmotions(FinalEmotion.x, FinalEmotion.y);
+	npc->setMoods(npc->getCurrentEvent().x * 0.5 + npc->getMoods().x, npc->getCurrentEvent().y * 0.5 + npc->getMoods().y);
+	npc->setTraits(npc->getCurrentEvent().x * 0.05 + npc->getTraits().x, npc->getCurrentEvent().y * 0.05 + npc->getTraits().y);
+	npc->setPersonalities(npc->getCurrentEvent().x * 0.01 + npc->getPersonalities().x, npc->getCurrentEvent().y * 0.01 + npc->getPersonalities().y);
+
 	/*if (0)
 	{
 		if (0)
 			npc->changeState(&wander_state::Instance());
 	}*/
 
+	if (FinalEmotion.x >= 0)
+	{
+		npc->changeState(&happy_state::Instance());
+	}
 
-	cout << FinalEmotion.x << endl;
-	cout << FinalEmotion.y << endl;
+	if (FinalEmotion.x < 0)
+	{
+		npc->changeState(&sad_state::Instance());
+	}
+
+
+	//cout << FinalEmotion.x << endl;
+	//cout << FinalEmotion.y << endl;
 }
 
 void Emotions::Exit(NPCs *npc){
 	cout << "Exit Emotions state" << endl;
+}
+
+
+void Happy::Enter(NPCs *npc){
+	stateTime = 0.0;
+
+	cout << "Enter Flee state" << endl;
+}
+
+void Happy::Execute(NPCs *npc){
+
+	World *World_Instance = Singleton<World>::Instance();
+	stateTime += World_Instance->GetDeltaTime();
+
+	double z = npc->GetPosition().z - npc->GetPlayer()->GetPosition().z;
+	double x = npc->GetPosition().x - npc->GetPlayer()->GetPosition().x;
+	double angle = atan2(x, z) * 180 / PI;
+
+	glm::vec4 NewRotation;
+	NewRotation.x = 0;
+	NewRotation.y = 0;
+	NewRotation.z = 0;
+	NewRotation.w = angle - 180;
+
+	npc->setRotation(NewRotation);
+
+	if (stateTime > 5.0)
+	{
+		npc->changeState(&wander_state::Instance());
+	}
+	cout << "I am Happy" << endl;
+
+
+}
+
+void Happy::Exit(NPCs *npc){
+	cout << "Exit Flee state" << endl;
+	npc->GetPlayer()->setActions(0);
+}
+
+
+
+void Sad::Enter(NPCs *npc){
+	cout << "Enter Flee state" << endl;
+}
+
+void Sad::Execute(NPCs *npc){
+
+
+	cout << "Sad!!!!" << endl;
+}
+
+void Sad::Exit(NPCs *npc){
+	cout << "Exit Flee state" << endl;
 }

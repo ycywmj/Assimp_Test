@@ -1,39 +1,23 @@
-x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\vc120.pdb
-x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\vc120.idb
-x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\aabb.obj
-x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\gameobject.obj
-x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\graphics.obj
-x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\npcstates.obj
-x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\npcs.obj
-x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\physics.obj
-x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\player.obj
-x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\world.obj
-x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\debug\main.obj
 c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\vc120.pdb
 c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\vc120.idb
 c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\aabb.obj
 c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\gameobject.obj
 c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\main.obj
 c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\graphics.obj
+c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\movement.obj
+c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\mymath.obj
 c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\npcs.obj
 c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\npcstates.obj
 c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\physics.obj
 c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\player.obj
-c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\world.obj
-x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\debug\assimp_test.ilk
-x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\debug\assimp_test.exe
-x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\debug\assimp_test.pdb
-c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\movement.obj
-c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\mymath.obj
 c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\vector2d.obj
+c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\world.obj
+c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\debug\assimp_test.ilk
+c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\debug\assimp_test.exe
 c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\debug\assimp_test.pdb
 c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\assimp_test.tlog\cl.command.1.tlog
 c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\assimp_test.tlog\cl.read.1.tlog
 c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\assimp_test.tlog\cl.write.1.tlog
-c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\assimp_test.tlog\link-cvtres.read.1.tlog
-c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\assimp_test.tlog\link-cvtres.write.1.tlog
-c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\assimp_test.tlog\link-rc.read.1.tlog
-c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\assimp_test.tlog\link-rc.write.1.tlog
 c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\assimp_test.tlog\link.command.1.tlog
 c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\assimp_test.tlog\link.read.1.tlog
 c:\study\murdoch\2017_s2\ict398\finalproject\assimp_test\assimp_test\debug\assimp_test.tlog\link.write.1.tlog

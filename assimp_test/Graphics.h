@@ -106,6 +106,7 @@ public:
 	virtual void Render2DTexture(string fname) = 0;
 	virtual void loadBox(glm::vec3 pos,glm::vec3 siz)=0;
 	virtual void drawBox()=0;
+	virtual bool* getPressedKey()=0;
 
 	/**
 	* @brief pure virtual function
@@ -136,6 +137,8 @@ public:
 	{
 		return deltaTime;
 	}
+
+
 									
 protected:
 	///the screen width and height
@@ -226,6 +229,8 @@ public:
 
 	void loadBox(glm::vec3 pos, glm::vec3 siz);
 	void drawBox();
+
+	bool* getPressedKey(){ return keys; };
 	
 private:
 	/**
