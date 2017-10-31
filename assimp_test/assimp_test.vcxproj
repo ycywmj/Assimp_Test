@@ -86,10 +86,13 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="Movement.cpp" />
+    <ClCompile Include="myMath.cpp" />
     <ClCompile Include="NPCs.cpp" />
     <ClCompile Include="NPCStates.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="vector2D.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +105,8 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="Movement.h" />
+    <ClInclude Include="myMath.h" />
     <ClInclude Include="NPCs.h" />
     <ClInclude Include="NPCStates.h" />
     <ClInclude Include="Physics.h" />
@@ -109,6 +114,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="State.h" />
+    <ClInclude Include="vector2D.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
