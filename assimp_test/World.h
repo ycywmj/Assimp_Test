@@ -39,7 +39,7 @@ public:
 	* Initialises game_status singleton and sets game status to GAME_PLAYING
 	*/
 	World(){
-		WorldObjects.reserve(2);
+		//WorldObjects.reserve(2);
 
 		game_status = Singleton<GameStatus>::Instance();
 		*game_status = GAME_PLAYING;

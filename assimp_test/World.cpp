@@ -37,16 +37,15 @@ void World::GameDestruction(){
 }
 
 void World::InitializeGame(){
+	Initial2DTexture();
 
 	//Initial Models
 	InitialBench1();
-	/*InitialBench2();
+	InitialBench2();
 	InitialChair1();
 	InitialChair2();
 	InitialTable1();
-	InitialScene();*/
-
-	Initial2DTexture();
+	InitialScene();
 
 	//Initial wall collision detection
 	//SetBoundingWall();
@@ -82,6 +81,39 @@ void World::RunGame(const char* api){
 }
 
 void World::UpdateGame(){
+	DrawWorldObjects();
+
+	cameraPlayer.Postition(camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
+
+	//CheckBoundingBox();
+
+	//update positions
+	//UpdateObjects();
+	//Render Models
+
+	//DrawBench1();
+	//DrawBench2();
+	//DrawChair1();
+	//DrawChair2();
+	//DrawTable1();
+	//DrawScene();
+	graphics_handler->drawBox();
+
+	//CheckBulletCollision();
+
+
+
+	//graphics_handler->Render2DTexture("res/2d_imgs/Credit.jpg");
+
+
+
+
+	//cout << "Camera position:" << "X:" << camera->GetPosition().x << " Y:" << camera->GetPosition().y << " Z:" << camera->GetPosition().z << endl << endl;
+
+	//cameraPlayer.Postition(camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
+
+	//CheckBoundingBox();
+
 	if (*game_status != GAME_PLAYING){
 		if (*game_status == GAME_DONE){
 			GameDestruction();
@@ -103,37 +135,6 @@ void World::UpdateGame(){
 
 	}
 	
-	cameraPlayer.Postition(camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
-
-	//CheckBoundingBox();
-	
-	//update positions
-	UpdateObjects();
-	//Render Models
-	DrawWorldObjects();
-	//DrawBench1();
-	//DrawBench2();
-	//DrawChair1();
-	//DrawChair2();
-	//DrawTable1();
-	//DrawScene();
-	graphics_handler->drawBox();
-
-	CheckBulletCollision();
-	
-
-	
-	//graphics_handler->Render2DTexture("res/2d_imgs/Credit.jpg");
-	
-
-	
-
-	//cout << "Camera position:" << "X:" << camera->GetPosition().x << " Y:" << camera->GetPosition().y << " Z:" << camera->GetPosition().z << endl << endl;
-
-	//cameraPlayer.Postition(camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
-
-	//CheckBoundingBox();
-
 	CurrentX = camera->GetPosition().x;
 	CurrentZ = camera->GetPosition().z;
 }
@@ -149,7 +150,6 @@ void World::UpdateObjects()
 			
 		}
 	}
-
 }
 
 void World::InitialScene()
@@ -172,7 +172,7 @@ void World::InitialBench1()
 	//Bench1->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
 	//Bench1->SetBoundingBox(3.0f, 4.0f, 2.0f);
 	//Bench1s[1] = *Bench1;
-	//WorldObjects.push_back(*Bench1);
+	////WorldObjects.push_back(*Bench1);
 
 	//Bench1 = new GameObject();
 	//Bench1->Load(graphics_handler, fileName);
@@ -181,7 +181,7 @@ void World::InitialBench1()
 	//Bench1->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
 	//Bench1->SetBoundingBox(3.0f, 4.0f, 2.0f);
 	//Bench1s[2] = *Bench1;
-	//WorldObjects.push_back(*Bench1);
+	////WorldObjects.push_back(*Bench1);
 
 	//Bench1 = new GameObject();
 	//Bench1->Load(graphics_handler, fileName);
@@ -190,7 +190,7 @@ void World::InitialBench1()
 	//Bench1->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
 	//Bench1->SetBoundingBox(3.0f, 4.0f, 2.0f);
 	//Bench1s[3] = *Bench1;
-	//WorldObjects.push_back(*Bench1);
+	////WorldObjects.push_back(*Bench1);
 
 	//
 	////outside of room
@@ -201,7 +201,7 @@ void World::InitialBench1()
 	//Bench1->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
 	//Bench1->SetBoundingBox(3.0f, 4.0f, 2.0f);
 	//Bench1s[4] = *Bench1;
-	//WorldObjects.push_back(*Bench1);
+	////WorldObjects.push_back(*Bench1);
 
 	//Bench1 = new GameObject();
 	//Bench1->Load(graphics_handler, fileName);
@@ -210,7 +210,7 @@ void World::InitialBench1()
 	//Bench1->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
 	//Bench1->SetBoundingBox(3.0f, 4.0f, 2.0f);
 	//Bench1s[5] = *Bench1;
-	//WorldObjects.push_back(*Bench1);
+	////WorldObjects.push_back(*Bench1);
 
 	//Bench1 = new GameObject();
 	//Bench1->Load(graphics_handler, fileName);
@@ -219,7 +219,7 @@ void World::InitialBench1()
 	//Bench1->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
 	//Bench1->SetBoundingBox(3.0f, 4.0f, 2.0f);
 	//Bench1s[6] = *Bench1;
-	//WorldObjects.push_back(*Bench1);
+	////WorldObjects.push_back(*Bench1);
 
 	Bench1 = new GameObject();
 	Bench1->Load(graphics_handler, fileName);
@@ -230,24 +230,24 @@ void World::InitialBench1()
 	Bench1->SetBoundingBox(2.0f, 4.0f, 3.0f);
 	if (new_col_obj)
 		bt_collision_world->addCollisionObject(new_col_obj);
-	glm::vec3 vel = { -.1f, .0f, .0f };
+	glm::vec3 vel = { -.5f, .0f, .0f };
 	Bench1->SetVel(vel);
 	Bench1s[1] = *Bench1;
-	WorldObjects.push_back(*Bench1);
+	//WorldObjects.push_back(*Bench1);
 
 	Bench1 = new GameObject();
 	Bench1->Load(graphics_handler, fileName);
 	new_col_obj = Bench1->SetBulletBoundingBox(1.0f, 2.0f, 1.5f);
 	Bench1->Postition(0.0f, height, -3.0f);
 	Bench1->Scale(scale, scale, scale);
-	Bench1->Rotate(0.0f, .5f, 0.0f, 0.0f);
+	Bench1->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
 	Bench1->SetBoundingBox(2.0f, 4.0f, 3.0f);
 	if (new_col_obj)
 		bt_collision_world->addCollisionObject(new_col_obj);
-	vel = { .1f, .0f, .0f };
+	vel = {.3f, .0f, .0f };
 	Bench1->SetVel(vel);
 	Bench1s[2] = *Bench1;
-	WorldObjects.push_back(*Bench1);
+	//WorldObjects.push_back(*Bench1);
 
 	/*Bench1 = new GameObject();
 	Bench1->Load(graphics_handler, fileName);
@@ -256,7 +256,7 @@ void World::InitialBench1()
 	Bench1->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
 	Bench1->SetBoundingBox(2.0f, 4.0f, 3.0f);
 	Bench1s[9] = *Bench1;
-	WorldObjects.push_back(*Bench1);
+	//WorldObjects.push_back(*Bench1);
 
 	Bench1 = new GameObject();
 	Bench1->Load(graphics_handler, fileName);
@@ -265,7 +265,7 @@ void World::InitialBench1()
 	Bench1->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
 	Bench1->SetBoundingBox(2.0f, 4.0f, 3.0f);
 	Bench1s[10] = *Bench1;
-	WorldObjects.push_back(*Bench1);*/
+	//WorldObjects.push_back(*Bench1);*/
 	
 }
 
@@ -281,7 +281,7 @@ void World::InitialBench2()
 	Bench2->Scale(scale, scale, scale);
 	Bench2->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
 	Bench2s[1] = *Bench2;
-	WorldObjects.push_back(*Bench2);
+	//WorldObjects.push_back(*Bench2);
 
 	Bench2 = new GameObject();
 	Bench2->Load(graphics_handler, fileName);
@@ -289,7 +289,7 @@ void World::InitialBench2()
 	Bench2->Scale(scale, scale, scale);
 	Bench2->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
 	Bench2s[2] = *Bench2;
-	WorldObjects.push_back(*Bench2);
+	//WorldObjects.push_back(*Bench2);
 
 	Bench2 = new GameObject();
 	Bench2->Load(graphics_handler, fileName);
@@ -297,7 +297,7 @@ void World::InitialBench2()
 	Bench2->Scale(scale, scale, scale);
 	Bench2->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
 	Bench2s[3] = *Bench2;
-	WorldObjects.push_back(*Bench2);
+	//WorldObjects.push_back(*Bench2);
 }
 
 void World::InitialChair1()
@@ -312,7 +312,7 @@ void World::InitialChair1()
 	Chair1->Scale(scale, scale, scale);
 	Chair1->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
 	Chair1s[1] = *Chair1;
-	WorldObjects.push_back(*Chair1);
+	//WorldObjects.push_back(*Chair1);
 
 	Chair1 = new GameObject();
 	Chair1->Load(graphics_handler, fileName);
@@ -320,7 +320,7 @@ void World::InitialChair1()
 	Chair1->Scale(scale, scale, scale);
 	Chair1->Rotate(0.0f, 1.0f, 0.0f, 75.0f);
 	Chair1s[2] = *Chair1;
-	WorldObjects.push_back(*Chair1);
+//	WorldObjects.push_back(*Chair1);
 }
 
 void World::InitialChair2()
@@ -335,7 +335,7 @@ void World::InitialChair2()
 	Chair2->Scale(scale, scale, scale);
 	Chair2->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
 	Chair2s[1] = *Chair2;
-	WorldObjects.push_back(*Chair2);
+	//WorldObjects.push_back(*Chair2);
 
 	Chair2 = new GameObject();
 	Chair2->Load(graphics_handler, fileName);
@@ -343,7 +343,7 @@ void World::InitialChair2()
 	Chair2->Scale(scale, scale, scale);
 	Chair2->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
 	Chair2s[2] = *Chair2;
-	WorldObjects.push_back(*Chair2);
+	//WorldObjects.push_back(*Chair2);
 
 	Chair2 = new GameObject();
 	Chair2->Load(graphics_handler, fileName);
@@ -351,7 +351,7 @@ void World::InitialChair2()
 	Chair2->Scale(scale, scale, scale);
 	Chair2->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
 	Chair2s[3] = *Chair2;
-	WorldObjects.push_back(*Chair2);
+	//WorldObjects.push_back(*Chair2);
 
 	Chair2 = new GameObject();
 	Chair2->Load(graphics_handler, fileName);
@@ -359,7 +359,7 @@ void World::InitialChair2()
 	Chair2->Scale(scale, scale, scale);
 	Chair2->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
 	Chair2s[4] = *Chair2;
-	WorldObjects.push_back(*Chair2);
+	//WorldObjects.push_back(*Chair2);
 }
 
 void World::InitialTable1()
@@ -374,7 +374,7 @@ void World::InitialTable1()
 	Table1->Scale(scale, scale, scale);
 	Table1->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
 	Table1s[1] = *Table1;
-	WorldObjects.push_back(*Table1);
+	//WorldObjects.push_back(*Table1);
 
 	Table1 = new GameObject();
 	Table1->Load(graphics_handler, fileName);
@@ -382,7 +382,7 @@ void World::InitialTable1()
 	Table1->Scale(scale, scale, scale);
 	Table1->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
 	Table1s[2] = *Table1;
-	WorldObjects.push_back(*Table1);
+	//WorldObjects.push_back(*Table1);
 }
 
 void World::Initial2DTexture(){
@@ -397,15 +397,22 @@ void World::DrawScene()
 
 void World::DrawWorldObjects()
 {
-	for (int i = 0; i < WorldObjects.size(); i++)
+	/*for (int i = 0; i < WorldObjects.size(); i++)
 	{
 		WorldObjects[i].Render(graphics_handler);
-	}
+	}*/
+
+	DrawBench1();
+	DrawBench2();
+	DrawChair1();
+	DrawChair2();
+	DrawTable1();
+	DrawScene();
 }
 
 void World::DrawBench1()
 {
-	cout << "y pos: " << WorldObjects[7].GetPosition().y << endl;
+	//cout << "y pos: " << WorldObjects[7].GetPosition().y << endl;
 	for (int i = 0; i < Bench1s.size(); i++)
 	{
 		
@@ -571,8 +578,10 @@ void World::CheckBulletCollision(){
 		btPersistentManifold* contactManifold = bt_collision_world->getDispatcher()->getManifoldByIndexInternal(i);
 		const btCollisionObject* obA = contactManifold->getBody0();
 		const btCollisionObject* obB = contactManifold->getBody1();
+		
 		//contactManifold->refreshContactPoints(obA->getWorldTransform(), obB->getWorldTransform());
 		int numContacts = contactManifold->getNumContacts();
+		btVector3 midPt(.0f, .0f, .0f);
 		//For each contact point in that manifold
 		for (int j = 0; j < numContacts; j++) {
 			//Get the contact information
@@ -585,6 +594,33 @@ void World::CheckBulletCollision(){
 			std::cout << "ptA: " << ptA.getX() << ", " << ptA.getY() << ", " << ptA.getZ() << ", " << std::endl;
 			std::cout << "ptB: " << ptB.getX() << ", " << ptB.getY() << ", " << ptB.getZ() << ", " << std::endl;
 			std::cout << "ptdist: " << ptdist << std::endl;*/
+
+			
+		}
+
+		// player cant move when it is colliding with something
+		// convert btvec3 to glmvec3
+		glm::vec3 obAtemp((float)obA->getWorldTransform().getOrigin().getX(), 
+			(float)obA->getWorldTransform().getOrigin().getY(),
+			(float)obA->getWorldTransform().getOrigin().getZ());
+		
+		glm::vec3 obBtemp((float)obB->getWorldTransform().getOrigin().getX(),
+			(float)obB->getWorldTransform().getOrigin().getY(),
+			(float)obB->getWorldTransform().getOrigin().getZ());
+
+		if (
+				(
+					obAtemp.x == cameraPlayer.GetPosition().x &&
+					obAtemp.y == cameraPlayer.GetPosition().y &&
+					obAtemp.z == cameraPlayer.GetPosition().z
+				)
+				||
+				(
+					obBtemp.x == cameraPlayer.GetPosition().x &&
+					obBtemp.y == cameraPlayer.GetPosition().y &&
+					obBtemp.z == cameraPlayer.GetPosition().z
+				)
+			){
 
 			camera->SetPostion(CurrentX, camera->GetPosition().y, CurrentZ);
 		}

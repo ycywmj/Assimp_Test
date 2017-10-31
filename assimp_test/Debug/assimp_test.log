@@ -1,12 +1,1 @@
-﻿  World.cpp
-x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\world.cpp(143): warning C4018: '<' : signed/unsigned mismatch
-x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\world.cpp(400): warning C4018: '<' : signed/unsigned mismatch
-x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\world.cpp(409): warning C4018: '<' : signed/unsigned mismatch
-x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\world.cpp(419): warning C4018: '<' : signed/unsigned mismatch
-x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\world.cpp(427): warning C4018: '<' : signed/unsigned mismatch
-x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\world.cpp(435): warning C4018: '<' : signed/unsigned mismatch
-x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\world.cpp(443): warning C4018: '<' : signed/unsigned mismatch
-x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\world.cpp(533): warning C4018: '<' : signed/unsigned mismatch
-x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\world.cpp(542): warning C4018: '<' : signed/unsigned mismatch
-x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\world.cpp(544): warning C4018: '<' : signed/unsigned mismatch
-  assimp_test.vcxproj -> X:\Study\Uni\Yr3_S2\ICT398 - AdvGame\GithubBackup\Assimp_Test\Debug\assimp_test.exe
+﻿  assimp_test.vcxproj -> X:\Study\Uni\Yr3_S2\ICT398 - AdvGame\GithubBackup\Assimp_Test\Debug\assimp_test.exe
