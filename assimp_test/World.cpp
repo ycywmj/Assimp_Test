@@ -81,36 +81,15 @@ void World::RunGame(const char* api){
 }
 
 void World::UpdateGame(){
+	delta_time = graphics_handler->GetDeltaTime();
+
 	DrawWorldObjects();
 
 	cameraPlayer.Postition(camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
 
-	//CheckBoundingBox();
-
-	//update positions
-	//UpdateObjects();
-	//Render Models
-
-	//DrawBench1();
-	//DrawBench2();
-	//DrawChair1();
-	//DrawChair2();
-	//DrawTable1();
-	//DrawScene();
 	graphics_handler->drawBox();
 
-	//CheckBulletCollision();
-
-
-
-	//graphics_handler->Render2DTexture("res/2d_imgs/Credit.jpg");
-
-
-
-
-	//cout << "Camera position:" << "X:" << camera->GetPosition().x << " Y:" << camera->GetPosition().y << " Z:" << camera->GetPosition().z << endl << endl;
-
-	//cameraPlayer.Postition(camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
+	CheckBulletCollision();
 
 	//CheckBoundingBox();
 
@@ -139,18 +118,18 @@ void World::UpdateGame(){
 	CurrentZ = camera->GetPosition().z;
 }
 
-void World::UpdateObjects()
-{
-	for (int i = 0; i < WorldObjects.size(); i++)
-	{
-		//check to see if it is a scene object
-		if (!WorldObjects[i].GetSceneObject())
-		{
-			WorldObjects[i].UpdateObject(graphics_handler->GetDeltaTime());
-			
-		}
-	}
-}
+//void World::UpdateObjects()
+//{
+//	//for (int i = 0; i < WorldObjects.size(); i++)
+//	//{
+//	//	//check to see if it is a scene object
+//	//	if (!WorldObjects[i].GetSceneObject())
+//	//	{
+//	//		WorldObjects[i].UpdateObject(graphics_handler->GetDeltaTime());
+//	//		
+//	//	}
+//	//}
+//}
 
 void World::InitialScene()
 {

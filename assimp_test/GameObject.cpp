@@ -1,6 +1,6 @@
 #include "GameObject.h"
 
-//AABB GameObject::boundingBox;
+#include "World.h"
 
 GameObject::GameObject()
 { 
@@ -24,6 +24,8 @@ void GameObject::Load(Graphics *graphics_handler,string fname)
 
 void GameObject::Render(Graphics *graphics_handler)
 {
+	World* world_instance = Singleton<World>::Instance();
+	this->UpdateObject(world_instance->GetDeltaTime());
 	graphics_handler->RenderModel(pathName,Pos, Sca, Rot);
 }
 
