@@ -208,7 +208,13 @@ public:
 	virtual void setRigidID(int id){ RID = id; };
 	virtual int getRigidID(){ return RID; };
 
+
+	virtual void setPath(vector<glm::vec2> p){ Path = p; };
+	virtual vector<glm::vec2> getPath(){ return Path; };
+
 private:
+
+	vector<glm::vec2> Path;
 	/// path of the model file
 	string pathName;
 	int RID=0;

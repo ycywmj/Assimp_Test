@@ -415,13 +415,28 @@ void World::InitialNPCs()
 {
 	float scale = 0.05f;
 	string fileName = "res/models/c1/c1.obj";
+	vector<glm::vec2> *Path;
 
+	Path = new vector< glm::vec2 > ;
+	glm::vec2 NewPath1(10.0f, -8.0f);
+	glm::vec2 NewPath2(5.0f, -8.0f);
+	glm::vec2 NewPath3(1.0f, 0.0f);
+	Path->push_back(NewPath1);
+	Path->push_back(NewPath2);
+	Path->push_back(NewPath3);
+
+		
 	Agent = new NPCs();
 	Agent->Load(graphics_handler, fileName);
-	Agent->Postition(-18.0f, 0.2f, -2.6f);
+	Agent->Postition(10.0f, 0.0f, -8.0f);
 	Agent->Scale(scale, scale, scale);
 	Agent->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
 	Agent->InitialState();
+	Agent->setPath(*Path);
+	//Agent->setEmotions(1.0f, 0.0f);
+	Agent->setMoods(0.3f, 0.0f);
+	Agent->setTraits(0.2f, 0.0f);
+	Agent->setPersonalities(0.4f, 0.0f);
 	Agents[1] = *Agent;
 }
 
