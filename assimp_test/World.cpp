@@ -411,7 +411,9 @@ void World::Initial2DTexture(){
 void World::InitialNPCs()
 {
 	float scale = 0.05f;
-	string fileName = "res/models/c1/c1.obj";
+	string fileName1 = "res/models/n1/n1_n.obj";
+	string fileName2 = "res/models/n1/n1_h.obj";
+	string fileName3 = "res/models/n1/n1_s.obj";
 	vector<glm::vec2> *Path;
 
 	Path = new vector< glm::vec2 > ;
@@ -422,9 +424,14 @@ void World::InitialNPCs()
 	Path->push_back(NewPath2);
 	Path->push_back(NewPath3);
 
-		
+	map<string, string> Files;
+	Files["normal"] = fileName1;
+	Files["happy"] = fileName2;
+	Files["sad"] = fileName3;
+
 	Agent = new NPCs();
-	Agent->Load(graphics_handler, fileName);
+	Agent->LoadAll(graphics_handler, Files);
+	Agent->UpdateModel("normal");
 	Agent->Postition(10.0f, 0.0f, -8.0f);
 	Agent->Scale(scale, scale, scale);
 	Agent->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
@@ -445,9 +452,9 @@ void World::DrawNPCs()
 	Agents[1].Render(graphics_handler);
 
 	cout << Agents[1].getEmotions().x << endl;
-	cout<<Agents[1].getMoods().x<<endl;
+	/*cout<<Agents[1].getMoods().x<<endl;
 	cout << Agents[1].getTraits().x << endl;
-	cout << Agents[1].getPersonalities().x << endl<<endl;
+	cout << Agents[1].getPersonalities().x << endl<<endl;*/
 }
 
 

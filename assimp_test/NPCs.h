@@ -15,6 +15,7 @@ public:
 
 	Player *GetPlayer(){ return PL; };
 	void changeState(State<NPCs>* newState);
+	void changeEmotionState(State<NPCs> *newState);
 	// state machine
 	//void UpdateState(Player P);
 	void UpdateState(Player *P);
@@ -45,5 +46,6 @@ private:
 
 	// state machine
 	State<NPCs> *currentState;
+	State<NPCs> *currentEmotion;
 };
 #endif

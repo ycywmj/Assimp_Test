@@ -73,14 +73,12 @@ void Wander::Execute(NPCs *npc){
 	if (npc->processCollision(npc->GetPlayer()) && npc->GetPlayer()->isPlayerKicking())
 	{
 
-		npc->setCurrentEvent(0.5f, 0.5f);
+		npc->setCurrentEvent(-0.2f, -0.2f);
 		npc->changeState(&emotions_state::Instance());
 	}
 
 	npc->GetPlayer()->setActions(0);
 
-
-	
 
 	//cout << npc->GetPosition().x << endl;
 	//cout << npc->GetPosition().z << endl << endl;
@@ -116,25 +114,7 @@ void Emotions::Execute(NPCs *npc){
 	npc->setTraits(npc->getCurrentEvent().x * 0.05 + npc->getTraits().x, npc->getCurrentEvent().y * 0.05 + npc->getTraits().y);
 	npc->setPersonalities(npc->getCurrentEvent().x * 0.01 + npc->getPersonalities().x, npc->getCurrentEvent().y * 0.01 + npc->getPersonalities().y);
 
-	/*if (0)
-	{
-		if (0)
-			npc->changeState(&wander_state::Instance());
-	}*/
-
-	if (FinalEmotion.x >= 0)
-	{
-		npc->changeState(&happy_state::Instance());
-	}
-
-	if (FinalEmotion.x < 0)
-	{
-		npc->changeState(&sad_state::Instance());
-	}
-
-
-	//cout << FinalEmotion.x << endl;
-	//cout << FinalEmotion.y << endl;
+	npc->changeState(&response_state::Instance());
 }
 
 void Emotions::Exit(NPCs *npc){
@@ -142,13 +122,12 @@ void Emotions::Exit(NPCs *npc){
 }
 
 
-void Happy::Enter(NPCs *npc){
+void Response::Enter(NPCs *npc){
 	stateTime = 0.0;
-
-	cout << "Enter Flee state" << endl;
+	cout << "Enter Response state" << endl;
 }
 
-void Happy::Execute(NPCs *npc){
+void Response::Execute(NPCs *npc){
 
 	World *World_Instance = Singleton<World>::Instance();
 	stateTime += World_Instance->GetDeltaTime();
@@ -169,8 +148,51 @@ void Happy::Execute(NPCs *npc){
 	{
 		npc->changeState(&wander_state::Instance());
 	}
-	cout << "I am Happy" << endl;
+	/*if (0)
+	{
+	if (0)
+	npc->changeState(&wander_state::Instance());
+	}*/
 
+	//if (FinalEmotion.x >= 0)
+	//{
+	//	npc->changeState(&happy_state::Instance());
+	//}
+
+	//if (FinalEmotion.x < 0)
+	//{
+	//	npc->changeState(&sad_state::Instance());
+	//}
+
+
+	//cout << FinalEmotion.x << endl;
+	//cout << FinalEmotion.y << endl;
+}
+
+void Response::Exit(NPCs *npc){
+	cout << "Exit Response state" << endl;
+}
+
+
+void Happy::Enter(NPCs *npc){
+	//stateTime = 0.0;
+	npc->UpdateModel("happy");
+	cout << "Enter Flee state" << endl;
+}
+
+void Happy::Execute(NPCs *npc){
+
+
+	if (npc->getEmotions().x < -0.3)
+	{
+		npc->changeEmotionState(&sad_state::Instance());
+	}
+
+	if ((npc->getEmotions().x >= -0.3) && (npc->getEmotions().x <= 0.3))
+	{
+		npc->changeEmotionState(&normal_state::Instance());
+	}
+	cout << "I am Happy" << endl;
 
 }
 
@@ -182,15 +204,51 @@ void Happy::Exit(NPCs *npc){
 
 
 void Sad::Enter(NPCs *npc){
+	stateTime = 0.0;
+	npc->UpdateModel("sad");
 	cout << "Enter Flee state" << endl;
 }
 
 void Sad::Execute(NPCs *npc){
 
+	if (npc->getEmotions().x > 0.3)
+	{
+		npc->changeEmotionState(&happy_state::Instance());
+	}
 
-	cout << "Sad!!!!" << endl;
+	if ((npc->getEmotions().x >= -0.3) && (npc->getEmotions().x <= 0.3))
+	{
+		npc->changeEmotionState(&normal_state::Instance());
+	}
+	cout << "Sad" << endl;
 }
 
 void Sad::Exit(NPCs *npc){
-	cout << "Exit Flee state" << endl;
+	cout << "Exit Sad state" << endl;
+}
+
+
+void Normal::Enter(NPCs *npc){
+	npc->UpdateModel("normal");
+	cout << "Enter Normal state" << endl;
+}
+
+void Normal::Execute(NPCs *npc){
+
+	if (npc->getEmotions().x > 0.3)
+	{
+		npc->changeEmotionState(&happy_state::Instance());
+	}
+
+	if (npc->getEmotions().x < -0.3)
+	{
+		npc->changeEmotionState(&sad_state::Instance());
+	}
+
+	cout << "Normal" << endl;
+	
+}
+
+void Normal::Exit(NPCs *npc){
+	cout << "Exit Normal state" << endl;
 }

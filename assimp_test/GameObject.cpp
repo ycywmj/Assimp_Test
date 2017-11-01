@@ -15,9 +15,20 @@ GameObject::GameObject()
 	sceneBody = false;
 }
 
+void GameObject::LoadAll(Graphics *graphics_handler, map<string, string> fs)
+{
+	files = fs;
+
+	for (map<string, string>::iterator it = files.begin(); it != files.end(); ++it) {
+		Load(graphics_handler, it->second);
+		cout << it->second << endl;
+	}
+}
+
 void GameObject::Load(Graphics *graphics_handler,string fname)
 {
 	pathName = fname;
+
 	graphics_handler->LoadModel(fname);
 	
 }
@@ -27,6 +38,11 @@ void GameObject::Render(Graphics *graphics_handler)
 	World* world_instance = Singleton<World>::Instance();
 	this->UpdateObject(world_instance->GetDeltaTime());
 	graphics_handler->RenderModel(pathName,Pos, Sca, Rot);
+}
+
+void GameObject::UpdateModel(string s)
+{
+	pathName = files[s];
 }
 
 void GameObject::Postition(float x, float y, float z)

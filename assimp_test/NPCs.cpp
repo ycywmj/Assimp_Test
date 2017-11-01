@@ -10,6 +10,7 @@ void NPCs::SetHealth(int HP)
 void NPCs::InitialState()
 {
 	currentState = &wander_state::Instance();
+	currentEmotion = &normal_state::Instance();
 }
 
 int NPCs::GetHealth()
@@ -27,6 +28,16 @@ void NPCs::changeState(State<NPCs> *newState)
 	currentState->Enter(this);
 }
 
+void NPCs::changeEmotionState(State<NPCs> *newState)
+{
+	//call the exit method of the existing state
+	currentEmotion->Exit(this);
+	//change state to the new state
+	currentEmotion = newState;
+	//call the entry method of the new state
+	currentEmotion->Enter(this);
+}
+
 // state machine
 void NPCs::UpdateState(Player *P){
 
@@ -34,6 +45,28 @@ void NPCs::UpdateState(Player *P){
 	if (currentState)
 	{
 		currentState->Execute(this);
+	}
+
+	if (currentEmotion)
+	{
+		currentEmotion->Execute(this);
+	}
+
+	if (Emotions.x > 0)
+	{
+		Emotions.x -= 0.0001;
+	}
+	if (Emotions.x < 0)
+	{
+		Emotions.x += 0.0001;
+	}
+	if (Emotions.y > 0)
+	{
+		Emotions.y -= 0.0001;
+	}
+	if (Emotions.y < 0)
+	{
+		Emotions.y += 0.0001;
 	}
 }
 
@@ -55,6 +88,8 @@ void NPCs::CheckMaxValues()
 	{
 		Emotions.y = -1;
 	}
+
+
 
 	if (Moods.x > 1)
 	{

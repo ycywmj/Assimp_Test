@@ -12,7 +12,7 @@
 #include "Physics.h"
 
 #include <btBulletDynamicsCommon.h>
-
+using namespace std;
 /**
 * @class GameObject
 * @brief GameObject does stuff
@@ -46,6 +46,9 @@ public:
 		}
 	}
 
+	void LoadAll(Graphics *graphics_handler, map<string, string> fname);
+
+	void UpdateModel(string s);
 	/**
 	* @brief  Load the model file and bind as this game object
 	* @param graphics_handler, using specific graphics api same as the entire game program to load the model
@@ -212,10 +215,15 @@ public:
 	virtual void setPath(vector<glm::vec2> p){ Path = p; };
 	virtual vector<glm::vec2> getPath(){ return Path; };
 
+
+
 private:
 
 	vector<glm::vec2> Path;
 	/// path of the model file
+
+	map<string, string> files;
+
 	string pathName;
 	int RID=0;
 	/// Position
@@ -226,7 +234,6 @@ private:
 	glm::vec4 Rot;
 
 	glm::vec3 BoxSize;
-
 
 
 	///Mass of the object
