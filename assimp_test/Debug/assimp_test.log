@@ -1,1 +1,17 @@
-﻿  assimp_test.vcxproj -> X:\Study\Uni\Yr3_S2\ICT398 - AdvGame\GithubBackup\Assimp_Test\Debug\assimp_test.exe
+﻿  GameObject.cpp
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\gameobject.cpp(19): warning C4305: '=' : truncation from 'double' to 'float'
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\gameobject.cpp(143): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\gameobject.cpp(155): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\gameobject.cpp(156): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\gameobject.cpp(157): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\gameobject.cpp(163): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  main.cpp
+  World.cpp
+  Player.cpp
+  Physics.cpp
+  NPCs.cpp
+  NPCStates.cpp
+  Graphics.cpp
+  assimp_test.vcxproj -> X:\Study\Uni\Yr3_S2\ICT398 - AdvGame\GithubBackup\Assimp_Test\Debug\assimp_test.exe

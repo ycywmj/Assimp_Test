@@ -95,6 +95,7 @@
   <ItemGroup>
     <ClInclude Include="AABB.h" />
     <ClInclude Include="AISingleton.h" />
+    <ClInclude Include="Bullet_GLM.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DrawBox.h" />
     <ClInclude Include="GameObject.h" />
@@ -104,6 +105,7 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="NPCs.h" />
     <ClInclude Include="NPCStates.h" />
+    <ClInclude Include="OObtCollisionObject.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Shader.h" />
