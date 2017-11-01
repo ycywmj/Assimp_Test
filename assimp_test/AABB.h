@@ -57,7 +57,7 @@ public:
 	* @param worldXYZ2, objects in the world 2
 	* @return true if collide, false otherwise
 	*/
-	bool checkCollision(glm::vec3 worldXYZ, AABB &aabb2, glm::vec3 worldXYZ2, glm::vec3 *collisionPoint);
+	bool checkCollision(glm::vec3 worldXYZ, AABB &aabb2, glm::vec3 worldXYZ2);
 
 	/**
 	* @brief  Find the point of collision between two objects

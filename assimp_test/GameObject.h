@@ -13,7 +13,7 @@
 
 #include "OObtCollisionObject.h"
 #include <btBulletDynamicsCommon.h>
-
+using namespace std;
 /**
 * @class GameObject
 * @brief GameObject does stuff
@@ -47,20 +47,23 @@ public:
 		}
 	}
 
+	void LoadAll(Graphics *graphics_handler, map<string, string> fname);
+
+	void UpdateModel(string s);
 	/**
 	* @brief  Load the model file and bind as this game object
 	* @param graphics_handler, using specific graphics api same as the entire game program to load the model
 	* @param fname, path with file name of the model
 	* @return void
 	*/
-	void Load(Graphics *graphics_handler, string fname);
+	virtual void Load(Graphics *graphics_handler, string fname);
 
 	/**
 	* @brief  Render the model of this game object
 	* @param graphics_handler, using specific graphics api same as the entire game program to render the model
 	* @return void
 	*/
-	void Render(Graphics *graphics_handler);
+	virtual void Render(Graphics *graphics_handler);
 
 	/**
 	* @brief  Set the game object's position
@@ -69,7 +72,7 @@ public:
 	* @param z, value in z-axis
 	* @return void
 	*/
-	void Postition(float x, float y, float z);
+	virtual void Postition(float x, float y, float z);
 
 	/**
 	* @brief  Set the game object's scaling value
@@ -78,7 +81,7 @@ public:
 	* @param z, value in z-axis
 	* @return void
 	*/
-	void Scale(float x, float y, float z);
+	virtual void Scale(float x, float y, float z);
 
 	/**
 	* @brief  Set the game object's rotation value
@@ -87,7 +90,7 @@ public:
 	* @param z, value in z-axis
 	* @return void
 	*/
-	void Rotate(float x, float y, float z, float degree);
+	virtual void Rotate(float x, float y, float z, float degree);
 
 	/**
 	* @brief  Set the game object's bounding box by passing its size
@@ -96,23 +99,23 @@ public:
 	* @param z, size in z-axis
 	* @return void
 	*/
-	void SetBoundingBox(float x, float y, float z);
+	virtual void SetBoundingBox(float x, float y, float z);
 
 	/**
 	* @brief  Determine the collision happens between 2 objs
 	* @param obj, target object
 	* @return bool, true if collide, false otherwise
 	*/
-	bool processCollision(GameObject &obj, glm::vec3 *collisionPoint);
+	virtual bool processCollision(GameObject *obj);
 
-	void UpdateObject(double deltaTime);
+	virtual void UpdateObject(double deltaTime);
 
 	/**
 	* @brief  Get function for center of mass
 	* 
 	* @return glm::vec3 COM
 	*/
-	glm::vec3 GetCOM()
+	virtual glm::vec3 GetCOM()
 	{
 		return(Pos);
 	}
@@ -122,7 +125,7 @@ public:
 	*
 	* @return glm::vec3 COM
 	*/
-	glm::vec3 GetVel()
+	virtual glm::vec3 GetVel()
 	{
 		return(Vel);
 	}
@@ -132,7 +135,7 @@ public:
 	*
 	* @return float mass, the mass
 	*/
-	float GetMass()
+	virtual float GetMass()
 	{
 		return(mass);
 	}
@@ -144,7 +147,7 @@ public:
 	*
 	* @return glm::vec3 lengths of bounding box sides
 	*/
-	glm::vec3 GetBBLengths()
+	virtual glm::vec3 GetBBLengths()
 	{
 		return(BoundingBoxLengths);
 	}
@@ -158,7 +161,11 @@ public:
 	*
 	* @return glm::vec3 lengths of bounding box sides
 	*/
+<<<<<<< HEAD
 	float GetAngularVel()
+=======
+	virtual glm::vec3 GetAngularVel()
+>>>>>>> origin/master
 	{
 		return(AngV);
 	}
@@ -166,7 +173,7 @@ public:
 	/**
 	* @brief  Set function for Velocity
 	*/
-	void SetVel(glm::vec3 newVelocity)
+	virtual void SetVel(glm::vec3 newVelocity)
 	{
 		Vel = newVelocity;
 	}
@@ -174,13 +181,34 @@ public:
 	/**
 	* @brief  Set function for Angular Velocity
 	*/
+<<<<<<< HEAD
 	void SetAngVelAxis(glm::vec3 newAngVelocity)
+=======
+	virtual void SetAngVel(glm::vec3 newAngVelocity)
+>>>>>>> origin/master
 	{
 		AngVaxis = newAngVelocity;
 	}
 
+<<<<<<< HEAD
 	void SetAngVel(float val){
 		AngV = val;
+=======
+	/*
+	* @brief  Set function for Scene body
+	*/
+	virtual void SetSceneObject(bool sceneobj)
+	{
+		sceneBody = sceneobj;
+	}
+
+	/*
+	* @brief  get function for Scene body
+	*/
+	virtual bool GetSceneObject()
+	{
+		return sceneBody;
+>>>>>>> origin/master
 	}
 
 	OObtCollisionObject* SetBulletBoundingBox(float size_x, float size_y, float size_z);
@@ -188,11 +216,12 @@ public:
 	/*
 	* @brief  get function for Position
 	*/
-	glm::vec3 GetPosition()
+	virtual glm::vec3 GetPosition()
 	{
 		return Pos;
 	}
 
+<<<<<<< HEAD
 	void SetIsCollided(bool val){ isCollided = val; };
 	bool GetIsCollided(){ return isCollided; };
 	void SetBtDelay(double val){ btDelay = val; };
@@ -206,11 +235,33 @@ public:
 	glm::vec3 GetPosBeforeCollide(){ return posBeforeCollide[1]; };
 
 	void DrawBoundingBox();
+=======
+	virtual void setX(double x){ Pos.x = x; };
+	virtual void setY(double y){ Pos.y = y; };
+	virtual void setZ(double z){ Pos.z = z; };
+
+	virtual void setRotation(glm::vec4 Ro){ Rot = Ro; };
+	virtual void DrawBoundingBox();
+
+	virtual void setRigidID(int id){ RID = id; };
+	virtual int getRigidID(){ return RID; };
+
+
+	virtual void setPath(vector<glm::vec2> p){ Path = p; };
+	virtual vector<glm::vec2> getPath(){ return Path; };
+
+
+>>>>>>> origin/master
 
 private:
-	/// path of the model file
-	string pathName;
 
+	vector<glm::vec2> Path;
+	/// path of the model file
+
+	map<string, string> files;
+
+	string pathName;
+	int RID=0;
 	/// Position
 	glm::vec3 Pos;
 	/// Scale
@@ -220,6 +271,10 @@ private:
 
 	glm::vec3 BoxSize;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 	///Mass of the object
 	float mass;
 	///Center of mass

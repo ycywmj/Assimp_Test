@@ -39,6 +39,7 @@ void World::GameDestruction(){
 }
 
 void World::InitializeGame(){
+<<<<<<< HEAD
 	Initial2DTexture();
 
 	//Initial Models
@@ -59,13 +60,23 @@ void World::InitializeGame(){
 		new_col_obj->SetAttachObject(cameraPlayer);
 		bt_collision_world->addCollisionObject(new_col_obj);
 	}
+=======
+
+	InitialPlayer();
+	InitialWorldObjects();
+	//Initial wall collision detection
+	//SetBoundingWall();
+	
+	camera->SetPostion(2.0f, 1.25f, 3.0f);
+
+>>>>>>> origin/master
 
 	CurrentX = 0;
 	CurrentZ = 0;
 
 	glm::vec3 Pos;
 	glm::vec3 BoxSize;
-	graphics_handler->loadBox(Pos,BoxSize);
+	//graphics_handler->loadBox(Pos,BoxSize);
 	//texture2d.SetTextureCount(1);
 	//texture2d.LoadRawTexture2D( "", 860, 640, CREDIT_TEXTURE);
 }
@@ -85,14 +96,40 @@ void World::RunGame(const char* api){
 
 void World::UpdateGame(){
 	delta_time = graphics_handler->GetDeltaTime();
+<<<<<<< HEAD
 	
 	CheckBulletCollision();
+=======
+	game_total_time += delta_time;
+
+	DrawWorldObjects();
+	DrawPlayer();
+	
+	PlayerActions();
+
+	//graphics_handler->drawBox();
+>>>>>>> origin/master
 
 	DrawWorldObjects();
 
 	cameraPlayer->Postition(camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
 
+<<<<<<< HEAD
 	graphics_handler->drawBox();
+=======
+	//DrawBench1();
+	//DrawBench2();
+	//DrawChair1();
+	//DrawChair2();
+	//DrawTable1();
+	//DrawScene();
+	//graphics_handler->drawBox();
+
+
+	CheckBulletCollision();
+
+	//CheckBoundingBox();
+>>>>>>> origin/master
 
 	if (*game_status != GAME_PLAYING){
 		if (*game_status == GAME_DONE){
@@ -131,6 +168,43 @@ void World::UpdateGame(){
 //	//	}
 //	//}
 //}
+<<<<<<< HEAD
+=======
+
+
+void World::InitialWorldObjects()
+{
+	Initial2DTexture();
+
+	//Initial Models
+	InitialBench1();
+	InitialBench2();
+	InitialChair1();
+	InitialChair2();
+	InitialTable1();
+	InitialScene();
+	InitialNPCs();
+	//InitialPlayer();
+
+}
+
+void World::DrawWorldObjects()
+{
+	/*for (int i = 0; i < WorldObjects.size(); i++)
+	{
+	WorldObjects[i].Render(graphics_handler);
+	}*/
+
+	DrawBench1();
+	DrawBench2();
+	DrawChair1();
+	DrawChair2();
+	DrawTable1();
+	DrawScene();
+	DrawNPCs();
+	//DrawPlayer();
+}
+>>>>>>> origin/master
 
 void World::InitialScene()
 {
@@ -381,25 +455,77 @@ void World::Initial2DTexture(){
 	graphics_handler->Load2DTexture("res/2d_imgs/Credit.jpg");
 }
 
+void World::InitialNPCs()
+{
+	float scale = 0.05f;
+	string fileName1 = "res/models/n1/n1_n.obj";
+	string fileName2 = "res/models/n1/n1_h.obj";
+	string fileName3 = "res/models/n1/n1_s.obj";
+	vector<glm::vec2> *Path;
+
+	Path = new vector< glm::vec2 > ;
+	glm::vec2 NewPath1(10.0f, -8.0f);
+	glm::vec2 NewPath2(5.0f, -8.0f);
+	glm::vec2 NewPath3(1.0f, 0.0f);
+	Path->push_back(NewPath1);
+	Path->push_back(NewPath2);
+	Path->push_back(NewPath3);
+
+	map<string, string> Files;
+	Files["normal"] = fileName1;
+	Files["happy"] = fileName2;
+	Files["sad"] = fileName3;
+
+	Agent = new NPCs();
+	Agent->LoadAll(graphics_handler, Files);
+	Agent->UpdateModel("normal");
+	Agent->Postition(10.0f, 0.0f, -8.0f);
+	Agent->Scale(scale, scale, scale);
+	Agent->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	Agent->SetBoundingBox(4.0f, 4.0f, 4.0f);
+	Agent->InitialState();
+	Agent->setPath(*Path);
+	//Agent->setEmotions(1.0f, 0.0f);
+	Agent->setMoods(0.3f, 0.0f);
+	Agent->setTraits(0.2f, 0.0f);
+	Agent->setPersonalities(0.4f, 0.0f);
+	Agents[1] = *Agent;
+}
+
+void World::DrawNPCs()
+{
+
+	Agents[1].UpdateState(cameraPlayer);
+	Agents[1].Render(graphics_handler);
+
+	cout << Agents[1].getEmotions().x << endl;
+	/*cout<<Agents[1].getMoods().x<<endl;
+	cout << Agents[1].getTraits().x << endl;
+	cout << Agents[1].getPersonalities().x << endl<<endl;*/
+}
+
+
+void World::InitialPlayer()
+{
+	cameraPlayer = new Player();
+	cameraPlayer->Postition(camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
+	cameraPlayer->SetBoundingBox(0.1f, 0.1f, 0.1f);
+	btCollisionObject* new_col_obj = cameraPlayer->SetBulletBoundingBox(0.05f, 0.05f, 0.05f);
+	if (new_col_obj)
+		bt_collision_world->addCollisionObject(new_col_obj);
+
+}
+
+void World::DrawPlayer()
+{
+
+	cameraPlayer->Postition(camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
+
+}
 
 void World::DrawScene()
 {
 	Scene.Render(graphics_handler);
-}
-
-void World::DrawWorldObjects()
-{
-	/*for (int i = 0; i < WorldObjects.size(); i++)
-	{
-		WorldObjects[i].Render(graphics_handler);
-	}*/
-
-	DrawBench1();
-	DrawBench2();
-	DrawChair1();
-	DrawChair2();
-	DrawTable1();
-	DrawScene();
 }
 
 void World::DrawBench1()
@@ -512,6 +638,7 @@ void World::SetBoundingWall()
 
 }
 
+<<<<<<< HEAD
 void World::CheckBoundingBox()
 {
 	//glm::vec3 collisionPoint;
@@ -545,6 +672,42 @@ void World::CheckBoundingBox()
 	//}
 
 }
+=======
+//
+//void World::CheckBoundingBox()
+//{
+//	glm::vec3 collisionPoint;
+//	//check wall bounding box
+//
+//	for (int i = 0; i < WorldObjects.size(); i++)
+//	{
+//		if (WorldObjects[i].processCollision(cameraPlayer, &collisionPoint))
+//		{
+//			camera->SetPostion(CurrentX, camera->GetPosition().y, CurrentZ);
+//			//cout << "collision with object:"<< i << endl;
+//		}
+//	}
+//
+//	for (int i = 0; i < WorldObjects.size(); i++)
+//	{
+//		for (int j=i; j < WorldObjects.size(); j++)
+//		{
+//			if (i != j)
+//			{
+//				if (WorldObjects[i].processCollision(WorldObjects[j], &collisionPoint))
+//				{
+//					Physics::ObjectCollision(&WorldObjects[i], &WorldObjects[j], collisionPoint);
+//					cout << "something is colliding" << endl;
+//					cout << "collision point" << collisionPoint.x << endl;
+//					//cout << "i value:" << i << endl;
+//					//cout << "j value: " << j << endl;
+//				}
+//			}
+//		}
+//	}
+//
+//}
+>>>>>>> origin/master
 
 void World::CheckBulletCollision(){
 	//Perform collision detection
@@ -619,6 +782,7 @@ void World::CheckBulletCollision(){
 		glm::vec3 obBglm = Bullet_GLM::BulletVec3ToGlmVec3(obB->getWorldTransform().getOrigin());
 		if (
 				(
+<<<<<<< HEAD
 					obAglm.x == cameraPlayer->GetPosition().x &&
 					obAglm.y == cameraPlayer->GetPosition().y &&
 					obAglm.z == cameraPlayer->GetPosition().z
@@ -628,6 +792,17 @@ void World::CheckBulletCollision(){
 					obBglm.x == cameraPlayer->GetPosition().x &&
 					obBglm.y == cameraPlayer->GetPosition().y &&
 					obBglm.z == cameraPlayer->GetPosition().z
+=======
+					obAtemp.x == cameraPlayer->GetPosition().x &&
+					obAtemp.y == cameraPlayer->GetPosition().y &&
+					obAtemp.z == cameraPlayer->GetPosition().z
+				)
+				||
+				(
+					obBtemp.x == cameraPlayer->GetPosition().x &&
+					obBtemp.y == cameraPlayer->GetPosition().y &&
+					obBtemp.z == cameraPlayer->GetPosition().z
+>>>>>>> origin/master
 				)
 			){
 
@@ -636,3 +811,13 @@ void World::CheckBulletCollision(){
 	}
 }
 
+void World::PlayerActions()
+{
+	bool* keyPressed = graphics_handler->getPressedKey();
+
+	if (keyPressed[70])
+	{
+		cameraPlayer->setActions(1);
+	}
+	
+}
