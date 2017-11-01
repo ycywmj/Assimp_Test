@@ -1,1 +1,8 @@
-﻿  assimp_test.vcxproj -> X:\Study\Uni\Yr3_S2\ICT398 - AdvGame\GithubBackup\Assimp_Test\Debug\assimp_test.exe
+﻿  World.cpp
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\world.cpp(401): warning C4018: '<' : signed/unsigned mismatch
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\world.cpp(409): warning C4018: '<' : signed/unsigned mismatch
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\world.cpp(417): warning C4018: '<' : signed/unsigned mismatch
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\world.cpp(425): warning C4018: '<' : signed/unsigned mismatch
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\world.cpp(433): warning C4018: '<' : signed/unsigned mismatch
+x:\study\uni\yr3_s2\ict398 - advgame\githubbackup\assimp_test\assimp_test\world.cpp(584): warning C4244: 'argument' : conversion from 'int' to 'const btScalar', possible loss of data
+  assimp_test.vcxproj -> X:\Study\Uni\Yr3_S2\ICT398 - AdvGame\GithubBackup\Assimp_Test\Debug\assimp_test.exe

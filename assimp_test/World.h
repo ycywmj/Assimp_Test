@@ -39,7 +39,7 @@ public:
 	* Initialises game_status singleton and sets game status to GAME_PLAYING
 	*/
 	World(){
-		//WorldObjects.reserve(2);
+		delta_time = 0.0;
 
 		game_status = Singleton<GameStatus>::Instance();
 		*game_status = GAME_PLAYING;
@@ -89,7 +89,7 @@ public:
 	*
 	* @return void
 	*/
-	void UpdateObjects();
+	void UpdateWorldObjects();
 
 	/**
 	* @brief  Willl be responsible for destruction of game
@@ -223,9 +223,13 @@ public:
 
 	void CheckBulletCollision();
 
+	double GetDeltaTime(){ return delta_time; };
+	
 	btCollisionWorld* GetCollisionWorld(){ return bt_collision_world; };
 
 	void DrawWorldObjects();
+
+	void StartMovingTable();
 
 private:
 	/// Generates a specific graphics api handler object
@@ -246,11 +250,14 @@ private:
 	/// For restoring cam pos after collusion
 	float CurrentZ;
 
+	/// Update frame delta time
+	double delta_time;
+
 	/// Number of benches in the virtual world
 	int numberOfBenchs;
 	
 	/// Player itself in the world as a game object
-	GameObject cameraPlayer;
+	GameObject* cameraPlayer;
 
 	/// Whole bar scene
 	GameObject Scene;
@@ -265,7 +272,7 @@ private:
 	GameObject *BoundingWall;
 
 	/// Stores all the no.1 benches
-	map<int, GameObject> Bench1s;
+	map<int, GameObject*> Bench1s;
 	
 	/// Stores multiple no.1 benches
 	GameObject *Bench1;

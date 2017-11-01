@@ -11,6 +11,7 @@
 #include "DrawBox.h"
 #include "Physics.h"
 
+#include "OObtCollisionObject.h"
 #include <btBulletDynamicsCommon.h>
 
 /**
@@ -136,6 +137,8 @@ public:
 		return(mass);
 	}
 
+	void SetMass(float val){ mass = val; };
+
 	/**
 	* @brief  Get function for Bounding box lengths
 	*
@@ -145,13 +148,17 @@ public:
 	{
 		return(BoundingBoxLengths);
 	}
+	
+	glm::vec3 GetAngularVelAxis(){
+		return AngVaxis;
+	}
 
 	/**
 	* @brief  Get function for Bounding box lengths
 	*
 	* @return glm::vec3 lengths of bounding box sides
 	*/
-	glm::vec3 GetAngularVel()
+	float GetAngularVel()
 	{
 		return(AngV);
 	}
@@ -167,28 +174,16 @@ public:
 	/**
 	* @brief  Set function for Angular Velocity
 	*/
-	void SetAngVel(glm::vec3 newAngVelocity)
+	void SetAngVelAxis(glm::vec3 newAngVelocity)
 	{
-		AngV = newAngVelocity;
+		AngVaxis = newAngVelocity;
 	}
 
-	/*
-	* @brief  Set function for Scene body
-	*/
-	void SetSceneObject(bool sceneobj)
-	{
-		sceneBody = sceneobj;
+	void SetAngVel(float val){
+		AngV = val;
 	}
 
-	/*
-	* @brief  get function for Scene body
-	*/
-	bool GetSceneObject()
-	{
-		return sceneBody;
-	}
-
-	btCollisionObject* SetBulletBoundingBox(float size_x, float size_y, float size_z);
+	OObtCollisionObject* SetBulletBoundingBox(float size_x, float size_y, float size_z);
 
 	/*
 	* @brief  get function for Position
@@ -197,6 +192,18 @@ public:
 	{
 		return Pos;
 	}
+
+	void SetIsCollided(bool val){ isCollided = val; };
+	bool GetIsCollided(){ return isCollided; };
+	void SetBtDelay(double val){ btDelay = val; };
+	double GetBtDelay(){ return btDelay; };
+
+
+	void SetPosBeforeCollide(glm::vec3 val){ 
+		posBeforeCollide[1] = posBeforeCollide[0]; 
+		posBeforeCollide[0] = val;
+	};
+	glm::vec3 GetPosBeforeCollide(){ return posBeforeCollide[1]; };
 
 	void DrawBoundingBox();
 
@@ -213,8 +220,6 @@ private:
 
 	glm::vec3 BoxSize;
 
-
-
 	///Mass of the object
 	float mass;
 	///Center of mass
@@ -223,12 +228,14 @@ private:
 	glm::vec3 Vel;
 	//Rotational momentum
 	glm::vec3 RotMom;
+	///Angular velocity axis
+	glm::vec3 AngVaxis;
 	///Angular velocity
-	glm::vec3 AngV;
+	float AngV;
+	///Acceleration
+	float Acceleration;
 	///Object Lengths
 	glm::vec3 BoundingBoxLengths;
-	///moveable body or not
-	bool sceneBody;
 	
 	/// Bounding Box vertices
 
@@ -237,8 +244,14 @@ private:
 	AABB boundingBox;
 
 	// bullet physics
-	btCollisionObject* bulletBox;
-
+	OObtCollisionObject* bulletBox;
+	
+	bool isCollided;
+	double btDelay;
+	// pos before collide
+	glm::vec3 posBeforeCollide[2];
+	float linearLoss, angLoss;
+	float linearLimit, AngLimit;
 };
 
 #endif

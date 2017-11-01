@@ -156,6 +156,12 @@ void OpenGL::KeyCallback(GLFWwindow *window, int key, int scancode, int action, 
 			*game_status = GAME_CREDIT_PAGE;
 		}
 
+		if (GLFW_KEY_P == key && GLFW_PRESS == action)
+		{
+			World* world_instance = Singleton<World>::Instance();
+			world_instance->StartMovingTable();
+		}
+
 		if (key >= 0 && key < 1024)
 		{
 			if (action == GLFW_PRESS)
