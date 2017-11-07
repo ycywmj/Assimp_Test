@@ -168,6 +168,7 @@ void World::InitialBench1()
 	Bench1->Postition(10.0f, height, 2.0f);
 	Bench1->Scale(scale, scale, scale);
 	Bench1->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
+<<<<<<< HEAD
 	Bench1->SetBoundingBox(2.0f, 4.0f, 3.0f);
 	Bench1s[3] = Bench1;
 	//WorldObjects.push_back(*Bench1);
@@ -217,6 +218,60 @@ void World::InitialBench1()
 	if (new_col_obj)
 		bt_collision_world->addCollisionObject(new_col_obj);
 	
+=======
+	Bench1->SetBoundingBox(2.0f, 4.0f, 3.0f);
+	Bench1s[3] = Bench1;
+	//WorldObjects.push_back(*Bench1);
+
+	
+	//outside of room
+	Bench1 = new GameObject();
+	Bench1->Load(graphics_handler, fileName);
+	Bench1->Postition(2.0f, height, 2.0f);
+	Bench1->Scale(scale, scale, scale);
+	Bench1->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
+	Bench1->SetBoundingBox(2.0f, 4.0f, 3.0f);
+	Bench1s[4] = Bench1;
+	//WorldObjects.push_back(*Bench1);
+
+	Bench1 = new GameObject();
+	Bench1->Load(graphics_handler, fileName);
+	Bench1->Postition(0.0f, height, 2.0f);
+	Bench1->Scale(scale, scale, scale);
+	Bench1->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
+	Bench1->SetBoundingBox(2.0f, 4.0f, 3.0f);
+	Bench1s[5] = Bench1;
+	//WorldObjects.push_back(*Bench1);
+
+	Bench1 = new GameObject();
+	Bench1->Load(graphics_handler, fileName);
+	OObtCollisionObject* new_col_obj = Bench1->SetBulletBoundingBox(1.0f, 2.0f, 1.5f);
+	Bench1->Postition(-2.0f, height, 2.0f);
+	Bench1->Scale(scale, scale, scale);
+	Bench1->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
+	Bench1->SetBoundingBox(2.0f, 4.0f, 3.0f);
+	Bench1->SetMass(20.0f);
+	if (new_col_obj)
+		bt_collision_world->addCollisionObject(new_col_obj);
+	Bench1s[6] = Bench1;
+	//WorldObjects.push_back(*Bench1);
+
+	Bench1 = new GameObject();
+	Bench1->Load(graphics_handler, fileName);
+	new_col_obj = Bench1->SetBulletBoundingBox(1.0f, 2.0f, 1.5f);
+	new_col_obj->SetAttachObject(Bench1);
+	Bench1->Postition(10.0f, height, -1.0f);
+	Bench1->Scale(scale, scale, scale);
+	Bench1->Rotate(0.0f, 1.0f, 0.0f, .0f);
+	Bench1->SetBoundingBox(2.0f, 4.0f, 3.0f);
+	Bench1->SetMass(20.0f);
+	if (new_col_obj)
+		bt_collision_world->addCollisionObject(new_col_obj);
+	glm::vec3 vel = { -.5f, .0f, -.0f};
+	Bench1->SetVel(vel);
+	Bench1->SetAngVelAxis(glm::vec3(.0f, 0.0f, .0f));
+	Bench1->SetAngVel(0.0f);
+>>>>>>> origin/master
 	Bench1s[7] = Bench1;
 	//WorldObjects.push_back(*Bench1);
 
@@ -231,6 +286,13 @@ void World::InitialBench1()
 	Bench1->SetMass(20.0f);
 	if (new_col_obj)
 		bt_collision_world->addCollisionObject(new_col_obj);
+<<<<<<< HEAD
+=======
+	vel = { .5f, .0f, -.0f };
+	Bench1->SetVel(vel);
+	Bench1->SetAngVelAxis(glm::vec3(.0f, 0.0f, .0f));
+	Bench1->SetAngVel(0.0f);
+>>>>>>> origin/master
 	Bench1s[8] = Bench1;
 	//WorldObjects.push_back(*Bench1);
 
