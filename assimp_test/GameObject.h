@@ -12,7 +12,6 @@
 #include "Physics.h"
 
 #include "OObtCollisionObject.h"
-#include <btBulletDynamicsCommon.h>
 using namespace std;
 /**
 * @class GameObject
@@ -135,10 +134,9 @@ public:
 	*
 	* @return float mass, the mass
 	*/
-	virtual float GetMass()
-	{
-		return(mass);
-	}
+	float GetMass(){ return(mass); }
+
+	void SetMass(float val){ mass = val; };
 
 	/**
 	* @brief  Get function for Bounding box lengths
@@ -192,7 +190,7 @@ public:
 		return sceneBody;
 	}
 
-	btCollisionObject* SetBulletBoundingBox(float size_x, float size_y, float size_z);
+	OObtCollisionObject* SetBulletBoundingBox(float size_x, float size_y, float size_z);
 
 	/*
 	* @brief  get function for Position
@@ -204,6 +202,11 @@ public:
 
 	virtual void SetAngV(glm::vec3 angV){ this->AngV = angV; };
 	virtual glm::vec3 GetAngV(){ return AngV; };
+
+	virtual void SetIsCollided(bool val){ isCollided = val; };
+	virtual bool GetIsCollided(){ return isCollided; };
+	virtual void SetBtDelay(double val){ btDelay = val; };
+	virtual double GetBtDelay(){ return btDelay; };
 
 	virtual void setX(double x){ Postition(x, this->Pos.y, this->Pos.z); };
 	virtual void setY(double y){ Postition(this->Pos.x, y, this->Pos.z); };

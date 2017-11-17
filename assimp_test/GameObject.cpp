@@ -69,11 +69,11 @@ void GameObject::Rotate(float x, float y, float z,float degree)
 	Rot.y = y;
 	Rot.z = z;
 	Rot.w = degree;
-	if (bulletBox){
+	/*if (bulletBox){
 		btQuaternion quat;
 		quat.setRotation(btVector3(x, y, z), glm::radians(degree));
 		bulletBox->getWorldTransform().setRotation(quat);
-	}
+	}*/
 }
 
 void GameObject::SetBoundingBox(float x, float y, float z)
@@ -102,7 +102,7 @@ void GameObject::SetBoundingBox(float x, float y, float z)
 	BoxSize.z = z;
 }
 
-btCollisionObject* GameObject::SetBulletBoundingBox(float size_x, float size_y, float size_z){
+OObtCollisionObject* GameObject::SetBulletBoundingBox(float size_x, float size_y, float size_z){
 
 
 	if (!bulletBox) {
@@ -134,18 +134,31 @@ bool GameObject::processCollision(GameObject *obj)
 
 void GameObject::UpdateObject(double deltaTime)
 {
-	Postition(Pos.x + Vel.x * deltaTime, 
-		Pos.y + Vel.y * deltaTime, 
+	if (isCollided){
+		btDelay += deltaTime;
+		if (btDelay > 1.0){
+			btDelay = 0.0;
+			isCollided = false;
+		}
+	}
+
+	Postition(Pos.x + Vel.x * deltaTime,
+		Pos.y + Vel.y * deltaTime,
 		Pos.z + Vel.z * deltaTime);
+	// loss
+	if (Vel.x > .0f) Vel.x -= linearLoss;
+	else if (Vel.x < .0f) Vel.x += linearLoss;
+	if (Vel.y > .0f) Vel.y -= linearLoss;
+	else if (Vel.y < .0f) Vel.y += linearLoss;
+	if (Vel.z > .0f) Vel.z -= linearLoss;
+	else if (Vel.z < .0f) Vel.z += linearLoss;
 
-	//cout << "position y:" << Pos.y << endl;
 
-	glm::vec3 angVdt; 
-	glm::vec4 newRot;
-	angVdt.x = AngV.x * deltaTime;
-	angVdt.y = AngV.y * deltaTime;
-	angVdt.z = AngV.z * deltaTime;
-	newRot = Physics::AngularVelToRotQuat(angVdt);
+	glm::vec3 AngVaxisDt;
+	AngVaxisDt.x = AngV.x * deltaTime;
+	AngVaxisDt.y = AngV.y * deltaTime;
+	AngVaxisDt.z = AngV.z * deltaTime;
+	glm::vec4 newRot = Physics::AngularVelToRotQuat(AngV);
 
-	Rotate(newRot.x, newRot.y, newRot.z, Rot.w + newRot.w);
+	Rotate(newRot.x, newRot.y, newRot.z, Rot.w + newRot.w * deltaTime * 30);
 }

@@ -238,6 +238,8 @@ public:
 	void InitialPlayer();
 	void DrawPlayer();
 
+	void StartMovingTable();
+
 	void PlayerActions();
 	
 
@@ -285,7 +287,7 @@ private:
 	GameObject *BoundingWall;
 
 	/// Stores all the no.1 benches
-	map<int, GameObject> Bench1s;
+	map<int, GameObject*> Bench1s;
 	
 	/// Stores multiple no.1 benches
 	GameObject *Bench1;

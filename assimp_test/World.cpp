@@ -192,7 +192,7 @@ void World::InitialBench1()
 	Bench1->Scale(scale, scale, scale);
 	Bench1->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
 	Bench1->SetBoundingBox(3.0f, 4.0f, 2.0f);
-	Bench1s[1] = *Bench1;
+	Bench1s[1] = Bench1;
 	//WorldObjects.push_back(*Bench1);
 
 	Bench1 = new GameObject();
@@ -201,7 +201,7 @@ void World::InitialBench1()
 	Bench1->Scale(scale, scale, scale);
 	Bench1->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
 	Bench1->SetBoundingBox(3.0f, 4.0f, 2.0f);
-	Bench1s[2] = *Bench1;
+	Bench1s[2] = Bench1;
 	//WorldObjects.push_back(*Bench1);
 
 	Bench1 = new GameObject();
@@ -210,7 +210,7 @@ void World::InitialBench1()
 	Bench1->Scale(scale, scale, scale);
 	Bench1->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
 	Bench1->SetBoundingBox(3.0f, 4.0f, 2.0f);
-	Bench1s[3] = *Bench1;
+	Bench1s[3] = Bench1;
 	//WorldObjects.push_back(*Bench1);
 
 	
@@ -221,7 +221,7 @@ void World::InitialBench1()
 	Bench1->Scale(scale, scale, scale);
 	Bench1->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
 	Bench1->SetBoundingBox(3.0f, 4.0f, 2.0f);
-	Bench1s[4] = *Bench1;
+	Bench1s[4] = Bench1;
 	//WorldObjects.push_back(*Bench1);
 
 	Bench1 = new GameObject();
@@ -230,7 +230,7 @@ void World::InitialBench1()
 	Bench1->Scale(scale, scale, scale);
 	Bench1->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
 	Bench1->SetBoundingBox(3.0f, 4.0f, 2.0f);
-	Bench1s[5] = *Bench1;
+	Bench1s[5] = Bench1;
 	//WorldObjects.push_back(*Bench1);
 
 	Bench1 = new GameObject();
@@ -239,21 +239,24 @@ void World::InitialBench1()
 	Bench1->Scale(scale, scale, scale);
 	Bench1->Rotate(0.0f, 1.0f, 0.0f, 90.0f);
 	Bench1->SetBoundingBox(3.0f, 4.0f, 2.0f);
-	Bench1s[6] = *Bench1;
+	Bench1s[6] = Bench1;
 	//WorldObjects.push_back(*Bench1);
 
 	Bench1 = new GameObject();
 	Bench1->Load(graphics_handler, fileName);
-	btCollisionObject* new_col_obj = Bench1->SetBulletBoundingBox(1.0f, 2.0f, 1.5f);
-	Bench1->Postition(4.0f, height, -3.0f);
+	OObtCollisionObject* new_col_obj = Bench1->SetBulletBoundingBox(1.0f, 2.0f, 1.5f);
+	Bench1->Postition(4.0f, height, -2.0f);
 	Bench1->Scale(scale, scale, scale);
 	Bench1->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
 	Bench1->SetBoundingBox(2.0f, 4.0f, 3.0f);
-	if (new_col_obj)
+	Bench1->SetMass(20.0f);
+	if (new_col_obj){
+		new_col_obj->SetAttachObject(Bench1);
 		bt_collision_world->addCollisionObject(new_col_obj);
+	}
 	glm::vec3 vel = { -.0f, .0f, .0f };
 	Bench1->SetVel(vel);
-	Bench1s[1] = *Bench1;
+	Bench1s[7] = Bench1;
 	//WorldObjects.push_back(*Bench1);
 
 	Bench1 = new GameObject();
@@ -263,11 +266,14 @@ void World::InitialBench1()
 	Bench1->Scale(scale, scale, scale);
 	Bench1->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
 	Bench1->SetBoundingBox(2.0f, 4.0f, 3.0f);
-	if (new_col_obj)
+	Bench1->SetMass(20.0f);
+	if (new_col_obj){
+		new_col_obj->SetAttachObject(Bench1);
 		bt_collision_world->addCollisionObject(new_col_obj);
+	}
 	vel = {.0f, .0f, .0f };
 	Bench1->SetVel(vel);
-	Bench1s[2] = *Bench1;
+	Bench1s[8] = Bench1;
 	//WorldObjects.push_back(*Bench1);
 
 	/*Bench1 = new GameObject();
@@ -576,10 +582,11 @@ void World::InitialPlayer()
 	cameraPlayer = new Player();
 	cameraPlayer->Postition(camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
 	cameraPlayer->SetBoundingBox(0.1f, 0.1f, 0.1f);
-	btCollisionObject* new_col_obj = cameraPlayer->SetBulletBoundingBox(0.05f, 0.05f, 0.05f);
-	if (new_col_obj)
+	OObtCollisionObject* new_col_obj = cameraPlayer->SetBulletBoundingBox(0.05f, 0.05f, 0.05f);
+	if (new_col_obj){
+		new_col_obj->SetAttachObject(cameraPlayer);
 		bt_collision_world->addCollisionObject(new_col_obj);
-
+	}
 }
 
 void World::DrawPlayer()
@@ -601,7 +608,7 @@ void World::DrawBench1()
 	{
 		
 			//cout <<"increment" << Bench1s[i + 1].GetPosition().y << endl;
-		Bench1s[i + 1].Render(graphics_handler);
+		Bench1s[i + 1]->Render(graphics_handler);
 	}
 }
 
@@ -763,53 +770,56 @@ void World::CheckBulletCollision(){
 		btPersistentManifold* contactManifold = bt_collision_world->getDispatcher()->getManifoldByIndexInternal(i);
 		const btCollisionObject* obA = contactManifold->getBody0();
 		const btCollisionObject* obB = contactManifold->getBody1();
+		GameObject* objA = ((OObtCollisionObject*)obA)->GetAttachObject();
+		GameObject* objB = ((OObtCollisionObject*)obB)->GetAttachObject();
 		
-		//contactManifold->refreshContactPoints(obA->getWorldTransform(), obB->getWorldTransform());
+		contactManifold->refreshContactPoints(obA->getWorldTransform(), obB->getWorldTransform());
 		int numContacts = contactManifold->getNumContacts();
-		btVector3 midPt(.0f, .0f, .0f);
-		//For each contact point in that manifold
-		for (int j = 0; j < numContacts; j++) {
-			//Get the contact information
-			btManifoldPoint& pt = contactManifold->getContactPoint(j);
-			btVector3 ptA = pt.getPositionWorldOnA();
-			btVector3 ptB = pt.getPositionWorldOnB();
-			double ptdist = pt.getDistance();
-
-			/*std::cout << "pt: " << pt.getAppliedImpulse() << std::endl;
-			std::cout << "ptA: " << ptA.getX() << ", " << ptA.getY() << ", " << ptA.getZ() << ", " << std::endl;
-			std::cout << "ptB: " << ptB.getX() << ", " << ptB.getY() << ", " << ptB.getZ() << ", " << std::endl;
-			std::cout << "ptdist: " << ptdist << std::endl;*/
-
-			
-		}
-
 		// player cant move when it is colliding with something
-		// convert btvec3 to glmvec3
-		glm::vec3 obAtemp((float)obA->getWorldTransform().getOrigin().getX(), 
-			(float)obA->getWorldTransform().getOrigin().getY(),
-			(float)obA->getWorldTransform().getOrigin().getZ());
-		
-		glm::vec3 obBtemp((float)obB->getWorldTransform().getOrigin().getX(),
-			(float)obB->getWorldTransform().getOrigin().getY(),
-			(float)obB->getWorldTransform().getOrigin().getZ());
-
-		if (
-				(
-					obAtemp.x == cameraPlayer->GetPosition().x &&
-					obAtemp.y == cameraPlayer->GetPosition().y &&
-					obAtemp.z == cameraPlayer->GetPosition().z
-				)
-				||
-				(
-					obBtemp.x == cameraPlayer->GetPosition().x &&
-					obBtemp.y == cameraPlayer->GetPosition().y &&
-					obBtemp.z == cameraPlayer->GetPosition().z
-				)
-			){
-
+		// as well as wont apply physics
+		if (objA == cameraPlayer || objB == cameraPlayer)
 			camera->SetPostion(CurrentX, camera->GetPosition().y, CurrentZ);
+		else{
+			btVector3 center_pt(.0f, .0f, .0f);
+			btVector3 normalvec(.0f, .0f, .0f);
+			double temp = 0.0;
+			//For each contact point in that manifold
+			for (int j = 0; j < numContacts; j++) {
+				//Get the contact information
+				btManifoldPoint& pt = contactManifold->getContactPoint(j);
+				btVector3 ptA = pt.getPositionWorldOnA();
+				btVector3 ptB = pt.getPositionWorldOnB();
+				double ptdist = pt.getDistance();
+				temp = ptdist; // use for outside for loop
+
+				center_pt += ptA; // add up center pt for getting average center pt
+				normalvec = pt.m_normalWorldOnB; // get normal vector for physics
+			}
+			center_pt /= numContacts; // center point = sum of pos pt / number of pts
+			if (temp < 0.0 && !objA->GetIsCollided() && !objB->GetIsCollided()){
+				// apply physics
+				Physics::ObjectCollision(objA, objB, Bullet_GLM::BulletVec3ToGlmVec3(center_pt),
+					Bullet_GLM::BulletVec3ToGlmVec3(normalvec));
+				// collision delay - not collide many times at once
+				objA->SetIsCollided(true);
+				objB->SetIsCollided(true);
+				std::cout << temp << std::endl;
+			}
 		}
+
+		
+
 	}
+}
+
+void World::StartMovingTable(){
+	glm::vec3 vel = { -.5f, .0f, -.0f };
+	Bench1s[7]->SetVel(vel);
+	Bench1s[7]->SetAngVel(glm::vec3(.0f, 0.0f, .0f));
+
+	vel = { .5f, .0f, -.0f };
+	Bench1s[8]->SetVel(vel);
+	Bench1s[8]->SetAngVel(glm::vec3(.0f, 0.0f, .0f));
 }
 
 void World::PlayerActions()
