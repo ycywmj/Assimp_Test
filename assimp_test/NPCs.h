@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "State.h"
 #include "Player.h"
+#include "AABB.h"
 
 class NPCs :public GameObject
 {
@@ -14,11 +15,12 @@ public:
 	int GetHealth();
 
 	Player *GetPlayer(){ return PL; };
+	map<int, NPCs*> GetAgents(){ return Agents; };
 	void changeState(State<NPCs>* newState);
 	void changeEmotionState(State<NPCs> *newState);
 	// state machine
 	//void UpdateState(Player P);
-	void UpdateState(Player *P);
+	void UpdateState(Player *P, map<int, NPCs*> &Agent);
 
 	void SetTexts(GameObject *t){ texts = t; };
 	GameObject *GetTexts(){ return texts; };
@@ -39,11 +41,15 @@ public:
 	void SetMoveSpeed(float s){ MoveSpeed = s; };
 	float GetMoveSpeed(){ return MoveSpeed; };
 
+	void SetDetectView(float x, float y, float z);
+	bool processDetectView(NPCs *npc);
+
 private:
 	int Health;
 	float MoveSpeed;
 	//Vector3 TargetPos;
 	Player *PL;
+	map<int, NPCs*> Agents;
 
 	GameObject *texts;
 
@@ -56,5 +62,10 @@ private:
 	// state machine
 	State<NPCs> *currentState;
 	State<NPCs> *currentEmotion;
+
+	/// Bounding Box vertices
+	glm::vec3 model[8];
+	/// Bounding Box
+	AABB ViewBox;
 };
 #endif

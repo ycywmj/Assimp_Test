@@ -32,6 +32,7 @@ public:
 	float distance;
 	//string new_state_str;
 private:
+	double stateTime;
 	int i = 0;
 	vector<vector2D> targetPoss;
 
@@ -77,11 +78,22 @@ private:
 	//Movement *NPCs = new Movement();
 };
 
+class Response3 : public State < NPCs > {
+public:
+	void Enter(NPCs *npc);
+	void Execute(NPCs *npc);
+	void Exit(NPCs *npc);
+private:
+	double stateTime;
+	//Movement *NPCs = new Movement();
+};
+
 typedef singleton<Flee> flee_state;
 typedef singleton<Wander> wander_state;
 typedef singleton<Emotions> emotions_state;
 typedef singleton<Response> response_state;
 typedef singleton<Response1> say_stop_state;
 typedef singleton<Response2> say_thanks_state;
+typedef singleton<Response3> say_hi_state;
 
 #endif

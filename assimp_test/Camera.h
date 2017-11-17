@@ -221,6 +221,18 @@ public:
     }
 
 	/**
+	* @brief  getter for front
+	* @return glm::vec3 - front
+	*/
+	glm::vec3 GetRightFront()
+	{
+		this->right_front.x = this->front.x + this->position.x;
+		this->right_front.y = this->front.y + this->position.y;
+		this->right_front.z = this->front.z + this->position.z;
+		return this->right_front;
+	}
+
+	/**
 	* @brief  getter for up
 	* @return glm::vec3 - up
 	*/
@@ -250,6 +262,8 @@ private:
 
 	/// Camera front attributes x,y,z
     glm::vec3 front;
+
+	glm::vec3 right_front;
 
 	/// Camera up attributes x,y,z
     glm::vec3 up;
@@ -288,6 +302,7 @@ private:
         front.x = cos( glm::radians( this->yaw ) ) * cos( glm::radians( this->pitch ) );
         front.y = sin( glm::radians( this->pitch ) );
         front.z = sin( glm::radians( this->yaw ) ) * cos( glm::radians( this->pitch ) );
+
         this->front = glm::normalize( front );
         // Also re-calculate the Right and Up vector
         this->right = glm::normalize( glm::cross( this->front, this->worldUp ) );  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.

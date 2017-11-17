@@ -241,6 +241,8 @@ public:
 	void StartMovingTable();
 
 	void PlayerActions();
+
+	void DrawAffordanceObject();
 	
 
 private:
@@ -280,6 +282,8 @@ private:
 	/// Stores the objects to test collisions
 	vector<GameObject> WorldObjects;
 
+	vector<GameObject*> AffordanceObjects;
+
 	/// Stores all the walls need to detect collusion
 	map<int, GameObject> BoundingWalls;
 
@@ -316,7 +320,7 @@ private:
 	/// Stores multiple tables
 	GameObject *Table1;
 
-	map<int, NPCs> Agents;
+	map<int, NPCs*> Agents;
 	NPCs *Agent;
 
 	map<int, Player> Players;

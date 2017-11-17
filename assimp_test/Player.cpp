@@ -16,6 +16,7 @@ void Player::setActions(int ac)
 	{
 		isKicking = false;
 		isPraise = false;
+
 	}
 
 	if (ac == 1)
@@ -27,5 +28,6 @@ void Player::setActions(int ac)
 	{
 		isPraise = true;
 	}
+
 
 }

@@ -165,11 +165,12 @@ void World::DrawWorldObjects()
 
 	DrawBench1();
 	DrawBench2();
-	DrawChair1();
-	DrawChair2();
+	//DrawChair1();
+	//DrawChair2();
 	DrawTable1();
 	DrawScene();
 	DrawNPCs();
+	DrawAffordanceObject();
 	//DrawPlayer();
 }
 
@@ -338,16 +339,20 @@ void World::InitialChair1()
 	Chair1->Postition(-18.0f, height, -1.6f);
 	Chair1->Scale(scale, scale, scale);
 	Chair1->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	Chair1->SetBoundingBox(1.0f, 10.0f, 1.0f);
 	Chair1s[1] = *Chair1;
 	//WorldObjects.push_back(*Chair1);
+	AffordanceObjects.push_back(Chair1);
 
 	Chair1 = new GameObject();
 	Chair1->Load(graphics_handler, fileName);
 	Chair1->Postition(-17.0f, height, -2.6f);
 	Chair1->Scale(scale, scale, scale);
+	Chair1->SetBoundingBox(1.0f, 10.0f, 1.0f);
 	Chair1->Rotate(0.0f, 1.0f, 0.0f, 75.0f);
 	Chair1s[2] = *Chair1;
 //	WorldObjects.push_back(*Chair1);
+	AffordanceObjects.push_back(Chair1);
 }
 
 void World::InitialChair2()
@@ -361,7 +366,9 @@ void World::InitialChair2()
 	Chair2->Postition(-9.0f, height, -5.5f);
 	Chair2->Scale(scale, scale, scale);
 	Chair2->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	Chair2->SetBoundingBox(1.0f, 10.0f, 1.0f);
 	Chair2s[1] = *Chair2;
+	AffordanceObjects.push_back(Chair2);
 	//WorldObjects.push_back(*Chair2);
 
 	Chair2 = new GameObject();
@@ -369,7 +376,9 @@ void World::InitialChair2()
 	Chair2->Postition(-15.0f, height, -5.5f);
 	Chair2->Scale(scale, scale, scale);
 	Chair2->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	Chair2->SetBoundingBox(1.0f, 10.0f, 1.0f);
 	Chair2s[2] = *Chair2;
+	AffordanceObjects.push_back(Chair2);
 	//WorldObjects.push_back(*Chair2);
 
 	Chair2 = new GameObject();
@@ -377,7 +386,9 @@ void World::InitialChair2()
 	Chair2->Postition(-14.0f, height, -5.5f);
 	Chair2->Scale(scale, scale, scale);
 	Chair2->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	Chair2->SetBoundingBox(1.0f, 10.0f, 1.0f);
 	Chair2s[3] = *Chair2;
+	AffordanceObjects.push_back(Chair2);
 	//WorldObjects.push_back(*Chair2);
 
 	Chair2 = new GameObject();
@@ -385,7 +396,9 @@ void World::InitialChair2()
 	Chair2->Postition(-21.0f, height, -5.5f);
 	Chair2->Scale(scale, scale, scale);
 	Chair2->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	Chair2->SetBoundingBox(1.0f, 10.0f, 1.0f);
 	Chair2s[4] = *Chair2;
+	AffordanceObjects.push_back(Chair2);
 	//WorldObjects.push_back(*Chair2);
 }
 
@@ -421,7 +434,22 @@ void World::InitialNPCs()
 	float scale = 0.05f;
 	float TextScale = 1.0f;
 
-	//npc1
+
+	//initial text models
+	string text1 = "res/models/text/t1.obj";
+	string text2 = "res/models/text/t2.obj";
+	string text3 = "res/models/text/t3.obj";
+
+	map<string, string> Texts;
+	Texts["text1"] = text1;
+	Texts["text2"] = text2;
+	Texts["text3"] = text3;
+	TextDialog = new GameObject();
+	TextDialog->Scale(scale, -scale, scale);
+	TextDialog->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	TextDialog->LoadAll(graphics_handler, Texts);
+
+	//npc1 (green one)
 	//initial different npc faces
 	string fileName1 = "res/models/n1/n1_n.obj";
 	string fileName2 = "res/models/n1/n1_h.obj";
@@ -443,18 +471,6 @@ void World::InitialNPCs()
 	N1Path->push_back(NewPath2);
 	N1Path->push_back(NewPath3);
 
-
-	string text1 = "res/models/text/t1.obj";
-	string text2 = "res/models/text/t2.obj";
-
-	map<string, string> Texts;
-	Texts["text1"] = text1;
-	Texts["text2"] = text2;
-	TextDialog = new GameObject();
-	TextDialog->Scale(scale, -scale, scale);
-	TextDialog->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
-	TextDialog->LoadAll(graphics_handler, Texts);
-
 	Agent = new NPCs();
 	Agent->SetTexts(TextDialog);
 	Agent->LoadAll(graphics_handler, N1Files);
@@ -464,16 +480,17 @@ void World::InitialNPCs()
 	Agent->Scale(scale, scale, scale);
 	Agent->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
 	Agent->SetBoundingBox(4.0f, 4.0f, 4.0f);
+	Agent->SetDetectView(6.0f, 6.0f, 6.0f);
 	Agent->InitialState();
 	Agent->setPath(*N1Path);
 	//Agent->setEmotions(1.0f, 0.0f);
 	Agent->setMoods(0.3f, 0.0f);
 	Agent->setTraits(0.2f, 0.0f);
 	Agent->setPersonalities(0.4f, 0.0f);
-	Agents[1] = *Agent;
+	Agents[1] = Agent;
 
 
-	//npc2
+	//npc2 (yellow one)
 	fileName1 = "res/models/n2/n1_n.obj";
 	fileName2 = "res/models/n2/n1_h.obj";
 	fileName3 = "res/models/n2/n1_s.obj";
@@ -503,15 +520,17 @@ void World::InitialNPCs()
 	Agent->Scale(scale, scale, scale);
 	Agent->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
 	Agent->SetBoundingBox(4.0f, 4.0f, 4.0f);
+	Agent->SetDetectView(6.0f, 6.0f, 6.0f);
 	Agent->InitialState();
 	Agent->setPath(*N2Path);
 	//Agent->setEmotions(1.0f, 0.0f);
 	Agent->setMoods(0.3f, 0.0f);
 	Agent->setTraits(0.2f, 0.0f);
 	Agent->setPersonalities(0.4f, 0.0f);
-	Agents[2] = *Agent;
+	Agents[2] = Agent;
 
-	//npc3
+
+	//npc3 (pink one)
 	fileName1 = "res/models/n3/n1_n.obj";
 	fileName2 = "res/models/n3/n1_h.obj";
 	fileName3 = "res/models/n3/n1_s.obj";
@@ -547,35 +566,29 @@ void World::InitialNPCs()
 	Agent->setMoods(-0.3f, 0.0f);
 	Agent->setTraits(0.1f, 0.0f);
 	Agent->setPersonalities(0.0f, 0.0f);
-	Agents[3] = *Agent;
+	Agents[3] = Agent;
 }
 
 
 
 void World::DrawNPCs()
 {
-	Agents[1].UpdateState(cameraPlayer);
-	Agents[1].Render(graphics_handler);
-	/*if (Agents[1].getIfRenderText())
+
+	for (int i = 1; i <= Agents.size(); i++)
 	{
-		Agents[1].GetTexts()->Render(graphics_handler);
-	}*/
-	Agents[1].GetTexts()->Render(graphics_handler);
-	//cout << Agents[1].getEmotions().x << endl;
-	//cout << Agents[1].getIfRenderText() << endl;
-
-	Agents[2].UpdateState(cameraPlayer);
-	Agents[2].Render(graphics_handler);
-	Agents[2].GetTexts()->Render(graphics_handler);
-
-	Agents[3].UpdateState(cameraPlayer);
-	Agents[3].Render(graphics_handler);
-	Agents[3].GetTexts()->Render(graphics_handler);
-	/*cout<<Agents[1].getMoods().x<<endl;
-	cout << Agents[1].getTraits().x << endl;
-	cout << Agents[1].getPersonalities().x << endl<<endl;*/
+		Agents[i]->UpdateState(cameraPlayer, Agents);
+		Agents[i]->Render(graphics_handler);
+		Agents[i]->GetTexts()->Render(graphics_handler);
+	}
 }
 
+void World::DrawAffordanceObject()
+{
+	for (int i = 0; i < AffordanceObjects.size(); i++)
+	{
+		AffordanceObjects[i]->Render(graphics_handler);
+	}
+}
 
 void World::InitialPlayer()
 {
@@ -824,6 +837,8 @@ void World::StartMovingTable(){
 
 void World::PlayerActions()
 {
+	float height = 0.0f;
+
 	bool* keyPressed = graphics_handler->getPressedKey();
 
 	if (keyPressed[70])
@@ -834,6 +849,40 @@ void World::PlayerActions()
 	if (keyPressed[71])
 	{
 		cameraPlayer->setActions(2);
+	}
+
+	if (keyPressed[67])
+	{
+		for (int i = 0; i < AffordanceObjects.size(); i++)
+		{
+			//cout << AffordanceObjects[i]->GetPosition().x << endl;
+			//cout << cameraPlayer->GetPosition().x << endl;
+
+			if (AffordanceObjects[i]->processCollision(cameraPlayer))
+			{
+				cameraPlayer->setIsLifting(true);
+				cameraPlayer->SetObjectToLift(i);
+				cout << "Collider!!!!" << endl;
+			}
+
+		}
+	}
+
+	
+	if (cameraPlayer->isPlayerLifting())
+	{
+		cout << cameraPlayer->GetObjectToLift() << endl;
+
+		height = AffordanceObjects[cameraPlayer->GetObjectToLift()]->GetPosition().y;
+		AffordanceObjects[cameraPlayer->GetObjectToLift()]->Postition(camera->GetRightFront().x, height, camera->GetRightFront().z);
+	}
+
+	if ((keyPressed[86]) && (cameraPlayer->isPlayerLifting()))
+	{
+		height = AffordanceObjects[cameraPlayer->GetObjectToLift()]->GetPosition().y;
+		AffordanceObjects[cameraPlayer->GetObjectToLift()]->Postition(camera->GetRightFront().x, height, camera->GetRightFront().z);
+		cameraPlayer->setIsLifting(false);
+		cameraPlayer->SetObjectToLift(-1);
 	}
 	
 }
