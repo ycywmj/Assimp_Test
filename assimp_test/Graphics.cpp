@@ -328,17 +328,6 @@ void OpenGL::Render2DTexture(string fname){
 
 }
 
-void OpenGL::loadBox(glm::vec3 pos, glm::vec3 siz)
-{
-	BoxModel = new DrawBox();
-	BoxModel->LoadBox(pos, siz);
-}
-
-void OpenGL::drawBox()
-{
-	BoxModel->Draw();
-}
-
 Graphics* GraphicsFactory::Create(const char* type){
 	std::string type_str = type;
 	if (type_str == "OpenGL"){

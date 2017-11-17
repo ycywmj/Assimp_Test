@@ -8,7 +8,6 @@
 // GLM Mathemtics
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include "DrawBox.h"
 #include "Physics.h"
 
 #include "OObtCollisionObject.h"
@@ -46,9 +45,21 @@ public:
 		}
 	}
 
+	/**
+	* @brief  Load all the model files and bind as this game object
+	* @param graphics_handler, using specific graphics api same as the entire game program to load the model
+	* @param fname, path with file name of the model in a map
+	* @return void
+	*/
 	void LoadAll(Graphics *graphics_handler, map<string, string> fname);
 
+	/**
+	* @brief  update the model file and bind as this game object
+	* @param s, path with file name of the model
+	* @return void
+	*/
 	void UpdateModel(string s);
+
 	/**
 	* @brief  Load the model file and bind as this game object
 	* @param graphics_handler, using specific graphics api same as the entire game program to load the model
@@ -65,7 +76,7 @@ public:
 	virtual void Render(Graphics *graphics_handler);
 
 	/**
-	* @brief  Set the game object's position
+	* @brief  Set the game object's position (with updating the origin of bullet bounding box)
 	* @param x, value in x-axis
 	* @param y, value in y-axis
 	* @param z, value in z-axis
@@ -83,7 +94,7 @@ public:
 	virtual void Scale(float x, float y, float z);
 
 	/**
-	* @brief  Set the game object's rotation value
+	* @brief  Set the game object's rotation value (without updating the rotation of bullet bounding box)
 	* @param x, value in x-axis
 	* @param y, value in y-axis
 	* @param z, value in z-axis
@@ -107,6 +118,11 @@ public:
 	*/
 	virtual bool processCollision(GameObject *obj);
 
+	/**
+	* @brief  update the object position and rotation base on the rigid body
+	* @param delta time balance all the machine update speed
+	* @return void
+	*/
 	virtual void UpdateObject(double deltaTime);
 
 	/**
@@ -208,9 +224,9 @@ public:
 	virtual void SetBtDelay(double val){ btDelay = val; };
 	virtual double GetBtDelay(){ return btDelay; };
 
-	virtual void setX(double x){ Postition(x, this->Pos.y, this->Pos.z); };
-	virtual void setY(double y){ Postition(this->Pos.x, y, this->Pos.z); };
-	virtual void setZ(double z){ Postition(this->Pos.x, this->Pos.y, z); };
+	virtual void setX(float x){ Postition(x, this->Pos.y, this->Pos.z); };
+	virtual void setY(float y){ Postition(this->Pos.x, y, this->Pos.z); };
+	virtual void setZ(float z){ Postition(this->Pos.x, this->Pos.y, z); };
 
 	virtual void setRotation(glm::vec4 Ro){ Rot = Ro; };
 	virtual void DrawBoundingBox();
@@ -226,13 +242,15 @@ public:
 	virtual bool getIfRenderText(){ return RenderText; };
 
 private:
-
-	vector<glm::vec2> Path;
 	/// path of the model file
+	vector<glm::vec2> Path;
 
+	/// model files in map
 	map<string, string> files;
 
+	/// path name
 	string pathName;
+
 	int RID=0;
 	/// Position
 	glm::vec3 Pos;
@@ -241,8 +259,7 @@ private:
 	/// Rotation
 	glm::vec4 Rot;
 
-	glm::vec3 BoxSize;
-
+	/// is the object rendering text
 	bool RenderText;
 	///Mass of the object
 	float mass;
@@ -260,15 +277,18 @@ private:
 	bool sceneBody;
 	
 	/// Bounding Box vertices
-
 	glm::vec3 model[8];
 	/// Bounding Box
 	AABB boundingBox;
 
 	// bullet physics
+	/// bullet bounding box for the game object
 	OObtCollisionObject* bulletBox;
+	/// is the object just collided
 	bool isCollided;
+	/// collision delay; avoiding multi collision at once
 	double btDelay;
+	/// energy loss in linear
 	float linearLoss, angLoss;
 	float linearLimit, AngLimit;
 };

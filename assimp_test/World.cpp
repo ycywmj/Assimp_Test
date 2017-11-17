@@ -52,8 +52,6 @@ void World::InitializeGame(){
 	CurrentZ = 0;
 
 	glm::vec3 Pos;
-	glm::vec3 BoxSize;
-	//graphics_handler->loadBox(Pos,BoxSize);
 	//texture2d.SetTextureCount(1);
 	//texture2d.LoadRawTexture2D( "", 860, 640, CREDIT_TEXTURE);
 }
@@ -808,7 +806,7 @@ void World::CheckBulletCollision(){
 				center_pt += ptA; // add up center pt for getting average center pt
 				normalvec = pt.m_normalWorldOnB; // get normal vector for physics
 			}
-			center_pt /= numContacts; // center point = sum of pos pt / number of pts
+			center_pt /= (btScalar)numContacts; // center point = sum of pos pt / number of pts
 			if (temp < 0.0 && !objA->GetIsCollided() && !objB->GetIsCollided()){
 				// apply physics
 				Physics::ObjectCollision(objA, objB, Bullet_GLM::BulletVec3ToGlmVec3(center_pt),

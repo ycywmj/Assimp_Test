@@ -223,6 +223,11 @@ public:
 	*/
 	void CheckBoundingBox();
 
+	/**
+	* @brief  Checks for collissions between GameObjects using bullet physics
+	*
+	* @return void
+	*/
 	void CheckBulletCollision();
 
 	double GetDeltaTime(){ return delta_time; };
@@ -231,15 +236,46 @@ public:
 
 	btCollisionWorld* GetCollisionWorld(){ return bt_collision_world; };
 
-
+	/**
+	* @brief  Call all the world objects loading function
+	*
+	* @return void
+	*/
 	void InitialWorldObjects();
+
+	/**
+	* @brief  Call all the world objects drawing function
+	*
+	* @return void
+	*/
 	void DrawWorldObjects();
 
+	/**
+	* @brief  initialize player position and camera
+	*
+	* @return void
+	*/
 	void InitialPlayer();
+
+	/**
+	* @brief  update player position and camera
+	*
+	* @return void
+	*/
 	void DrawPlayer();
 
+	/**
+	* @brief  move bench1s [7] and [8] to let them collide with each other
+	*
+	* @return void
+	*/
 	void StartMovingTable();
 
+	/**
+	* @brief  apply kick and greeting to NPCs
+	*
+	* @return void
+	*/
 	void PlayerActions();
 
 	void DrawAffordanceObject();
@@ -330,8 +366,12 @@ private:
 
 
 	// bullet physics stuff
+	/// bullet physics configuration
 	btCollisionConfiguration* bt_collision_configuration;
+	/// bullet physics dispatcher
 	btCollisionDispatcher* bt_dispatcher;
+	/// bullet physics broadphase - use btDbvtBroadphase in this world
 	btBroadphaseInterface* bt_broadphase;
+	/// bullet physics collision world
 	btCollisionWorld* bt_collision_world;
 };

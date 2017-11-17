@@ -90,7 +90,7 @@ private:
 	* @param aabb, sec object aabb
 	* @return true if collide, false otherwise
 	*/
-	bool checkCollisionWithPoint(glm::vec3 &point, AABB &aabb); // 
+	bool checkCollisionWithPoint(glm::vec3 &point, AABB &aabb);
 
 };
 #endif
