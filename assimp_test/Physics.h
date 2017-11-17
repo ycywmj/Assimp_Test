@@ -21,9 +21,14 @@ class GameObject;
 class Physics
 {
 public:
-	Physics()
-	{
-	}
+	/**
+	* @brief  constructor
+	*/
+	Physics(){};
+
+	/**
+	* @brief  destructor
+	*/
 	~Physics();
 
 	/**
@@ -49,8 +54,9 @@ public:
 	*/
 	static glm::vec4 AngularVelToRotQuat(glm::vec3 AngV);
 
-
+	/// gravity constant 9.81 in float
 	const static float gravity;
+	
 	/*the coefficient of restitution(e) is:
 	e = 1, perfectly elastic collision
 	e = 0, perfectly inelastic collision

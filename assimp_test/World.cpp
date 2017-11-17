@@ -52,8 +52,6 @@ void World::InitializeGame(){
 	CurrentZ = 0;
 
 	glm::vec3 Pos;
-	glm::vec3 BoxSize;
-	//graphics_handler->loadBox(Pos,BoxSize);
 	//texture2d.SetTextureCount(1);
 	//texture2d.LoadRawTexture2D( "", 860, 640, CREDIT_TEXTURE);
 }

@@ -7,64 +7,187 @@
 
 using namespace std;
 
+/**
+* @class vector2D
+* @brief our own vector2 class for AI usage (emotion system)
+*
+* @author ChengYu Yang
+* @version 01
+* @date 01/10/2017
+*
+*
+*/
 class vector2D
 {
 private:
+	/// x value
 	float x;
+	/// y value
 	float y;
 
 public:
+	/**
+	* @brief  constructor
+	*/
 	 vector2D();
+	 /**
+	 * @brief  constructor with init x and y value
+	 * @param x: init x value
+	 * @param y: init y value
+	 */
      vector2D(float x, float y);
+	 /**
+	 * @brief  copy constructor
+	 * @param vec: copy
+	 */
      vector2D(const vector2D &vec); 
+
 	 void set(float x, float y);
+	 /**
+	 * @brief  check if the vec2 object is zero
+	 * @return true if is zero
+	 */
 	 bool isZero();
-	// vector index
-	float& operator[](unsigned short index);
-     // vector assignment
+	 /**
+	 * @brief  vector index
+	 * @param index of the value
+	 * @return value at the index
+	 */
+	 float& operator[](unsigned short index);
+	 /**
+	 * @brief  vector assignment
+	 * @return back to the left side
+	 */
      const vector2D& operator=(const vector2D &vec);
-     // vector equality
+	 /**
+	 * @brief  vector equality
+	 * @param  compare target
+	 * @return true if they are equal
+	 */
      bool operator==(const vector2D &vec)const;
-     // vector inequality
+	 /**
+	 * @brief  vector inequality
+	 * @param  compare target
+	 * @return true if they are inequal
+	 */
      const bool operator!=(const vector2D &vec) const;
-     // vector add
+	 /**
+	 * @brief  vector add
+	 * @param  add target
+	 * @return back to the left side
+	 */
      const vector2D operator+(const vector2D &vec) const;
-     // vector2D increment
+	 /**
+	 * @brief  vector increment
+	 * @param  increment target in vec2
+	 * @return back to the left side
+	 */
      const vector2D& operator+=(const vector2D& vec);
+	 /**
+	 * @brief  vector increment
+	 * @param  increment target in float
+	 * @return back to the left side
+	 */
 	 const vector2D& operator+=(float val);
-     // vector2D subtraction
+	 /**
+	 * @brief  vector2D subtraction
+	 * @param  subtraction target in vec2
+	 * @return back to the left side
+	 */
      const vector2D operator-(const vector2D& vec) const;     
+	 /**
+	 * @brief  vector2D subtraction
+	 * @param  subtraction target in float
+	 * @return back to the left side
+	 */
 	 const vector2D& operator-(float val); 
      // vector2D negation
      const vector2D operator-() const;
-     // vector2D decrement
+	 /**
+	 * @brief  vector decrement
+	 * @param  decrement target in vec2
+	 * @return back to the left side
+	 */
      const vector2D &operator-=(const vector2D& vec);
-     // scalar self-multiply
+	 /**
+	 * @brief  scalar self-multiply
+	 * @param  multiply target
+	 * @return back to the left side
+	 */
      const vector2D &operator*=(float value);
-     // scalar self-divide
+	 /**
+	 * @brief  scalar self-divide
+	 * @param  divide target
+	 * @return back to the left side
+	 */
      const vector2D &operator/=(float value);
-     // multiply by scalar
+	 /**
+	 * @brief  multiply by scalar
+	 * @param  multiply target in float
+	 * @return back to the left side
+	 */
      const vector2D operator*(float value) const;
+	 /**
+	 * @brief  multiply by scalar
+	 * @param  multiply target in vec2
+	 * @return back to the left side
+	 */
  	 const vector2D operator*(const vector2D& vec) const;
-     // divide by scalar
+	 /**
+	 * @brief  divide by scalar
+	 * @param  divide target
+	 * @return back to the left side
+	 */
      const vector2D operator/(float value) const;
+	 /**
+	 * @brief  output operator override
+	 * @param  output stream
+	 * @param vec2
+	 * @return back to the left side
+	 */
 	 friend ostream& operator<<(ostream& os, const vector2D& vec);
-     // dot product
-	 float getX()const{return x;}
-	 float getY()const{return y;}
+	 float getX()const{ return x; };
+	 float getY()const{ return y; };
+	 /**
+	 * @brief  dot product
+	 * @param  vec2 target
+	 * @return result value in float
+	 */
      const float dotProduct(const vector2D &vec) const;
-     // length of vector2D
+	 /**
+	 * @brief  get the length of a vec2
+	 * @return length of vec2 which is 2
+	 */
      const float length() const;
+	 /**
+	 * @brief  set the length of a vec2
+	 * @param new value of length
+	 */
 	 void setLength(float length);
-     // normalize this vector2D
+	 /**
+	 * @brief  normalize this vector2D
+	 * @return void
+	 */
      void normalise();
-     // return angle between two vectors in radians
+	 /**
+	 * @brief  return angle between two vectors in radians
+	 * @return angle in float
+	 */
      const float angleInRadians(const vector2D& normalVec) const;
-	 // return angle between two vectors in degrees
+	 /**
+	 * @brief  return angle between two vectors in degrees
+	 * @return angle in float
+	 */
      const float angleInDegrees(const vector2D& normalVec) const;
-	 //squared length
+	 /**
+	 * @brief  squared length
+	 * @return length
+	 */
      const float lengthSqr() const;
-   	//truncate a magnitude to maxValue
+	 /**
+	 * @brief  truncate a magnitude to maxValue
+	 * @return void
+	 */
   	 void trunc(float maxValue);
 	 float getHeadingDegrees();
 };

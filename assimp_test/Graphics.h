@@ -301,10 +301,7 @@ private:
 	/// 2D Texture asset
 	map < string, unsigned int* > Textures_2d;
 
-	// wrap the callback func
-
 	/// wrap the callback func
-
 	static OpenGL *opengl_instance;
 	void SetInstance(){ opengl_instance = this; };
 	static void KeyCallbackWrap(GLFWwindow *window, int key, int scancode, int action, int mode){

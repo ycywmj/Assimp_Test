@@ -94,12 +94,6 @@ void GameObject::SetBoundingBox(float x, float y, float z)
 	BoundingBoxLengths.x = x;
 	BoundingBoxLengths.y = y;
 	BoundingBoxLengths.z = z;
-	
-	glm::vec3 BoxSize;
-
-	BoxSize.x = x;
-	BoxSize.y = y;
-	BoxSize.z = z;
 }
 
 OObtCollisionObject* GameObject::SetBulletBoundingBox(float size_x, float size_y, float size_z){
