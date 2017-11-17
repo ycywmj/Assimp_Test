@@ -1,5 +1,7 @@
 #include "World.h"
 
+#include "Bullet_GLM.h"
+
 #include <iostream>
 
 void World::GameDestruction(){
@@ -546,11 +548,6 @@ void World::InitialNPCs()
 
 void World::DrawNPCs()
 {
-	cout << cameraPlayer->GetPosition().x<<endl;
-	cout << cameraPlayer->GetPosition().z << endl<<endl;
-
-
-
 	Agents[1].UpdateState(cameraPlayer);
 	Agents[1].Render(graphics_handler);
 	/*if (Agents[1].getIfRenderText())

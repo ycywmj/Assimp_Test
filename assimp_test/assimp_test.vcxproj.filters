@@ -134,5 +134,11 @@
     <ClInclude Include="AffordanceStates.h">
       <Filter>AI</Filter>
     </ClInclude>
+    <ClInclude Include="OObtCollisionObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet_GLM.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

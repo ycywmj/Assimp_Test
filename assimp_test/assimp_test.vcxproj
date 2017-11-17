@@ -101,6 +101,7 @@
     <ClInclude Include="AABB.h" />
     <ClInclude Include="AffordanceStates.h" />
     <ClInclude Include="AISingleton.h" />
+    <ClInclude Include="Bullet_GLM.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DrawBox.h" />
     <ClInclude Include="EmotionStates.h" />
@@ -113,6 +114,7 @@
     <ClInclude Include="myMath.h" />
     <ClInclude Include="NPCs.h" />
     <ClInclude Include="BehaviorStates.h" />
+    <ClInclude Include="OObtCollisionObject.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Shader.h" />

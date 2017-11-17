@@ -11,6 +11,7 @@
 #include "DrawBox.h"
 #include "Physics.h"
 
+#include "OObtCollisionObject.h"
 #include <btBulletDynamicsCommon.h>
 using namespace std;
 /**
@@ -201,9 +202,12 @@ public:
 		return Pos;
 	}
 
-	virtual void setX(double x){ Pos.x = x; };
-	virtual void setY(double y){ Pos.y = y; };
-	virtual void setZ(double z){ Pos.z = z; };
+	virtual void SetAngV(glm::vec3 angV){ this->AngV = angV; };
+	virtual glm::vec3 GetAngV(){ return AngV; };
+
+	virtual void setX(double x){ Postition(x, this->Pos.y, this->Pos.z); };
+	virtual void setY(double y){ Postition(this->Pos.x, y, this->Pos.z); };
+	virtual void setZ(double z){ Postition(this->Pos.x, this->Pos.y, z); };
 
 	virtual void setRotation(glm::vec4 Ro){ Rot = Ro; };
 	virtual void DrawBoundingBox();
@@ -259,8 +263,11 @@ private:
 	AABB boundingBox;
 
 	// bullet physics
-	btCollisionObject* bulletBox;
-
+	OObtCollisionObject* bulletBox;
+	bool isCollided;
+	double btDelay;
+	float linearLoss, angLoss;
+	float linearLimit, AngLimit;
 };
 
 #endif

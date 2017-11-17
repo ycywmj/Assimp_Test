@@ -33,8 +33,8 @@ public:
 	* @param glm::vec3, the point of collision
 	* @param fragmentPath, fragment file path
 	*/
-	static void ObjectCollision(GameObject *obj1, GameObject *obj2, glm::vec3 colPoint);
-	
+	static void ObjectCollision(GameObject *obj1, GameObject *obj2, glm::vec3 colPoint, glm::vec3 normal);
+
 	/**
 	* @brief Calculates the Inertia tensor for an object
 	* @param GameObject *Obj, the object
@@ -49,6 +49,7 @@ public:
 	*/
 	static glm::vec4 AngularVelToRotQuat(glm::vec3 AngV);
 
+
 	const static float gravity;
 	/*the coefficient of restitution(e) is:
 	e = 1, perfectly elastic collision
@@ -56,6 +57,5 @@ public:
 	0 < e < 1, real world inelastic collision
 	*/
 	const static float restitutionCoefficient;
-	
 };
 

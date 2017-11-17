@@ -8,13 +8,13 @@ e = 1, perfectly elastic collision
 e = 0, perfectly inelastic collision
 0 < e < 1, real world inelastic collision
 */
-const float Physics::restitutionCoefficient = 1;
+const float Physics::restitutionCoefficient = .5;
 
 Physics::~Physics()
 {
 }
 
-void Physics::ObjectCollision(GameObject *obj1, GameObject *obj2, glm::vec3 colPoint)
+void Physics::ObjectCollision(GameObject *obj1, GameObject *obj2, glm::vec3 colPoint, glm::vec3 normalvec)
 {
 	glm::vec3 r1, r2, normal, unitNormal, impulse, directionalImpulse;
 	glm::mat3 J1, J2;
@@ -26,29 +26,30 @@ void Physics::ObjectCollision(GameObject *obj1, GameObject *obj2, glm::vec3 colP
 
 	//Calculate the normal vector
 	//normal = glm::cross(r1, r2);
-	normal = { 1.0f, 0.0f, 0.0f };
+	//normal = { 1.0f, 0.0f, 0.0f };
 	//normal = (obj1->GetPosition()) - (obj2->GetPosition());
 
 	//Normalise the normal vector
-	unitNormal = glm::normalize(normal);
+	unitNormal = glm::normalize(normalvec);
 
 	//Calculate the moments of Inetia
 	J1 = jCalculator(obj1);
 	J2 = jCalculator(obj2);
 
+
 	//compute impulse, equation 38
 	//-------------------------------------------------------------------------------------
 	//temporary variables to compute impulse
-	glm::vec3 newV, angV1, angV2, r1unitN, r2unitN, convertedJ1, convertedJ2 ;
+	glm::vec3 newV, angV1, angV2, r1unitN, r2unitN, convertedJ1, convertedJ2;
 	float nV1V2, angVr1unitN, angVr2unitN, massPlus;
-	
+
 	//V1-V2
 	newV = obj1->GetVel() - obj2->GetVel();
-	
+
 	//initial angular velocities
-	angV1 = obj1->GetAngularVel();
-	angV2 = obj2->GetAngularVel();
-	
+	angV1 = obj1->GetAngV();
+	angV2 = obj2->GetAngV();
+
 	//unit normal dot new Velocity
 	nV1V2 = glm::dot(unitNormal, newV);
 
@@ -85,22 +86,31 @@ void Physics::ObjectCollision(GameObject *obj1, GameObject *obj2, glm::vec3 colP
 	//apply calculated values to find new values
 	//-------------------------------------------------------------------------------------
 	glm::vec3 vec3Temp;
-	//new velocity of object1
-	vec3Temp = obj1->GetVel() + directionalImpulse / (obj1->GetMass());
-	obj1->SetVel(vec3Temp);
-	
+	if (obj1->GetMass() != 0.0){
+		//new velocity of object1
+		vec3Temp = obj1->GetVel() + directionalImpulse / (obj1->GetMass());
+		obj1->SetVel(vec3Temp);
+		//obj1->SetVel(Physics::CalRealVel(vec3Temp));
 
-	//new velocity of object2
-	vec3Temp = obj2->GetVel() - directionalImpulse / (obj2->GetMass());
-	obj2->SetVel(vec3Temp);
-	//cout << "vec x: " << vec3Temp.x << endl;
-	//new Angular momentum of object1
-	vec3Temp = obj1->GetAngularVel() + impulse * J1 * r1unitN;
-	obj1->SetAngVel(vec3Temp);
+		// new Angular momentum of object1
+		vec3Temp = obj1->GetAngV() + impulse * J1 * r1unitN;
+		obj1->SetAngV(vec3Temp);
+		/*float ftemp = sqrt(pow(vec3Temp.x, 2) + pow(vec3Temp.y, 2) + pow(vec3Temp.z, 2));
+		obj1->SetAngVel(ftemp);*/
+	}
 
-	//new Angular momentum of object2
-	vec3Temp = obj2->GetAngularVel() - impulse * J2 * r2unitN;
-	obj2->SetAngVel(vec3Temp);
+	if (obj2->GetMass() != 0.0){
+		//new velocity of object2
+		vec3Temp = obj2->GetVel() - directionalImpulse / (obj2->GetMass());
+		obj2->SetVel(vec3Temp);
+		//obj2->SetVel(Physics::CalRealVel(vec3Temp));
+
+		//new Angular momentum of object2
+		vec3Temp = obj2->GetAngV() - impulse * J2 * r2unitN;
+		obj2->SetAngV(vec3Temp);
+		/*ftemp = sqrt(pow(vec3Temp.x, 2) + pow(vec3Temp.y, 2) + pow(vec3Temp.z, 2));
+		obj2->SetAngVel(ftemp);*/
+	}
 }
 
 glm::mat3 Physics::jCalculator(GameObject *Obj)
@@ -114,16 +124,16 @@ glm::mat3 Physics::jCalculator(GameObject *Obj)
 	xLength = Obj->GetBBLengths().x;
 	yLength = Obj->GetBBLengths().y;
 	zLength = Obj->GetBBLengths().z;
-	
+
 	//calculate the initia values for x, y, z
 	Ixx = (value)* (Obj->GetMass()) * (yLength*yLength + zLength*zLength);
 	Iyy = (value)* (Obj->GetMass()) * (xLength*xLength + zLength*zLength);
 	Izz = (value)* (Obj->GetMass()) * (xLength*xLength + yLength*yLength);
 
 	jValue = { Ixx, 0, 0,
-				0, Iyy, 0,
-				0, 0, Izz };
-	
+		0, Iyy, 0,
+		0, 0, Izz };
+
 	return jValue;
 }
 

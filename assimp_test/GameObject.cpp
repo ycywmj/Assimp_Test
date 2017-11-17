@@ -4,7 +4,7 @@
 
 GameObject::GameObject()
 { 
-	bulletBox = new btCollisionObject();
+	bulletBox = new OObtCollisionObject();
 	Pos.x = 0; Pos.y = 0; Pos.z = 0;
 	Sca.x = 1; Sca.y = 1; Sca.z = 1;
 	Rot.x = 0; Rot.y = 1.0; Rot.z = 0; Rot.w = 0;
