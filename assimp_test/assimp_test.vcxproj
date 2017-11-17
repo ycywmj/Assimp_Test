@@ -53,6 +53,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>include;$(ProjectDir)/include/BulletPhysics;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -103,7 +104,6 @@
     <ClInclude Include="AISingleton.h" />
     <ClInclude Include="Bullet_GLM.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="DrawBox.h" />
     <ClInclude Include="EmotionStates.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameStatus.h" />

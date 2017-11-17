@@ -20,7 +20,6 @@
 #include "Shader.h"
 //#include "Camera.h"
 #include "Model.h"
-#include "DrawBox.h"
 // OpenGL end
 
 // General libraries
@@ -104,8 +103,6 @@ public:
 	* @return void
 	*/
 	virtual void Render2DTexture(string fname) = 0;
-	virtual void loadBox(glm::vec3 pos,glm::vec3 siz)=0;
-	virtual void drawBox()=0;
 	virtual bool* getPressedKey()=0;
 
 	/**
@@ -227,9 +224,6 @@ public:
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	};
 
-	void loadBox(glm::vec3 pos, glm::vec3 siz);
-	void drawBox();
-
 	bool* getPressedKey(){ return keys; };
 	
 private:
@@ -306,10 +300,6 @@ private:
 
 	/// 2D Texture asset
 	map < string, unsigned int* > Textures_2d;
-
-
-	//DrawBounding box
-	DrawBox *BoxModel;
 
 	// wrap the callback func
 

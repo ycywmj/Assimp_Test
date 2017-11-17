@@ -8,7 +8,6 @@
 // GLM Mathemtics
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include "DrawBox.h"
 #include "Physics.h"
 
 #include "OObtCollisionObject.h"
@@ -208,9 +207,9 @@ public:
 	virtual void SetBtDelay(double val){ btDelay = val; };
 	virtual double GetBtDelay(){ return btDelay; };
 
-	virtual void setX(double x){ Postition(x, this->Pos.y, this->Pos.z); };
-	virtual void setY(double y){ Postition(this->Pos.x, y, this->Pos.z); };
-	virtual void setZ(double z){ Postition(this->Pos.x, this->Pos.y, z); };
+	virtual void setX(float x){ Postition(x, this->Pos.y, this->Pos.z); };
+	virtual void setY(float y){ Postition(this->Pos.x, y, this->Pos.z); };
+	virtual void setZ(float z){ Postition(this->Pos.x, this->Pos.y, z); };
 
 	virtual void setRotation(glm::vec4 Ro){ Rot = Ro; };
 	virtual void DrawBoundingBox();

@@ -2,13 +2,13 @@
 #include "GameObject.h"
 
 
-const float Physics::gravity = -9.8;
+const float Physics::gravity = -9.8f;
 /*the coefficient of restitution(e) is:
 e = 1, perfectly elastic collision
 e = 0, perfectly inelastic collision
 0 < e < 1, real world inelastic collision
 */
-const float Physics::restitutionCoefficient = .5;
+const float Physics::restitutionCoefficient = 1.0f;
 
 Physics::~Physics()
 {
