@@ -252,6 +252,9 @@ public:
 
 	virtual AABB getBoundingBox(){ return boundingBox; }
 
+	virtual void setIsOccupy(bool oc){ occupy = oc; }
+	virtual bool getIsOccupy(){ return occupy; }
+
 private:
 	/// path of the model file
 	vector<glm::vec2> Path;
@@ -259,7 +262,10 @@ private:
 	/// model files in map
 	map<string, string> files;
 
-	//affordance
+	///is occupy
+	bool occupy;
+
+	///affordance
 	Affordance affordance;
 
 	/// path name

@@ -14,6 +14,7 @@ GameObject::GameObject()
 	COM = Pos;
 	sceneBody = false;
 	RenderText = false;
+	occupy = false;
 }
 
 void GameObject::LoadAll(Graphics *graphics_handler, map<string, string> fs)

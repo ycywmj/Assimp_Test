@@ -83,10 +83,11 @@ void Wander::Execute(NPCs *npc){
 	for (int i = 0; i < npc->GetAffordanceObj().size(); i++)
 	{
 		//cout << npc->GetAffordanceObj().size() << endl;
-		if ((npc->processDetectView(npc->GetAffordanceObj()[i])) && (npc->getTargetObject() == -1) && (stateTime>10.0)
+		if ((npc->processDetectView(npc->GetAffordanceObj()[i])) && (!npc->GetAffordanceObj()[i]->getIsOccupy()) && (stateTime>10.0)
 			&& !npc->GetPlayer()->isPlayerLifting())
 		{
 			npc->setTargetObject(i);
+			npc->GetAffordanceObj()[i]->setIsOccupy(true);
 
 			for (int j = 0; j < npc->GetAffordanceObj()[i]->getAffordance().size(); j++)
 			{
@@ -337,13 +338,15 @@ void Response4::Enter(NPCs *npc){
 
 void Response4::Execute(NPCs *npc){
 
+	
+
 	int PathSize = npc->getPath().size();
 	int target = npc->getTargetObject();
 
 	World *World_Instance = Singleton<World>::Instance();
 	double timeDiff = World_Instance->GetDeltaTime();
 	
-
+	//npc->setTargetObject(-1);
 	
 	//cout << target;
 	vector2D targetPos(npc->GetAffordanceObj()[target]->GetPosition().x, npc->GetAffordanceObj()[target]->GetPosition().z);   //position to move to
@@ -375,14 +378,21 @@ void Response4::Execute(NPCs *npc){
 	{
 		npc->GetAffordanceObj()[target]->Postition(npc->GetPosition().x, 1.5f, npc->GetPosition().z);
 		stateTime += World_Instance->GetDeltaTime();
+		
 		//cout << "lift it !!!" << endl;
-		if (stateTime > 5.0)
+		if (stateTime > 5.0) 
 		{	
 			npc->GetAffordanceObj()[target]->Postition(npc->GetPosition().x, 0.1f, npc->GetPosition().z);
-			npc->setTargetObject(-1);
+			npc->GetAffordanceObj()[target]->setIsOccupy(false);
 			npc->changeState(&wander_state::Instance());
 		}
+	}
 
+	if (npc->GetAffordanceObj()[target]->getIsOccupy() && npc->GetPlayer()->isPlayerLifting())
+	{
+		npc->GetAffordanceObj()[target]->Postition(npc->GetPosition().x, 0.1f, npc->GetPosition().z);
+		npc->GetAffordanceObj()[target]->setIsOccupy(false);
+		npc->changeState(&wander_state::Instance());
 	}
 
 
@@ -439,7 +449,7 @@ void Response5::Execute(NPCs *npc){
 		if (stateTime > 5.0)
 		{
 			npc->Postition(npc->GetPosition().x, 0.0f, npc->GetPosition().z);
-			npc->setTargetObject(-1);
+			npc->GetAffordanceObj()[target]->setIsOccupy(false);
 			npc->changeState(&wander_state::Instance());
 		}
 
@@ -447,6 +457,13 @@ void Response5::Execute(NPCs *npc){
 	else
 	{
 		npc->Postition(npc->GetPosition().x, 0.0f, npc->GetPosition().z);
+	}
+
+	if (npc->GetAffordanceObj()[target]->getIsOccupy() && npc->GetPlayer()->isPlayerLifting())
+	{
+		npc->Postition(npc->GetPosition().x, 0.0f, npc->GetPosition().z);
+		npc->GetAffordanceObj()[target]->setIsOccupy(false);
+		npc->changeState(&wander_state::Instance());
 	}
 
 
