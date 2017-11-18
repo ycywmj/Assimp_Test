@@ -287,13 +287,14 @@ void Response3::Execute(NPCs *npc){
 
 
 	World *World_Instance = Singleton<World>::Instance();
-	stateTime += World_Instance->GetDeltaTime();
+	
 	double z, x, angle;
 
 	for (int i = 1; i <= npc->GetAgents().size(); i++)
 	{
 		if (npc->processDetectView(npc->GetAgents()[i]))
 		{
+			stateTime += World_Instance->GetDeltaTime();
 			 z = npc->GetPosition().z - npc->GetAgents()[i]->GetPosition().z;
 			 x = npc->GetPosition().x - npc->GetAgents()[i]->GetPosition().x;
 			 angle = atan2(x, z) * 180 / PI;
@@ -408,7 +409,7 @@ void Response5::Execute(NPCs *npc){
 	
 
 
-	cout << target;
+	//cout << target;
 	vector2D targetPos(npc->GetAffordanceObj()[target]->GetPosition().x, npc->GetAffordanceObj()[target]->GetPosition().z);   //position to move to
 	vector2D targetXZ(npc->GetPosition().x, npc->GetPosition().z);    //our current position
 	vector2D targetVel(npc->GetMoveSpeed(), npc->GetMoveSpeed());      //our current velocity

@@ -122,6 +122,9 @@ void World::UpdateGame(){
 	
 	CurrentX = camera->GetPosition().x;
 	CurrentZ = camera->GetPosition().z;
+
+	cout << "x: " << CurrentX << endl;
+	cout << "z: " << CurrentZ << endl << endl;
 }
 
 //void World::UpdateObjects()
@@ -498,9 +501,9 @@ void World::InitialNPCs()
 
 	vector<glm::vec2> *N1Path;
 	N1Path = new vector< glm::vec2 >;
-	glm::vec2 NewPath1(10.0f, -8.0f);
-	glm::vec2 NewPath2(5.0f, -8.0f);
-	glm::vec2 NewPath3(1.0f, 0.0f);
+	glm::vec2 NewPath1(8.2f, -8.8f);
+	glm::vec2 NewPath2(0.3f, -5.4f);
+	glm::vec2 NewPath3(6.0f, 0.0f);
 	N1Path->push_back(NewPath1);
 	N1Path->push_back(NewPath2);
 	N1Path->push_back(NewPath3);
@@ -538,9 +541,9 @@ void World::InitialNPCs()
 
 	vector<glm::vec2> *N2Path;
 	N2Path = new vector< glm::vec2 >;
-	glm::vec2 N2Path1(10.0f, -8.0f);
-	glm::vec2 N2Path2(20.0f, -0.0f);
-	glm::vec2 N2Path3(-1.0f, 5.0f);
+	glm::vec2 N2Path1(6.8f, -1.5f);
+	glm::vec2 N2Path2(-0.6f, 4.2f);
+	glm::vec2 N2Path3(10.6f, 5.0f);
 	N2Path->push_back(N2Path1);
 	N2Path->push_back(N2Path2);
 	N2Path->push_back(N2Path3);
@@ -578,9 +581,9 @@ void World::InitialNPCs()
 
 	vector<glm::vec2> *N3Path;
 	N3Path = new vector< glm::vec2 >;
-	glm::vec2 N3Path1(-13.0f, -1.0f);
-	glm::vec2 N3Path2(-7.0f, 4.0f);
-	glm::vec2 N3Path3(-6.0f, -4.0f);
+	glm::vec2 N3Path1(-9.5f, 3.2f);
+	glm::vec2 N3Path2(-8.1f, -3.6f);
+	glm::vec2 N3Path3(-0.8f, -0.2f);
 	N3Path->push_back(N3Path1);
 	N3Path->push_back(N3Path2);
 	N3Path->push_back(N3Path3);
