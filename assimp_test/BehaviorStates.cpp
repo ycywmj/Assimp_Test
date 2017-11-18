@@ -57,7 +57,7 @@ void Wander::Execute(NPCs *npc){
 	if (npc->processCollision(npc->GetPlayer()) && npc->GetPlayer()->isPlayerKicking())
 	{
 
-		npc->setCurrentEvent(-0.3f, -0.3f);
+		npc->setCurrentEvent(npc->GetPlayer()->getActionsValue().x, npc->GetPlayer()->getActionsValue().x);
 		npc->changeState(&emotions_state::Instance());
 	}
 
@@ -65,7 +65,7 @@ void Wander::Execute(NPCs *npc){
 	if (npc->processCollision(npc->GetPlayer()) && npc->GetPlayer()->isPlayerPraising())
 	{
 
-		npc->setCurrentEvent(0.2f, 0.2f);
+		npc->setCurrentEvent(npc->GetPlayer()->getActionsValue().x, npc->GetPlayer()->getActionsValue().x);
 		npc->changeState(&emotions_state::Instance());
 	}
 

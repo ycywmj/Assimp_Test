@@ -123,8 +123,8 @@ void World::UpdateGame(){
 	CurrentX = camera->GetPosition().x;
 	CurrentZ = camera->GetPosition().z;
 
-	cout << "x: " << CurrentX << endl;
-	cout << "z: " << CurrentZ << endl << endl;
+	/*cout << "x: " << CurrentX << endl;
+	cout << "z: " << CurrentZ << endl << endl;*/
 }
 
 //void World::UpdateObjects()
@@ -879,13 +879,17 @@ void World::PlayerActions()
 
 	bool* keyPressed = graphics_handler->getPressedKey();
 
+	//press f to kick
 	if (keyPressed[70])
 	{
+		cameraPlayer->setActionsValue(-0.3f, -0.3f);
 		cameraPlayer->setActions(1);
 	}
 
+	//press g to praise
 	if (keyPressed[71])
 	{
+		cameraPlayer->setActionsValue(0.2f, 0.2f);
 		cameraPlayer->setActions(2);
 	}
 

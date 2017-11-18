@@ -37,6 +37,10 @@ public:
 	* @param  new value to set
 	*/
 	void setActions(int ac);
+
+	void setActionsValue(double x, double y){ actionValue.x = x; actionValue.y = y; }
+	glm::vec2 getActionsValue(){ return actionValue; }
+
 	/**
 	* @brief  set method for is lifting action
 	* @param  new value to set
@@ -82,6 +86,8 @@ private:
 	/// status of player lifting sth
 	bool isLifting;
 
+	///events value
+	glm::vec2 actionValue;
 };
 
 #endif
