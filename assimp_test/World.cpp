@@ -43,7 +43,7 @@ void World::InitializeGame(){
 	InitialPlayer();
 	InitialWorldObjects();
 	//Initial wall collision detection
-	//SetBoundingWall();
+	SetBoundingWall();
 	
 	camera->SetPostion(2.0f, 1.25f, 3.0f);
 
@@ -80,7 +80,7 @@ void World::UpdateGame(){
 
 	//graphics_handler->drawBox();
 
-	//CheckBoundingBox();
+	CheckBoundingBox();
 
 	//update positions
 	//UpdateObjects();
@@ -704,21 +704,21 @@ void World::SetBoundingWall()
 	BoundingWall->SetBoundingBox(1.0f, 1.0f, 30.0f);
 	BoundingWall->SetSceneObject(true);
 	BoundingWalls[1] = *BoundingWall;
-	WorldObjects.push_back(*BoundingWall);
+	//WorldObjects.push_back(*BoundingWall);
 
 	BoundingWall = new GameObject();
 	BoundingWall->Postition(8.0f, 1.0f, -15.0f);
 	BoundingWall->SetBoundingBox(15.0f, 1.0f, 0.5f);
 	BoundingWall->SetSceneObject(true);
 	BoundingWalls[2] = *BoundingWall;
-	WorldObjects.push_back(*BoundingWall);
+	//WorldObjects.push_back(*BoundingWall);
 
 	BoundingWall = new GameObject();
 	BoundingWall->Postition(0.0f, 1.0f, -11.0f);
 	BoundingWall->SetBoundingBox(1.5f, 1.0f, 9.5f);
 	BoundingWall->SetSceneObject(true);
 	BoundingWalls[3] = *BoundingWall;
-	WorldObjects.push_back(*BoundingWall);
+	//WorldObjects.push_back(*BoundingWall);
 
 	//off-white color wall
 	BoundingWall = new GameObject();
@@ -726,7 +726,7 @@ void World::SetBoundingWall()
 	BoundingWall->SetBoundingBox(50.0f, 1.0f, 0.5f);
 	BoundingWall->SetSceneObject(true);
 	BoundingWalls[4] = *BoundingWall;
-	WorldObjects.push_back(*BoundingWall);
+	//WorldObjects.push_back(*BoundingWall);
 
 	//iron fence wall
 	BoundingWall = new GameObject();
@@ -734,14 +734,14 @@ void World::SetBoundingWall()
 	BoundingWall->SetBoundingBox(32.0f, 1.0f, 0.5f);
 	BoundingWall->SetSceneObject(true);
 	BoundingWalls[5] = *BoundingWall;
-	WorldObjects.push_back(*BoundingWall);
+	//WorldObjects.push_back(*BoundingWall);
 
 	BoundingWall = new GameObject();
 	BoundingWall->Postition(-29.0f, 1.0f, 0.0f);
 	BoundingWall->SetBoundingBox(0.5f, 1.0f, 20.0f);
 	BoundingWall->SetSceneObject(true);
 	BoundingWalls[6] = *BoundingWall;
-	WorldObjects.push_back(*BoundingWall);
+	//WorldObjects.push_back(*BoundingWall);
 
 	//room wall
 	BoundingWall = new GameObject();
@@ -749,65 +749,65 @@ void World::SetBoundingWall()
 	BoundingWall->SetBoundingBox(10.0f, 1.0f, 0.5f);
 	BoundingWall->SetSceneObject(true);
 	BoundingWalls[7] = *BoundingWall;
-	WorldObjects.push_back(*BoundingWall);
+	//WorldObjects.push_back(*BoundingWall);
 
 	BoundingWall = new GameObject();
 	BoundingWall->Postition(-27.5f, 1.0f, -2.0f);
 	BoundingWall->SetBoundingBox(0.5f, 1.0f, 4.0f);
 	BoundingWall->SetSceneObject(true);
 	BoundingWalls[8] = *BoundingWall;
-	WorldObjects.push_back(*BoundingWall);
+	//WorldObjects.push_back(*BoundingWall);
 
 	BoundingWall = new GameObject();
 	BoundingWall->Postition(-23.0f, 1.0f, 0.5f);
 	BoundingWall->SetBoundingBox(14.0f, 1.0f, 1.0f);
 	BoundingWall->SetSceneObject(true);
 	BoundingWalls[9] = *BoundingWall;
-	WorldObjects.push_back(*BoundingWall);
+	//WorldObjects.push_back(*BoundingWall);
 
 	BoundingWall = new GameObject();
 	BoundingWall->Postition(-15.0f, 1.0f, 2.5f);
 	BoundingWall->SetBoundingBox(0.5f, 1.0f, 7.6f);
 	BoundingWall->SetSceneObject(true);
 	BoundingWalls[10] = *BoundingWall;
-	WorldObjects.push_back(*BoundingWall);
+	//WorldObjects.push_back(*BoundingWall);
 
 }
 
-//
-//void World::CheckBoundingBox()
-//{
-//	glm::vec3 collisionPoint;
-//	//check wall bounding box
-//
-//	for (int i = 0; i < WorldObjects.size(); i++)
-//	{
-//		if (WorldObjects[i].processCollision(cameraPlayer, &collisionPoint))
-//		{
-//			camera->SetPostion(CurrentX, camera->GetPosition().y, CurrentZ);
-//			//cout << "collision with object:"<< i << endl;
-//		}
-//	}
-//
-//	for (int i = 0; i < WorldObjects.size(); i++)
-//	{
-//		for (int j=i; j < WorldObjects.size(); j++)
-//		{
-//			if (i != j)
-//			{
-//				if (WorldObjects[i].processCollision(WorldObjects[j], &collisionPoint))
-//				{
-//					Physics::ObjectCollision(&WorldObjects[i], &WorldObjects[j], collisionPoint);
-//					cout << "something is colliding" << endl;
-//					cout << "collision point" << collisionPoint.x << endl;
-//					//cout << "i value:" << i << endl;
-//					//cout << "j value: " << j << endl;
-//				}
-//			}
-//		}
-//	}
-//
-//}
+
+void World::CheckBoundingBox()
+{
+	glm::vec3 collisionPoint;
+	//check wall bounding box
+
+	for (int i = 1; i <= BoundingWalls.size(); i++)
+	{
+		if (BoundingWalls[i].processCollision(cameraPlayer))
+		{
+			camera->SetPostion(CurrentX, camera->GetPosition().y, CurrentZ);
+			//cout << "collision with object:"<< i << endl;
+		}
+	}
+
+	//for (int i = 0; i < WorldObjects.size(); i++)
+	//{
+	//	for (int j=i; j < WorldObjects.size(); j++)
+	//	{
+	//		if (i != j)
+	//		{
+	//			if (WorldObjects[i].processCollision(WorldObjects[j], &collisionPoint))
+	//			{
+	//				Physics::ObjectCollision(&WorldObjects[i], &WorldObjects[j], collisionPoint);
+	//				cout << "something is colliding" << endl;
+	//				cout << "collision point" << collisionPoint.x << endl;
+	//				//cout << "i value:" << i << endl;
+	//				//cout << "j value: " << j << endl;
+	//			}
+	//		}
+	//	}
+	//}
+
+}
 
 void World::CheckBulletCollision(){
 	//Perform collision detection
