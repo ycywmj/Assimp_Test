@@ -3,11 +3,6 @@
 #include "EmotionStates.h"
 #include "AffordanceStates.h"
 
-void NPCs::SetHealth(int HP)
-{
-	Health = HP;
-
-}
 
 void NPCs::InitialState()
 {
@@ -16,10 +11,7 @@ void NPCs::InitialState()
 	currentAffordance = &search_AO_state::Instance();
 }
 
-int NPCs::GetHealth()
-{
-	return Health;
-}
+
 
 void NPCs::changeState(State<NPCs> *newState)
 {

@@ -35,17 +35,6 @@ public:
 	*/
 	void InitialState();
 
-	/**
-	* @brief  set health for npcs
-	* @param HP, value in health
-	*/
-	void SetHealth(int HP);
-
-	/**
-	* @brief  get health from npcs
-	* @return int, the health of npc
-	*/
-	int GetHealth();
 
 	/**
 	* @brief  get player object from npcs

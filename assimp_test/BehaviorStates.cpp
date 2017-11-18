@@ -82,7 +82,6 @@ void Wander::Execute(NPCs *npc){
 	//check if see any affordance objs
 	for (int i = 0; i < npc->GetAffordanceObj().size(); i++)
 	{
-		//cout << npc->GetAffordanceObj().size() << endl;
 		if ((npc->processDetectView(npc->GetAffordanceObj()[i])) && (!npc->GetAffordanceObj()[i]->getIsOccupy()) && (stateTime>10.0)
 			&& !npc->GetPlayer()->isPlayerLifting())
 		{
@@ -91,21 +90,14 @@ void Wander::Execute(NPCs *npc){
 
 			for (int j = 0; j < npc->GetAffordanceObj()[i]->getAffordance().size(); j++)
 			{
-				cout << npc->GetAffordanceObj()[i]->getAffordance().size() << endl;
-
+				
 				if (npc->GetAffordanceObj()[i]->getAffordance()[j] == "standable")
 				{
-					//cout << "Move away!!!!" << endl;
-					//cout << i<< endl;
-
 					npc->changeState(&stand_state::Instance());
 				}
 
 				if (npc->GetAffordanceObj()[i]->getAffordance()[j] == "liftable")
 				{
-					//cout << "Move away!!!!" << endl;
-					//cout << i<< endl;
-					
 					npc->changeState(&lift_state::Instance());
 				}
 
@@ -396,6 +388,7 @@ void Response4::Execute(NPCs *npc){
 	}
 
 
+
 }
 
 void Response4::Exit(NPCs *npc){
@@ -445,7 +438,7 @@ void Response5::Execute(NPCs *npc){
 	if (npc->GetPosition().x == npc->GetAffordanceObj()[target]->GetPosition().x)
 	{
 		stateTime += World_Instance->GetDeltaTime();
-		npc->Postition(npc->GetPosition().x, 1.0f, npc->GetPosition().z);
+		npc->Postition(npc->GetPosition().x, 0.8f, npc->GetPosition().z);
 		if (stateTime > 5.0)
 		{
 			npc->Postition(npc->GetPosition().x, 0.0f, npc->GetPosition().z);
@@ -465,7 +458,6 @@ void Response5::Execute(NPCs *npc){
 		npc->GetAffordanceObj()[target]->setIsOccupy(false);
 		npc->changeState(&wander_state::Instance());
 	}
-
 
 }
 
