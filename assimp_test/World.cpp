@@ -145,8 +145,9 @@ void World::InitialWorldObjects()
 	//Initial Models
 	InitialBench1();
 	InitialBench2();
-	InitialChair1();
 	InitialChair2();
+	InitialChair1();
+	
 	InitialTable1();
 	InitialScene();
 	InitialNPCs();
@@ -331,6 +332,17 @@ void World::InitialChair1()
 	float scale = 0.033f;
 	float height = 0.1f;
 	string fileName = "res/models/chair1/chair1.obj";
+	
+
+	//Initial 1st chair1
+	string affordance1 = "liftable";
+	string affordance2 = "movable";
+	string affordance3 = "kickable";
+	
+	vector < string > affordances1;
+	affordances1.push_back(affordance1);
+	affordances1.push_back(affordance2);
+	affordances1.push_back(affordance3);
 
 	Chair1 = new GameObject();
 	Chair1->Load(graphics_handler, fileName);
@@ -338,9 +350,12 @@ void World::InitialChair1()
 	Chair1->Scale(scale, scale, scale);
 	Chair1->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
 	Chair1->SetBoundingBox(1.0f, 10.0f, 1.0f);
+	Chair1->setAffordance(affordances1);
 	Chair1s[1] = *Chair1;
 	//WorldObjects.push_back(*Chair1);
 	AffordanceObjects.push_back(Chair1);
+
+	//Initial 2st chair1
 
 	Chair1 = new GameObject();
 	Chair1->Load(graphics_handler, fileName);
@@ -348,6 +363,7 @@ void World::InitialChair1()
 	Chair1->Scale(scale, scale, scale);
 	Chair1->SetBoundingBox(1.0f, 10.0f, 1.0f);
 	Chair1->Rotate(0.0f, 1.0f, 0.0f, 75.0f);
+	Chair1->setAffordance(affordances1);
 	Chair1s[2] = *Chair1;
 //	WorldObjects.push_back(*Chair1);
 	AffordanceObjects.push_back(Chair1);
@@ -359,42 +375,62 @@ void World::InitialChair2()
 	float height = 0.2f;
 	string fileName = "res/models/chair2/chair2.obj";
 
+
+	string affordance4 = "standable";
+	string affordance5 = "kickable";
+
+
+	//initial 1st chair2
+	vector < string > affordances2;
+	affordances2.push_back(affordance4);
+	affordances2.push_back(affordance5);
+
 	Chair2 = new GameObject();
 	Chair2->Load(graphics_handler, fileName);
 	Chair2->Postition(-9.0f, height, -5.5f);
 	Chair2->Scale(scale, scale, scale);
 	Chair2->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
 	Chair2->SetBoundingBox(1.0f, 10.0f, 1.0f);
+	Chair2->setAffordance(affordances2);
 	Chair2s[1] = *Chair2;
 	AffordanceObjects.push_back(Chair2);
 	//WorldObjects.push_back(*Chair2);
 
+
+	//initial 2st chair2
 	Chair2 = new GameObject();
 	Chair2->Load(graphics_handler, fileName);
 	Chair2->Postition(-15.0f, height, -5.5f);
 	Chair2->Scale(scale, scale, scale);
 	Chair2->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
 	Chair2->SetBoundingBox(1.0f, 10.0f, 1.0f);
+	Chair2->setAffordance(affordances2);
 	Chair2s[2] = *Chair2;
 	AffordanceObjects.push_back(Chair2);
 	//WorldObjects.push_back(*Chair2);
 
+
+	//initial 3st chair2
 	Chair2 = new GameObject();
 	Chair2->Load(graphics_handler, fileName);
 	Chair2->Postition(-14.0f, height, -5.5f);
 	Chair2->Scale(scale, scale, scale);
 	Chair2->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
 	Chair2->SetBoundingBox(1.0f, 10.0f, 1.0f);
+	Chair2->setAffordance(affordances2);
 	Chair2s[3] = *Chair2;
 	AffordanceObjects.push_back(Chair2);
 	//WorldObjects.push_back(*Chair2);
 
+
+	//initial 4st chair2
 	Chair2 = new GameObject();
 	Chair2->Load(graphics_handler, fileName);
 	Chair2->Postition(-21.0f, height, -5.5f);
 	Chair2->Scale(scale, scale, scale);
 	Chair2->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
 	Chair2->SetBoundingBox(1.0f, 10.0f, 1.0f);
+	Chair2->setAffordance(affordances2);
 	Chair2s[4] = *Chair2;
 	AffordanceObjects.push_back(Chair2);
 	//WorldObjects.push_back(*Chair2);
@@ -558,6 +594,7 @@ void World::InitialNPCs()
 	Agent->Scale(scale, scale, scale);
 	Agent->Rotate(0.0f, 1.0f, 0.0f, 0.0f);
 	Agent->SetBoundingBox(4.0f, 4.0f, 4.0f);
+	Agent->SetDetectView(6.0f, 6.0f, 6.0f);
 	Agent->InitialState();
 	Agent->setPath(*N3Path);
 	//Agent->setEmotions(1.0f, 0.0f);
@@ -574,7 +611,7 @@ void World::DrawNPCs()
 
 	for (int i = 1; i <= Agents.size(); i++)
 	{
-		Agents[i]->UpdateState(cameraPlayer, Agents);
+		Agents[i]->UpdateState(cameraPlayer, Agents, AffordanceObjects);
 		Agents[i]->Render(graphics_handler);
 		Agents[i]->GetTexts()->Render(graphics_handler);
 	}
@@ -869,16 +906,16 @@ void World::PlayerActions()
 	
 	if (cameraPlayer->isPlayerLifting())
 	{
-		cout << cameraPlayer->GetObjectToLift() << endl;
+		//cout << cameraPlayer->GetObjectToLift() << endl;
 
 		height = AffordanceObjects[cameraPlayer->GetObjectToLift()]->GetPosition().y;
-		AffordanceObjects[cameraPlayer->GetObjectToLift()]->Postition(camera->GetRightFront().x, height, camera->GetRightFront().z);
+		AffordanceObjects[cameraPlayer->GetObjectToLift()]->Postition(camera->GetRightFront().x, 0.4, camera->GetRightFront().z);
 	}
 
 	if ((keyPressed[86]) && (cameraPlayer->isPlayerLifting()))
 	{
 		height = AffordanceObjects[cameraPlayer->GetObjectToLift()]->GetPosition().y;
-		AffordanceObjects[cameraPlayer->GetObjectToLift()]->Postition(camera->GetRightFront().x, height, camera->GetRightFront().z);
+		AffordanceObjects[cameraPlayer->GetObjectToLift()]->Postition(camera->GetRightFront().x, 0.1, camera->GetRightFront().z);
 		cameraPlayer->setIsLifting(false);
 		cameraPlayer->SetObjectToLift(-1);
 	}

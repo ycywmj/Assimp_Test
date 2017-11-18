@@ -318,7 +318,9 @@ private:
 	/// Stores the objects to test collisions
 	vector<GameObject> WorldObjects;
 
+	//store all objects that has affordance
 	vector<GameObject*> AffordanceObjects;
+	vector<string> *affordances;
 
 	/// Stores all the walls need to detect collusion
 	map<int, GameObject> BoundingWalls;
@@ -356,6 +358,7 @@ private:
 	/// Stores multiple tables
 	GameObject *Table1;
 
+	//Store all agents
 	map<int, NPCs*> Agents;
 	NPCs *Agent;
 

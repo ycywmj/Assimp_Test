@@ -9,18 +9,24 @@
 class NPCs :public GameObject
 {
 public:
-	NPCs() :GameObject(){ }
+	NPCs() :GameObject(){ targetObj = -1; }
 	void InitialState();
 	void SetHealth(int HP);
 	int GetHealth();
 
 	Player *GetPlayer(){ return PL; };
 	map<int, NPCs*> GetAgents(){ return Agents; };
+	vector<GameObject*> GetAffordanceObj(){ return AffordanceObj; }
+
+	void setTargetObject(int to){ targetObj = to; }
+	int getTargetObject(){ return targetObj; }
+
 	void changeState(State<NPCs>* newState);
 	void changeEmotionState(State<NPCs> *newState);
+	void changeAffordanceState(State<NPCs> *newState);
 	// state machine
 	//void UpdateState(Player P);
-	void UpdateState(Player *P, map<int, NPCs*> &Agent);
+	void UpdateState(Player *P, map<int, NPCs*> &Agent, vector<GameObject*> &AffordanceObjects);
 
 	void SetTexts(GameObject *t){ texts = t; };
 	GameObject *GetTexts(){ return texts; };
@@ -42,7 +48,7 @@ public:
 	float GetMoveSpeed(){ return MoveSpeed; };
 
 	void SetDetectView(float x, float y, float z);
-	bool processDetectView(NPCs *npc);
+	bool processDetectView(GameObject *obj);
 
 private:
 	int Health;
@@ -50,6 +56,9 @@ private:
 	//Vector3 TargetPos;
 	Player *PL;
 	map<int, NPCs*> Agents;
+	int targetObj;
+
+	vector<GameObject*> AffordanceObj;
 
 	GameObject *texts;
 
@@ -62,6 +71,7 @@ private:
 	// state machine
 	State<NPCs> *currentState;
 	State<NPCs> *currentEmotion;
+	State<NPCs> *currentAffordance;
 
 	/// Bounding Box vertices
 	glm::vec3 model[8];

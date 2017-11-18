@@ -6,26 +6,6 @@
 #include "Singleton.h"
 using namespace std;
 
-void Flee::Enter(NPCs *npc){
-	cout << "Enter Flee state" << endl;
-}
-
-void Flee::Execute(NPCs *npc){
-
-	if (0)
-	{
-		if (0)
-			npc->changeState(&wander_state::Instance());
-	}
-
-
-	cout << "Execute Flee state" << endl;
-}
-
-void Flee::Exit(NPCs *npc){
-	cout << "Exit Flee state" << endl;
-}
-
 
 
 void Wander::Enter(NPCs *npc){
@@ -89,6 +69,7 @@ void Wander::Execute(NPCs *npc){
 		npc->changeState(&emotions_state::Instance());
 	}
 
+	//check with all agents if they see each other
 	for (int i = 1; i <= npc->GetAgents().size(); i++)
 	{
 		if ((npc->processDetectView(npc->GetAgents()[i])) && (npc->GetPosition().x != npc->GetAgents()[i]->GetPosition().x)
@@ -96,6 +77,42 @@ void Wander::Execute(NPCs *npc){
 		{
 			npc->changeState(&say_hi_state::Instance());
 		}
+	}
+
+	//check if see any affordance objs
+	for (int i = 0; i < npc->GetAffordanceObj().size(); i++)
+	{
+		//cout << npc->GetAffordanceObj().size() << endl;
+		if ((npc->processDetectView(npc->GetAffordanceObj()[i])) && (npc->getTargetObject() == -1) && (stateTime>10.0)
+			&& !npc->GetPlayer()->isPlayerLifting())
+		{
+			npc->setTargetObject(i);
+
+			for (int i = 0; i < npc->GetAffordanceObj()[i]->getAffordance().size(); i++)
+			{
+				cout << npc->GetAffordanceObj()[i]->getAffordance().size() << endl;
+
+				if (npc->GetAffordanceObj()[i]->getAffordance()[i] == "standable")
+				{
+					//cout << "Move away!!!!" << endl;
+					//cout << i<< endl;
+
+					npc->changeState(&stand_state::Instance());
+				}
+
+				if (npc->GetAffordanceObj()[i]->getAffordance()[i] == "liftable")
+				{
+					//cout << "Move away!!!!" << endl;
+					//cout << i<< endl;
+					
+					npc->changeState(&lift_state::Instance());
+				}
+
+
+			}
+
+		}
+
 	}
 
 
@@ -309,4 +326,129 @@ void Response3::Execute(NPCs *npc){
 
 void Response3::Exit(NPCs *npc){
 	cout << "Exit Response state" << endl;
+}
+
+
+void Response4::Enter(NPCs *npc){
+	stateTime = 0.0;
+	cout << "Enter lift state" << endl;
+}
+
+void Response4::Execute(NPCs *npc){
+
+	int PathSize = npc->getPath().size();
+	int target = npc->getTargetObject();
+
+	World *World_Instance = Singleton<World>::Instance();
+	double timeDiff = World_Instance->GetDeltaTime();
+	stateTime += World_Instance->GetDeltaTime();
+
+	
+	cout << target;
+	vector2D targetPos(npc->GetAffordanceObj()[target]->GetPosition().x, npc->GetAffordanceObj()[target]->GetPosition().z);   //position to move to
+	vector2D targetXZ(npc->GetPosition().x, npc->GetPosition().z);    //our current position
+	vector2D targetVel(npc->GetMoveSpeed(), npc->GetMoveSpeed());      //our current velocity
+
+	//
+
+	moveTo(targetXZ, targetPos, targetVel, timeDiff);
+
+
+
+	////cout << timeDiff << endl;
+	double z = targetXZ.getY() - targetPos.getY();
+	double x = targetXZ.getX() - targetPos.getX();
+	double angle = atan2(x, z) * 180 / PI;
+
+	glm::vec4 NewRotation;
+	NewRotation.x = 0;
+	NewRotation.y = 0;
+	NewRotation.z = 0;
+	NewRotation.w = angle - 180;
+
+	npc->setX(targetXZ.getX());
+	npc->setZ(targetXZ.getY());
+	npc->setRotation(NewRotation);
+
+	if (npc->GetPosition().x==npc->GetAffordanceObj()[target]->GetPosition().x)
+	{
+		npc->GetAffordanceObj()[target]->Postition(npc->GetPosition().x, 1.5f, npc->GetPosition().z);
+		//cout << "lift it !!!" << endl;
+		if (stateTime > 10.0)
+		{	
+			npc->GetAffordanceObj()[target]->Postition(npc->GetPosition().x, 0.1f, npc->GetPosition().z);
+			npc->setTargetObject(-1);
+			npc->changeState(&wander_state::Instance());
+		}
+
+	}
+
+
+}
+
+void Response4::Exit(NPCs *npc){
+	cout << "Exit lift state" << endl;
+}
+
+
+
+void Response5::Enter(NPCs *npc){
+	stateTime = 0.0;
+	cout << "Enter stand state" << endl;
+}
+
+void Response5::Execute(NPCs *npc){
+
+	int PathSize = npc->getPath().size();
+	int target = npc->getTargetObject();
+
+	World *World_Instance = Singleton<World>::Instance();
+	double timeDiff = World_Instance->GetDeltaTime();
+	stateTime += World_Instance->GetDeltaTime();
+
+
+	cout << target;
+	vector2D targetPos(npc->GetAffordanceObj()[target]->GetPosition().x, npc->GetAffordanceObj()[target]->GetPosition().z);   //position to move to
+	vector2D targetXZ(npc->GetPosition().x, npc->GetPosition().z);    //our current position
+	vector2D targetVel(npc->GetMoveSpeed(), npc->GetMoveSpeed());      //our current velocity
+
+	//
+
+	moveTo(targetXZ, targetPos, targetVel, timeDiff);
+
+
+
+	////cout << timeDiff << endl;
+	double z = targetXZ.getY() - targetPos.getY();
+	double x = targetXZ.getX() - targetPos.getX();
+	double angle = atan2(x, z) * 180 / PI;
+
+	glm::vec4 NewRotation;
+	NewRotation.x = 0;
+	NewRotation.y = 0;
+	NewRotation.z = 0;
+	NewRotation.w = angle - 180;
+
+	npc->setX(targetXZ.getX());
+	npc->setZ(targetXZ.getY());
+	npc->setRotation(NewRotation);
+
+	if (npc->GetPosition().x == npc->GetAffordanceObj()[target]->GetPosition().x)
+	{
+		npc->Postition(npc->GetPosition().x, 1.5f, npc->GetPosition().z);
+		//cout << "lift it !!!" << endl;
+		if (stateTime > 10.0)
+		{
+			npc->Postition(npc->GetPosition().x, 0.0f, npc->GetPosition().z);
+			npc->setTargetObject(-1);
+			npc->changeState(&wander_state::Instance());
+		}
+
+	}
+
+
+}
+
+void Response5::Exit(NPCs *npc){
+	cout << "Exit stand state" << endl;
 }

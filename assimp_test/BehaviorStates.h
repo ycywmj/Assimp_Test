@@ -13,15 +13,6 @@
 class NPCs;
 using namespace std;
 
-class Flee : public State <NPCs> {
-public:
-	void Enter(NPCs *npc);
-	void Execute(NPCs *npc);
-	void Exit(NPCs *npc);
-	//Movement *NPCs = new Movement();
-	float distance;
-	//string new_state_str;
-};
 
 class Wander : public State < NPCs > {
 public:
@@ -88,12 +79,32 @@ private:
 	//Movement *NPCs = new Movement();
 };
 
-typedef singleton<Flee> flee_state;
+class Response4 : public State < NPCs > {
+public:
+	void Enter(NPCs *npc);
+	void Execute(NPCs *npc);
+	void Exit(NPCs *npc);
+private:
+	double stateTime;
+	//Movement *NPCs = new Movement();
+};
+
+class Response5 : public State < NPCs > {
+public:
+	void Enter(NPCs *npc);
+	void Execute(NPCs *npc);
+	void Exit(NPCs *npc);
+private:
+	double stateTime;
+	//Movement *NPCs = new Movement();
+};
+
 typedef singleton<Wander> wander_state;
 typedef singleton<Emotions> emotions_state;
 typedef singleton<Response> response_state;
 typedef singleton<Response1> say_stop_state;
 typedef singleton<Response2> say_thanks_state;
 typedef singleton<Response3> say_hi_state;
-
+typedef singleton<Response4> lift_state;
+typedef singleton<Response5> stand_state;
 #endif

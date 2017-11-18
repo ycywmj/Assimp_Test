@@ -1,6 +1,7 @@
 #include "NPCs.h"
 #include "BehaviorStates.h"
 #include "EmotionStates.h"
+#include "AffordanceStates.h"
 
 void NPCs::SetHealth(int HP)
 {
@@ -12,6 +13,7 @@ void NPCs::InitialState()
 {
 	currentState = &wander_state::Instance();
 	currentEmotion = &normal_state::Instance();
+	currentAffordance = &search_AO_state::Instance();
 }
 
 int NPCs::GetHealth()
@@ -39,6 +41,16 @@ void NPCs::changeEmotionState(State<NPCs> *newState)
 	currentEmotion->Enter(this);
 }
 
+void NPCs::changeAffordanceState(State<NPCs> *newState)
+{
+	//call the exit method of the existing state
+	currentAffordance->Exit(this);
+	//change state to the new state
+	currentAffordance = newState;
+	//call the entry method of the new state
+	currentAffordance->Enter(this);
+}
+
 
 void NPCs::SetDetectView(float x, float y, float z)
 {
@@ -57,10 +69,10 @@ void NPCs::SetDetectView(float x, float y, float z)
 }
 
 
-bool NPCs::processDetectView(NPCs *npc)
+bool NPCs::processDetectView(GameObject *obj)
 {
 	//glm::vec3 collisionPoint;
-	if (ViewBox.checkCollision(this->GetPosition(), npc->ViewBox, npc->GetPosition()))
+	if (ViewBox.checkCollision(this->GetPosition(), obj->getBoundingBox(), obj->GetPosition()))
 	{
 		return true;
 	}
@@ -69,10 +81,14 @@ bool NPCs::processDetectView(NPCs *npc)
 
 
 // state machine
-void NPCs::UpdateState(Player *P, map<int, NPCs*> &Agent){
+void NPCs::UpdateState(Player *P, map<int, NPCs*> &Agent, vector<GameObject*> &AffordanceObjects){
 
 	this->PL = P;
 	this->Agents = Agent;
+	this->AffordanceObj = AffordanceObjects;
+
+
+
 
 	if (currentEmotion)
 	{
@@ -80,10 +96,16 @@ void NPCs::UpdateState(Player *P, map<int, NPCs*> &Agent){
 	}
 
 
-	if (currentState)
+	if (currentAffordance)
+	{
+		currentAffordance->Execute(this);
+	}
+
+		if (currentState)
 	{
 		currentState->Execute(this);
 	}
+
 
 
 	if (Emotions.x > 0)

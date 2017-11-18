@@ -137,5 +137,8 @@
     <ClInclude Include="Bullet_GLM.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Affordance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

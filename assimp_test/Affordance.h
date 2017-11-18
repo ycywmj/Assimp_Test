@@ -1,7 +1,8 @@
 #ifndef __AFFORDANCE_H
 #define __AFFORDANCE_H
+#include <vector>
 
-class Affordence
+class Affordance
 {
 public:
 	void SetActiveAffordence(vector<string> PossiableActions){ ActiveAffordence = PossiableActions; }
@@ -12,6 +13,6 @@ public:
 private:
 	vector<string> ActiveAffordence;
 	vector<string> PassiveAffordence;
-}
+};
 
 #endif

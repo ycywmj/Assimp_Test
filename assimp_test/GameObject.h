@@ -9,7 +9,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "Physics.h"
-
+#include "Affordance.h"
 #include "OObtCollisionObject.h"
 using namespace std;
 /**
@@ -241,12 +241,20 @@ public:
 	virtual void setIfRenderText(bool t){ RenderText = t; };
 	virtual bool getIfRenderText(){ return RenderText; };
 
+	virtual void setAffordance(vector<string> af){ affordance.SetActiveAffordence(af); }
+	virtual vector<string> getAffordance(){ return affordance.GetActiveAffordence(); }
+
+	virtual AABB getBoundingBox(){ return boundingBox; }
+
 private:
 	/// path of the model file
 	vector<glm::vec2> Path;
-
+	vector<string> aff;
 	/// model files in map
 	map<string, string> files;
+
+	//affordance
+	Affordance affordance;
 
 	/// path name
 	string pathName;

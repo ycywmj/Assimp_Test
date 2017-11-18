@@ -100,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AABB.h" />
+    <ClInclude Include="Affordance.h" />
     <ClInclude Include="AffordanceStates.h" />
     <ClInclude Include="AISingleton.h" />
     <ClInclude Include="Bullet_GLM.h" />

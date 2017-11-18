@@ -13,7 +13,17 @@
 class NPCs;
 using namespace std;
 
+class SearchAffordanceObj : public State < NPCs > {
+public:
+	void Enter(NPCs *npc);
+	void Execute(NPCs *npc);
+	void Exit(NPCs *npc);
+private:
+	double stateTime;
+	//Movement *NPCs = new Movement();
+};
 
+typedef singleton<SearchAffordanceObj> search_AO_state;
 
 
 #endif
