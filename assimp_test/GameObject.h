@@ -206,6 +206,12 @@ public:
 		return sceneBody;
 	}
 
+	/**
+	*@brief set the bounding box in bullet physics
+	*
+	*@param x,y,z: size of the box in half length (origin start from center, so the size should be half of total length)
+	*@return return the bullet collision object back to World class for adding in bullet collision world
+	*/
 	OObtCollisionObject* SetBulletBoundingBox(float size_x, float size_y, float size_z);
 
 	/*
