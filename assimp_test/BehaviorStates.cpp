@@ -88,11 +88,11 @@ void Wander::Execute(NPCs *npc){
 		{
 			npc->setTargetObject(i);
 
-			for (int i = 0; i < npc->GetAffordanceObj()[i]->getAffordance().size(); i++)
+			for (int j = 0; j < npc->GetAffordanceObj()[i]->getAffordance().size(); j++)
 			{
 				cout << npc->GetAffordanceObj()[i]->getAffordance().size() << endl;
 
-				if (npc->GetAffordanceObj()[i]->getAffordance()[i] == "standable")
+				if (npc->GetAffordanceObj()[i]->getAffordance()[j] == "standable")
 				{
 					//cout << "Move away!!!!" << endl;
 					//cout << i<< endl;
@@ -100,7 +100,7 @@ void Wander::Execute(NPCs *npc){
 					npc->changeState(&stand_state::Instance());
 				}
 
-				if (npc->GetAffordanceObj()[i]->getAffordance()[i] == "liftable")
+				if (npc->GetAffordanceObj()[i]->getAffordance()[j] == "liftable")
 				{
 					//cout << "Move away!!!!" << endl;
 					//cout << i<< endl;
@@ -341,10 +341,10 @@ void Response4::Execute(NPCs *npc){
 
 	World *World_Instance = Singleton<World>::Instance();
 	double timeDiff = World_Instance->GetDeltaTime();
-	stateTime += World_Instance->GetDeltaTime();
+	
 
 	
-	cout << target;
+	//cout << target;
 	vector2D targetPos(npc->GetAffordanceObj()[target]->GetPosition().x, npc->GetAffordanceObj()[target]->GetPosition().z);   //position to move to
 	vector2D targetXZ(npc->GetPosition().x, npc->GetPosition().z);    //our current position
 	vector2D targetVel(npc->GetMoveSpeed(), npc->GetMoveSpeed());      //our current velocity
@@ -373,8 +373,9 @@ void Response4::Execute(NPCs *npc){
 	if (npc->GetPosition().x==npc->GetAffordanceObj()[target]->GetPosition().x)
 	{
 		npc->GetAffordanceObj()[target]->Postition(npc->GetPosition().x, 1.5f, npc->GetPosition().z);
+		stateTime += World_Instance->GetDeltaTime();
 		//cout << "lift it !!!" << endl;
-		if (stateTime > 10.0)
+		if (stateTime > 5.0)
 		{	
 			npc->GetAffordanceObj()[target]->Postition(npc->GetPosition().x, 0.1f, npc->GetPosition().z);
 			npc->setTargetObject(-1);
@@ -404,7 +405,7 @@ void Response5::Execute(NPCs *npc){
 
 	World *World_Instance = Singleton<World>::Instance();
 	double timeDiff = World_Instance->GetDeltaTime();
-	stateTime += World_Instance->GetDeltaTime();
+	
 
 
 	cout << target;
@@ -412,11 +413,8 @@ void Response5::Execute(NPCs *npc){
 	vector2D targetXZ(npc->GetPosition().x, npc->GetPosition().z);    //our current position
 	vector2D targetVel(npc->GetMoveSpeed(), npc->GetMoveSpeed());      //our current velocity
 
-	//
 
 	moveTo(targetXZ, targetPos, targetVel, timeDiff);
-
-
 
 	////cout << timeDiff << endl;
 	double z = targetXZ.getY() - targetPos.getY();
@@ -435,15 +433,19 @@ void Response5::Execute(NPCs *npc){
 
 	if (npc->GetPosition().x == npc->GetAffordanceObj()[target]->GetPosition().x)
 	{
-		npc->Postition(npc->GetPosition().x, 1.5f, npc->GetPosition().z);
-		//cout << "lift it !!!" << endl;
-		if (stateTime > 10.0)
+		stateTime += World_Instance->GetDeltaTime();
+		npc->Postition(npc->GetPosition().x, 1.0f, npc->GetPosition().z);
+		if (stateTime > 5.0)
 		{
 			npc->Postition(npc->GetPosition().x, 0.0f, npc->GetPosition().z);
 			npc->setTargetObject(-1);
 			npc->changeState(&wander_state::Instance());
 		}
 
+	}
+	else
+	{
+		npc->Postition(npc->GetPosition().x, 0.0f, npc->GetPosition().z);
 	}
 
 
